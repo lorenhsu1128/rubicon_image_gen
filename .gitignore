@@ -1,0 +1,16 @@
+# ComfyUI install (code, custom nodes, models, inputs/outputs) lives here but is not versioned
+/ComfyUI/
+
+# Pipeline outputs
+/runs/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+*.egg-info/
+
+# Logs / scratch
+*.log
+/tmp/
+.playwright-mcp/
