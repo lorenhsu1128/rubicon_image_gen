@@ -27,6 +27,11 @@ models:
 out_size: 1024              # edit stages (square)
 master_size: [864, 1152]    # S1 A-pose master from 2511: 3:4, ~1MP, multiples of 16
 
+# Touch-up (mechpipe touchup): erased areas sent for repainting are filled with this marker color,
+# a color absent from the mechs (RC01/RC02 are red/orange/black). Only the brushed area, grown by
+# `grow` px and feathered by `feather` px, is taken from the model output.
+touchup: {fill_rgb: [255, 0, 255], fill_name: 洋紅色, grow: 6, feather: 4, tries: 3}
+
 # S2 part view for TRELLIS.2 (user-verified: camera front-left 45 deg, eye level)
 s2_views:
   front: "鏡頭在部件正前方，正面平視。"

@@ -2,7 +2,7 @@ import argparse
 import random
 from pathlib import Path
 
-from . import boxes, contact_sheet, deliver, stages
+from . import boxes, contact_sheet, deliver, stages, touchup
 from .jobs import client, from_metadata, rel
 
 MODES = ["draft", "final"]   # same names in every model family of config/settings.yaml
@@ -53,6 +53,10 @@ def cmd_deliver(args):
     print("deliver:", rel(out))
 
 
+def cmd_touchup(args):
+    touchup.serve(args.mech_id, args.port)
+
+
 def cmd_pick(args):
     print("master:", rel(stages.pick(args.mech_id, args.view, Path(args.png))))
 
@@ -98,6 +102,11 @@ def main():
     s.add_argument("mech_id")
     s.add_argument("--view", choices=["45", "front"], default="45")
     s.set_defaults(func=cmd_deliver)
+
+    s = sub.add_parser("touchup", help="brush-erase parts of the S2 images, optionally repaint the erased area")
+    s.add_argument("mech_id")
+    s.add_argument("--port", type=int, default=8198)
+    s.set_defaults(func=cmd_touchup)
 
     s = sub.add_parser("pick",help="promote an S1 result to runs/<mech_id>/master/master_<view>.png")
     s.add_argument("mech_id")

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>部件修圖</title>
+<style>
+  :root { --bg:#f3f3f1; --panel:#fff; --ink:#1d1d1f; --muted:#6b6b70; --line:#dcdcd8; --accent:#d4380d; --sel:#fff1eb; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--ink);
+         display:grid; grid-template-columns: 260px 1fr 300px; height:100vh; }
+  #list { background:var(--panel); border-right:1px solid var(--line); overflow:auto; padding:8px; }
+  .item { display:grid; grid-template-columns:56px 1fr; gap:8px; align-items:center; padding:6px; border-radius:6px; cursor:pointer; font-size:12px; }
+  .item:hover { background:#f2f2ef; }
+  .item.sel { background:var(--sel); outline:1px solid #f3b9a3; }
+  .item img { width:56px; height:56px; object-fit:contain; background:#fff; border:1px solid var(--line); border-radius:4px; }
+  .id { font-family: ui-monospace, Consolas, monospace; font-size:11px; }
+  .sub { color:var(--muted); font-size:11px; }
+  #stage { position:relative; overflow:auto; display:flex; align-items:center; justify-content:center; padding:16px; }
+  #wrap { position:relative; flex:none; background:#fff; box-shadow:0 0 0 1px var(--line); }
+  #wrap img, #wrap canvas { position:absolute; inset:0; width:100%; height:100%; }
+  #wrap img { position:static; display:block; }
+  #brushCursor { position:fixed; pointer-events:none; border:1px solid #000; border-radius:50%; box-shadow:0 0 0 1px #fff; display:none; }
+  aside { background:var(--panel); border-left:1px solid var(--line); padding:14px 16px; display:flex; flex-direction:column; gap:14px; overflow:auto; }
+  h1 { font-size:16px; margin:0; }
+  .hint { font-size:12px; color:var(--muted); line-height:1.55; }
+  label { font-size:13px; display:grid; gap:6px; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  button { font:inherit; font-size:13px; padding:7px 12px; border-radius:6px; border:1px solid var(--line); background:#fff; cursor:pointer; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  button:disabled { opacity:.5; cursor:default; }
+  .seg button.on { background:var(--ink); color:#fff; border-color:var(--ink); }
+  textarea { font:inherit; font-size:13px; width:100%; min-height:64px; padding:6px; border:1px solid var(--line); border-radius:6px; resize:vertical; }
+  #status { font-size:12px; color:var(--muted); min-height:2.8em; white-space:pre-wrap; }
+  #status.err { color:var(--accent); }
+</style>
+</head>
+<body>
+<div id="list"></div>
+<div id="stage"><div id="wrap"><img id="img" alt=""><canvas id="mask"></canvas></div></div>
+<div id="brushCursor"></div>
+<aside>
+  <div>
+    <h1 id="title">部件修圖</h1>
+    <div class="hint">在圖上塗出要擦掉的範圍（洋紅色）。「只擦除」把範圍變成白底；「擦除並補畫」讓模型在範圍內補上合理的結構（例如截面、關節座）。範圍外的畫面保證不變。每次修改都存成新版本，交付時用最新版。</div>
+  </div>
+  <label>筆刷大小 <span id="sizeVal" class="sub"></span>
+    <input type="range" id="size" min="4" max="160" value="40">
+  </label>
+  <div class="row seg"><button id="modePaint" class="on">塗抹</button><button id="modeClear">橡皮（取消塗抹）</button></div>
+  <div class="row"><button id="undoStroke">復原一筆（Ctrl+Z）</button><button id="clearMask">清除塗抹</button></div>
+  <label>補畫提示（選填）
+    <textarea id="hint" placeholder="例如：補成手肘的圓形關節截面"></textarea>
+  </label>
+  <div class="row">
+    <button id="erase">只擦除</button>
+    <button id="repaint" class="primary">擦除並補畫</button>
+  </div>
+  <div class="row"><button id="undoVersion">回到上一版</button></div>
+  <div id="status"></div>
+</aside>
+<script>
+let items = [], cur = null, painting = false, mode = "paint", history = [], busy = false;
+const img = document.getElementById("img"), canvas = document.getElementById("mask"), ctx = canvas.getContext("2d");
+const wrap = document.getElementById("wrap"), cursor = document.getElementById("brushCursor");
+const $ = id => document.getElementById(id);
+const status = (t, err) => { $("status").textContent = t; $("status").className = err ? "err" : ""; };
+
+async function load(keep) {
+  const d = await (await fetch("/list")).json();
+  items = d.items;
+  $("title").textContent = `部件修圖｜${d.mech_id}`;
+  $("list").innerHTML = items.map((it, i) =>
+    `<div class="item" data-i="${i}"><img src="/img/${it.png}?v=${Date.now()}" loading="lazy">
+      <div><div class="id">${it.part}</div><div class="sub">鏈 ${it.chain}${it.touches ? `・已修 ${it.touches} 次` : ""}</div>
+      <div class="sub">${it.desc.split("，")[0]}</div></div></div>`).join("");
+  document.querySelectorAll(".item").forEach(el => el.onclick = () => select(+el.dataset.i));
+  const i = keep ? items.findIndex(it => it.part === keep.part && it.chain === keep.chain) : 0;
+  if (items.length) select(Math.max(0, i));
+}
+
+function select(i) {
+  cur = items[i];
+  document.querySelectorAll(".item").forEach(el => el.classList.toggle("sel", +el.dataset.i === i));
+  img.onload = () => {
+    canvas.width = img.naturalWidth; canvas.height = img.naturalHeight;
+    history = []; fit();
+  };
+  img.src = `/img/${cur.png}?v=${Date.now()}`;
+  $("undoVersion").disabled = !cur.touches;
+}
+
+function fit() {
+  const st = $("stage"), s = Math.min((st.clientWidth - 32) / img.naturalWidth, (st.clientHeight - 32) / img.naturalHeight, 1.5);
+  wrap.style.width = img.naturalWidth * s + "px"; wrap.style.height = img.naturalHeight * s + "px";
+}
+const scale = () => canvas.getBoundingClientRect().width / canvas.width;
+const pos = e => { const r = canvas.getBoundingClientRect(); return [(e.clientX - r.left) / scale(), (e.clientY - r.top) / scale()]; };
+
+function dot(x, y, px, py) {
+  ctx.globalCompositeOperation = mode === "paint" ? "source-over" : "destination-out";
+  ctx.strokeStyle = ctx.fillStyle = "rgba(255,0,255,0.55)";
+  ctx.lineWidth = +$("size").value; ctx.lineCap = ctx.lineJoin = "round";
+  ctx.beginPath(); ctx.moveTo(px ?? x, py ?? y); ctx.lineTo(x, y); ctx.stroke();
+}
+let last = null;
+canvas.addEventListener("pointerdown", e => {
+  if (!cur || busy) return;
+  history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); if (history.length > 30) history.shift();
+  painting = true; canvas.setPointerCapture(e.pointerId); last = pos(e); dot(...last);
+});
+canvas.addEventListener("pointermove", e => {
+  const d = +$("size").value * scale();
+  Object.assign(cursor.style, { display: "block", width: d + "px", height: d + "px", left: e.clientX - d / 2 + "px", top: e.clientY - d / 2 + "px" });
+  if (!painting) return;
+  const p = pos(e); dot(p[0], p[1], last[0], last[1]); last = p;
+});
+canvas.addEventListener("pointerup", () => painting = false);
+canvas.addEventListener("pointerleave", () => cursor.style.display = "none");
+
+function undoStroke() { if (history.length) ctx.putImageData(history.pop(), 0, 0); }
+$("undoStroke").onclick = undoStroke;
+$("clearMask").onclick = () => { history.push(ctx.getImageData(0, 0, canvas.width, canvas.height)); ctx.clearRect(0, 0, canvas.width, canvas.height); };
+$("modePaint").onclick = () => { mode = "paint"; $("modePaint").classList.add("on"); $("modeClear").classList.remove("on"); };
+$("modeClear").onclick = () => { mode = "clear"; $("modeClear").classList.add("on"); $("modePaint").classList.remove("on"); };
+$("size").oninput = () => $("sizeVal").textContent = $("size").value + " px";
+$("size").oninput();
+document.addEventListener("keydown", e => { if ((e.ctrlKey || e.metaKey) && e.key === "z") { e.preventDefault(); undoStroke(); } });
+window.addEventListener("resize", () => cur && fit());
+
+function setBusy(b) { busy = b; ["erase", "repaint", "undoVersion"].forEach(id => $(id).disabled = b || (id === "undoVersion" && !cur?.touches)); }
+
+async function post(path, body) {
+  const r = await fetch(path, { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) });
+  const j = await r.json(); if (!r.ok) throw new Error(j.error || r.statusText); return j;
+}
+
+async function apply(repaint) {
+  if (!cur) return;
+  setBusy(true);
+  status(repaint ? "補畫中…（約 1 分鐘，必要時會自動重試）" : "擦除中…");
+  try {
+    const keep = { part: cur.part, chain: cur.chain };
+    const res = await post("/apply", { part: cur.part, chain: cur.chain, repaint, hint: $("hint").value, mask: canvas.toDataURL("image/png") });
+    status(res.problems.length ? "已存成新版本，但仍有問題：" + res.problems.join("、") + "\n可再塗抹重試，或回到上一版。" : "已存成新版本：" + res.png, res.problems.length);
+    await load(keep);
+  } catch (e) { status(e.message, true); }
+  setBusy(false);
+}
+$("erase").onclick = () => apply(false);
+$("repaint").onclick = () => apply(true);
+$("undoVersion").onclick = async () => {
+  setBusy(true);
+  try { const keep = { part: cur.part, chain: cur.chain }; await post("/undo", keep); status("已回到上一版"); await load(keep); }
+  catch (e) { status(e.message, true); }
+  setBusy(false);
+};
+load();
+</script>
+</body>
+</html>

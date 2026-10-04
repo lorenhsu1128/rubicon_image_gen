@@ -45,7 +45,8 @@
 1. `s1 <mech> --view edit` → `pick --view edit` → `s1 --view apose` → `pick --view apose`（正面 A-pose `master_front.png`）→ `s1 --view 45` → `pick --view 45`（`master_45.png`）
 2. `boxes <mech>`：預框 → 瀏覽器調整 18 個框
 3. `s2 <mech> --seed N`：頭與四肢從 45° master 抽取、軀幹組從正面抽取再轉 45°，再拆細分部位；每步自動 QC＋重試（見 `mechpipe/stages.py` 的 `S2Run`）
-4. `deliver <mech>`：收集通過 QC 的 45° 圖到 `runs/<mech>/deliver/`
+4. `touchup <mech>`（選用）：瀏覽器修圖工具 `http://127.0.0.1:8198/`，筆刷擦除不要的地方，可選擇讓 2511 在擦除範圍補畫（截面、關節座）；範圍外像素不變，每次存新版本於 `s2_touch/`，可回到上一版
+5. `deliver <mech>`：收集每個部位、每條鏈的目前版本（有修圖就用最新修圖版）到 `runs/<mech>/deliver/`
 - 每階段都會產生 `contact_sheet.html`；`rerun <json>` 依 metadata 重跑單一步驟。
 
 ## Workflow 替換規則
