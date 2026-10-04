@@ -1,0 +1,37 @@
+comfy:
+  url: http://127.0.0.1:8188
+  timeout_s: 3600          # per job; final mode on the 12GB laptop takes ~17 min
+
+paths:
+  runs: runs               # relative to the repo root
+  workflows: workflows
+  prompts: prompts
+
+# Model families. Sampling presets come from the official ComfyUI templates:
+#   edit: image_qwen_image_edit_2511.json   t2i: image_qwen_Image_2512.json
+# lightning = strength of the LORA_LIGHTNING node; 0 disables it.
+models:
+  edit:
+    unet: qwen-image-edit-2511-Q4_K_M.gguf
+    prompt_input: PROMPT_POS.prompt      # TextEncodeQwenImageEditPlus
+    modes:
+      draft: {steps: 4, cfg: 1.0, lightning: 1.0}
+      final: {steps: 40, cfg: 4.0, lightning: 0.0}
+  t2i:
+    unet: qwen-image-2512-Q4_K_M.gguf
+    prompt_input: PROMPT_POS.text        # CLIPTextEncode
+    modes:
+      draft: {steps: 4, cfg: 1.0, lightning: 1.0}
+      final: {steps: 50, cfg: 4.0, lightning: 0.0}
+
+out_size: 1024              # edit stages (square)
+master_size: [864, 1152]    # S1 A-pose master from 2511: 3:4, ~1MP, multiples of 16
+
+# S2 part view for TRELLIS.2 (user-verified: camera front-left 45 deg, eye level)
+s2_views:
+  front: "鏡頭在部件正前方，正面平視。"
+  # Described in image directions: "front-left 45 deg" alone made the model turn the part the wrong way.
+  # parts taken from the 45-degree master keep its view
+  keep: "視角：維持和原圖完全相同的 3/4 側視角度與方向（部件朝向畫面右前方），不要改成正面。"
+  "45": "視角：3/4 側視、平視，部件往畫面右側轉約 45 度。部件的正面朝向畫面的右前方，畫面左半邊看得到部件本身的右側面與側面的厚度。這不是正面視角，也不是把正面左右翻轉。"
+design_size: [1104, 1472]   # S1a full-body design, 3:4 from the official 2512 resolution table

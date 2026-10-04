@@ -1,0 +1,14 @@
+mech_id: TEST_TAN
+# Test subject for S2: an existing full-body front view (style ref 3), not a pipeline master.
+master_front: assets/style_refs/ref3_tan.jpg
+
+# bboxes eyeballed by Claude for the M2 test (736x1075 image); left/right are the mech's own.
+parts:
+  HEAD_NECK:
+    bbox: [240, 65, 225, 150]
+  TORSO_FULL:
+    bbox: [175, 150, 390, 410]
+  ARM_FULL_L:
+    bbox: [455, 140, 235, 505]
+  LEG_FULL_L:
+    bbox: [375, 455, 285, 615]

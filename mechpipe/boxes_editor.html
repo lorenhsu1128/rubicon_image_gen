@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>部件框選</title>
+<style>
+  :root { --bg:#f3f3f1; --panel:#fff; --ink:#1d1d1f; --muted:#6b6b70; --line:#dcdcd8; --accent:#d4380d; }
+  * { box-sizing: border-box; }
+  body { margin:0; font-family: system-ui, "Noto Sans TC", "Microsoft JhengHei", sans-serif; background:var(--bg); color:var(--ink);
+         display:grid; grid-template-columns: 1fr 340px; height:100vh; }
+  #stage { position:relative; overflow:auto; display:flex; align-items:flex-start; justify-content:center; padding:16px; }
+  #wrap { position:relative; flex:none; }
+  #wrap img { display:block; user-select:none; -webkit-user-drag:none; }
+  svg { position:absolute; inset:0; overflow:visible; }
+  aside { background:var(--panel); border-left:1px solid var(--line); display:flex; flex-direction:column; min-height:0; }
+  header { padding:14px 16px 10px; border-bottom:1px solid var(--line); }
+  h1 { font-size:16px; margin:0 0 4px; }
+  .hint { font-size:12px; color:var(--muted); line-height:1.5; }
+  #list { flex:1; overflow:auto; padding:6px 8px; }
+  .item { display:grid; grid-template-columns: 14px 1fr auto; gap:8px; align-items:center; padding:7px 8px; border-radius:6px; cursor:pointer; font-size:13px; }
+  .item:hover { background:#f2f2ef; }
+  .item.sel { background:#fff1eb; outline:1px solid #f3b9a3; }
+  .sw { width:12px; height:12px; border-radius:3px; }
+  .id { font-family: ui-monospace, Consolas, monospace; font-size:11px; color:var(--muted); }
+  .desc { display:block; font-size:12px; color:var(--muted); margin-top:2px; }
+  .group { font-size:11px; color:var(--muted); padding:10px 8px 4px; letter-spacing:.04em; }
+  footer { border-top:1px solid var(--line); padding:12px 16px; display:grid; gap:8px; }
+  .row { display:flex; gap:8px; flex-wrap:wrap; align-items:center; }
+  button { font:inherit; font-size:13px; padding:7px 12px; border-radius:6px; border:1px solid var(--line); background:#fff; cursor:pointer; }
+  button.primary { background:var(--accent); border-color:var(--accent); color:#fff; }
+  label { font-size:13px; display:flex; gap:6px; align-items:center; }
+  #status { font-size:12px; color:var(--muted); min-height:1.4em; }
+  #coords { font-family: ui-monospace, Consolas, monospace; font-size:12px; }
+</style>
+</head>
+<body>
+<div id="stage"><div id="wrap"><img id="img" src="/image" alt="master"><svg id="svg"></svg></div></div>
+<aside>
+  <header>
+    <h1 id="title">部件框選</h1>
+    <div class="hint">點右側清單選部位 → 在圖上拖曳框移動、拖四角縮放，或在空白處拖曳重畫。方向鍵微調 1px（Shift ×10）。左右指機甲本身：機甲的右邊在畫面左側。</div>
+  </header>
+  <div id="list"></div>
+  <footer>
+    <div id="coords">—</div>
+    <div class="row">
+      <label><input type="checkbox" id="onlySel"> 只顯示選取的框</label>
+    </div>
+    <div class="row">
+      <button id="resetOne">此框重設為預框</button>
+      <button id="resetAll">全部重設為預框</button>
+    </div>
+    <div class="row">
+      <button class="primary" id="save">儲存（Ctrl+S）</button>
+      <span id="status"></span>
+    </div>
+  </footer>
+</aside>
+<script>
+const GROUPS = [
+  ["細分部位", ["HEAD_NECK","CHEST_WAIST","WAIST_HIP","SHOULDER_UPPERARM_R","FOREARM_HAND_R","SHOULDER_UPPERARM_L","FOREARM_HAND_L",
+               "THIGH_KNEE_R","KNEE_SHIN_R","ANKLE_FOOT_R","THIGH_KNEE_L","KNEE_SHIN_L","ANKLE_FOOT_L"]],
+  ["整件", ["TORSO_FULL","ARM_FULL_R","ARM_FULL_L","LEG_FULL_R","LEG_FULL_L"]],
+];
+const ORDER = GROUPS.flatMap(g => g[1]);
+const color = id => `hsl(${(ORDER.indexOf(id) * 137) % 360} 80% 45%)`;
+let data, boxes, sel = ORDER[0], scale = 1, dirty = false, drag = null;
+const svg = document.getElementById("svg"), img = document.getElementById("img");
+
+function fit() {
+  const st = document.getElementById("stage");
+  scale = Math.min((st.clientWidth - 32) / data.width, (st.clientHeight - 32) / data.height, 1.5);
+  img.style.width = data.width * scale + "px"; img.style.height = data.height * scale + "px";
+  svg.setAttribute("width", data.width * scale); svg.setAttribute("height", data.height * scale);
+  draw();
+}
+
+function draw() {
+  const only = document.getElementById("onlySel").checked;
+  const ids = ORDER.filter(id => boxes[id] && (!only || id === sel));
+  ids.sort((a, b) => (a === sel) - (b === sel));            // selected box on top
+  svg.innerHTML = ids.map(id => {
+    const [x, y, w, h] = boxes[id].map(v => v * scale), c = color(id), on = id === sel;
+    const handles = on ? [[x, y], [x + w, y], [x, y + h], [x + w, y + h]].map(([hx, hy], i) =>
+      `<rect data-h="${i}" x="${hx - 6}" y="${hy - 6}" width="12" height="12" fill="#fff" stroke="${c}" stroke-width="2" style="cursor:${i % 3 ? "nesw" : "nwse"}-resize"/>`).join("") : "";
+    return `<g data-id="${id}"><rect x="${x}" y="${y}" width="${w}" height="${h}" fill="${on ? c : "none"}" fill-opacity="${on ? 0.12 : 0}"
+      stroke="${c}" stroke-width="${on ? 3 : 1.5}" stroke-dasharray="${on ? "" : "6 4"}" style="cursor:move"/>
+      <text x="${x + 4}" y="${y + 14}" font-size="12" fill="${c}" font-family="monospace" font-weight="${on ? 700 : 400}">${id}</text>${handles}</g>`;
+  }).join("");
+  const b = boxes[sel];
+  document.getElementById("coords").textContent = b ? `${sel}  x=${b[0]} y=${b[1]} w=${b[2]} h=${b[3]}` : `${sel}（尚未框選）`;
+  document.querySelectorAll(".item").forEach(el => el.classList.toggle("sel", el.dataset.id === sel));
+}
+
+function list() {
+  document.getElementById("list").innerHTML = GROUPS.map(([name, ids]) =>
+    `<div class="group">${name}</div>` + ids.map(id =>
+      `<div class="item" data-id="${id}"><span class="sw" style="background:${color(id)}"></span>
+        <span><span class="id">${id}</span><span class="desc">${(data.descs[id] || "").split("，")[0]}</span></span><span></span></div>`).join("")).join("");
+  document.querySelectorAll(".item").forEach(el => el.onclick = () => { sel = el.dataset.id; draw(); });
+}
+
+const pt = e => { const r = svg.getBoundingClientRect(); return [(e.clientX - r.left) / scale, (e.clientY - r.top) / scale]; };
+const clampBox = b => { let [x, y, w, h] = b.map(Math.round); w = Math.max(8, w); h = Math.max(8, h);
+  x = Math.min(Math.max(0, x), data.width - w); y = Math.min(Math.max(0, y), data.height - h); return [x, y, Math.min(w, data.width), Math.min(h, data.height)]; };
+const touch = () => { dirty = true; document.getElementById("status").textContent = "有未儲存的變更"; };
+
+svg.addEventListener("pointerdown", e => {
+  const g = e.target.closest("g"), [px, py] = pt(e);
+  if (g && g.dataset.id !== sel && e.target.dataset.h === undefined) { sel = g.dataset.id; draw(); }
+  const b = boxes[sel];
+  if (e.target.dataset.h !== undefined) drag = { mode: "resize", h: +e.target.dataset.h, start: [px, py], orig: [...b] };
+  else if (g && g.dataset.id === sel) drag = { mode: "move", start: [px, py], orig: [...b] };
+  else drag = { mode: "draw", start: [px, py] };
+  svg.setPointerCapture(e.pointerId);
+});
+svg.addEventListener("pointermove", e => {
+  if (!drag) return;
+  const [px, py] = pt(e), [sx, sy] = drag.start, dx = px - sx, dy = py - sy;
+  if (drag.mode === "move") { const [x, y, w, h] = drag.orig; boxes[sel] = clampBox([x + dx, y + dy, w, h]); }
+  else if (drag.mode === "resize") {
+    let [x, y, w, h] = drag.orig, x2 = x + w, y2 = y + h;
+    if (drag.h === 0 || drag.h === 2) x += dx; else x2 += dx;
+    if (drag.h === 0 || drag.h === 1) y += dy; else y2 += dy;
+    boxes[sel] = clampBox([Math.min(x, x2), Math.min(y, y2), Math.abs(x2 - x), Math.abs(y2 - y)]);
+  } else { if (Math.abs(dx) < 4 && Math.abs(dy) < 4) return;
+    boxes[sel] = clampBox([Math.min(sx, px), Math.min(sy, py), Math.abs(dx), Math.abs(dy)]); }
+  touch(); draw();
+});
+svg.addEventListener("pointerup", () => drag = null);
+
+document.addEventListener("keydown", e => {
+  if ((e.ctrlKey || e.metaKey) && e.key === "s") { e.preventDefault(); save(); return; }
+  const d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key];
+  if (!d || !boxes[sel]) return;
+  e.preventDefault(); const k = e.shiftKey ? 10 : 1, [x, y, w, h] = boxes[sel];
+  boxes[sel] = clampBox([x + d[0] * k, y + d[1] * k, w, h]); touch(); draw();
+});
+
+async function save() {
+  const missing = ORDER.filter(id => !boxes[id]);
+  if (missing.length) { document.getElementById("status").textContent = "還沒框：" + missing.join(", "); return; }
+  const r = await fetch("/save", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(boxes) });
+  const j = await r.json(); dirty = false;
+  document.getElementById("status").textContent = "已儲存 → " + j.saved;
+}
+document.getElementById("save").onclick = save;
+document.getElementById("resetOne").onclick = () => { boxes[sel] = [...data.prebox[sel]]; touch(); draw(); };
+document.getElementById("resetAll").onclick = () => { boxes = structuredClone(data.prebox); touch(); draw(); };
+document.getElementById("onlySel").onchange = draw;
+window.addEventListener("beforeunload", e => { if (dirty) e.preventDefault(); });
+window.addEventListener("resize", fit);
+
+fetch("/data").then(r => r.json()).then(d => {
+  data = d; boxes = structuredClone(d.boxes);
+  document.getElementById("title").textContent = `部件框選｜${d.mech_id}（${d.width}×${d.height}）`;
+  list(); if (img.complete) fit(); else img.onload = fit;
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,15 @@
+mech_id: RC01
+
+# S1a input: one mech image + a change description.
+#   variant: Qwen-Image-Edit-2511 edits the source directly (recolor, swap parts, ...)
+#   design:  Qwen-Image-2512 draws a new mech from the text, then 2511 redraws it in the source's style
+source_image: assets/sources/RC01_source.jpg
+change_text: 裝甲改成紅色
+s1_mode: variant
+
+# Optional, preserved by later stages when set.
+color_scheme: ""
+markings: ""
+
+# Filled in by `mechpipe boxes RC01` (pre-boxed, then adjusted by the user).
+parts: {}

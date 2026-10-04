@@ -5,6 +5,7 @@
 ## 工作守則
 
 - 對話一律用**繁體中文**；程式碼、識別字、註解用英文。
+- 提示詞（`prompts/*.txt`、`parts.yaml` 的 `desc`、負面提示詞）一律用**繁體中文**；唯一例外是任務 LoRA 的固定提示詞，維持 model card 原文。
 - **一次只做一個里程碑**（規格第 8 節），完成後停下來回報（做了什麼、產出路徑、問題、下一步），等使用者驗收；每個里程碑一個 git commit。
 - **不准猜**：模型檔名、LoRA 觸發提示詞與強度、ComfyUI 節點類別與欄位名，一律從 model card、ComfyUI `/object_info`、外掛 README／範例 workflow 查證；查不到或矛盾就問使用者。
 - 範圍外：訓練 LoRA、3D 生成、TRELLIS.2 的修改、網頁 UI、SAM3 自動分割。
@@ -38,6 +39,14 @@
 - 定稿：不掛 Lightning，40 步，CFG 4.0（範本中由 Switch 節點決定；KSampler 面板上的 CFG 3 會被覆蓋）
 - 共通：euler／simple、`ModelSamplingAuraFlow` shift 3.1、`CFGNorm` 1.0、`FluxKontextMultiReferenceLatentMethod` = `index_timestep_zero`
 - UNet：預設 `qwen-image-edit-2511-Q4_K_M.gguf`，A/B 比較 `Q3_K_M`
+
+## 流程與指令（WSL：`bash scripts/mechpipe.sh <command>`）
+
+1. `s1 <mech> --view edit` → `pick --view edit` → `s1 --view apose` → `pick --view apose`（正面 A-pose `master_front.png`）→ `s1 --view 45` → `pick --view 45`（`master_45.png`）
+2. `boxes <mech>`：預框 → 瀏覽器調整 18 個框
+3. `s2 <mech> --seed N`：頭與四肢從 45° master 抽取、軀幹組從正面抽取再轉 45°，再拆細分部位；每步自動 QC＋重試（見 `mechpipe/stages.py` 的 `S2Run`）
+4. `deliver <mech>`：收集通過 QC 的 45° 圖到 `runs/<mech>/deliver/`
+- 每階段都會產生 `contact_sheet.html`；`rerun <json>` 依 metadata 重跑單一步驟。
 
 ## Workflow 替換規則
 

@@ -1,0 +1,12 @@
+mech_id: RC02
+
+# S1a input: one mech image + a change description (see RC01.yaml for the modes).
+source_image: assets/sources/RC02_source.jpg
+change_text: 裝甲改成紅色
+s1_mode: variant
+
+color_scheme: ""
+markings: ""
+
+# Filled in by `mechpipe boxes RC02`.
+parts: {}

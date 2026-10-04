@@ -1,0 +1,47 @@
+# desc is substituted into prompts/s2_part.txt (Traditional Chinese).
+# L/R are the MECH's own left/right: in a front view the mech's left side is on the viewer's right.
+# Overlapping parts (e.g. the knee in THIGH_KNEE and KNEE_SHIN) are drawn in both on purpose.
+parts:
+  # fine-grained segments
+  - id: HEAD_NECK
+    desc: "頭部（含頸部）"
+  - id: CHEST_WAIST
+    desc: "胸部（含腰部），不含頭、手臂、髖部與腿"
+  - id: WAIST_HIP
+    desc: "腰部（含髖部與襠部），不含胸部與腿"
+  - id: SHOULDER_UPPERARM_R
+    desc: "右肩（含右上臂），也就是畫面左側那隻手臂的肩膀與上臂"
+  - id: FOREARM_HAND_R
+    desc: "右下臂（含右手掌），也就是畫面左側那隻手臂的前臂與手掌"
+  - id: SHOULDER_UPPERARM_L
+    desc: "左肩（含左上臂），也就是畫面右側那隻手臂的肩膀與上臂"
+  - id: FOREARM_HAND_L
+    desc: "左下臂（含左手掌），也就是畫面右側那隻手臂的前臂與手掌"
+  - id: THIGH_KNEE_R
+    desc: "右大腿（含膝蓋），也就是畫面左側那條腿的大腿與膝蓋"
+  - id: KNEE_SHIN_R
+    desc: "右膝蓋（含右小腿），也就是畫面左側那條腿的膝蓋與小腿"
+  - id: ANKLE_FOOT_R
+    desc: "右腳踝（含右腳掌），也就是畫面左側那條腿的腳踝與腳掌"
+  - id: THIGH_KNEE_L
+    desc: "左大腿（含膝蓋），也就是畫面右側那條腿的大腿與膝蓋"
+  - id: KNEE_SHIN_L
+    desc: "左膝蓋（含左小腿），也就是畫面右側那條腿的膝蓋與小腿"
+  - id: ANKLE_FOOT_L
+    desc: "左腳踝（含左腳掌），也就是畫面右側那條腿的腳踝與腳掌"
+  # whole limbs / torso
+  - id: ARM_FULL_L
+    desc: "整隻左手臂（從肩膀到手掌），也就是畫面右側那隻手臂"
+  - id: ARM_FULL_R
+    desc: "整隻右手臂（從肩膀到手掌），也就是畫面左側那隻手臂"
+  - id: LEG_FULL_L
+    desc: "整隻左腳（從大腿到腳掌），也就是畫面右側那條腿"
+  - id: LEG_FULL_R
+    desc: "整隻右腳（從大腿到腳掌），也就是畫面左側那條腿"
+  - id: TORSO_FULL
+    desc: "整個軀幹（胸部、腰部、髖部與襠部），不含頭、手臂與腿"
+
+# Per-mech data lives in config/mechs/<mech_id>.yaml under `parts:`:
+#   THIGH_KNEE_L:
+#     bbox: [x, y, w, h]          # on master_front.png
+#     notes: "大腿裝甲上的白色「7」號標記"   # features that must be preserved

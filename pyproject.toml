@@ -1,0 +1,16 @@
+[project]
+name = "mechpipe"
+version = "0.1.0"
+description = "Mech part image pipeline client for ComfyUI (Qwen-Image-Edit-2511)"
+requires-python = ">=3.12"
+dependencies = [
+    "pillow>=11",
+    "pyyaml>=6",
+]
+
+[project.scripts]
+mechpipe = "mechpipe.cli:main"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

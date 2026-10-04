@@ -1,0 +1,22 @@
+# Part boxes [x, y, w, h] on the master, edited with `mechpipe boxes`.
+master: runs/RC02/master/master_front.png
+image_size: [880, 1184]
+parts:
+  ANKLE_FOOT_L: [480, 940, 265, 185]
+  ANKLE_FOOT_R: [150, 940, 260, 185]
+  ARM_FULL_L: [515, 105, 245, 570]
+  ARM_FULL_R: [130, 105, 245, 570]
+  CHEST_WAIST: [300, 200, 290, 250]
+  FOREARM_HAND_L: [590, 340, 175, 335]
+  FOREARM_HAND_R: [130, 340, 200, 335]
+  HEAD_NECK: [355, 88, 160, 175]
+  KNEE_SHIN_L: [480, 690, 240, 310]
+  KNEE_SHIN_R: [170, 690, 240, 310]
+  LEG_FULL_L: [470, 430, 280, 695]
+  LEG_FULL_R: [150, 430, 265, 695]
+  SHOULDER_UPPERARM_L: [515, 105, 245, 300]
+  SHOULDER_UPPERARM_R: [130, 105, 245, 300]
+  THIGH_KNEE_L: [480, 430, 230, 400]
+  THIGH_KNEE_R: [180, 430, 230, 400]
+  TORSO_FULL: [300, 200, 290, 420]
+  WAIST_HIP: [350, 400, 190, 220]

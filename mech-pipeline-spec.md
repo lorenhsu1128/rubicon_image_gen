@@ -151,64 +151,62 @@ rubicon_image_gen/           # 本 repo 根目錄即專案根目錄
 
 ## 5. 各階段規格
 
-> 提示詞範本以英文撰寫。`{...}` 為變數。使用任務 LoRA 時，**以 model card 的固定提示詞為主**，下面的範本只在不掛任務 LoRA 時使用，或作為補充描述。
+> 提示詞範本一律以**繁體中文**撰寫（`prompts/*.txt`，2026-10-04 使用者指定）。`{...}` 為變數。例外：任務 LoRA 的固定提示詞維持 model card 原文（通常為英文），因為 LoRA 是用該字句訓練的。下面的英文範本為初版紀錄，實際以 `prompts/` 為準。
 
-### S1 全身基準圖
+### S1 全身基準圖（2026-10-04 依使用者需求改版）
 
-- **輸入**：草稿或既有設計圖（`IN_IMAGE_1`），選用風格參考圖（`IN_IMAGE_2`）。
-- **輸出**：`master_front.png`（正面 A-pose）、`master_34.png`（3/4 視角）。
-- **提示詞範本（正面）**：
-  ```
-  Redraw this mech as a full-body front view in a neutral A-pose,
-  arms held slightly away from the torso so the thighs are fully visible,
-  orthographic, plain light grey background, no ground shadow,
-  keep exactly the same armor shapes, {color_scheme},
-  {markings}, and line-art style.
-  ```
-- **3/4 視角**：先試基底模型（2511 已內建視角生成能力），效果不足再掛 `cam_full`。
-- **流程**：每次產生 4 個種子，輸出對照表給我挑選；我選定後該張複製為 `runs/<mech_id>/master/` 下的正式版本。
+輸入是**一張機甲圖＋一段文字**（`config/mechs/<mech_id>.yaml` 的 `source_image`、`change_text`），輸出正面、立正、四肢自然下垂的 A-pose 全身圖 `runs/<mech_id>/master/master_front.png`，供框選與 S2 使用。
 
-### S2 部件抽取（設計稿風格）
+| 步驟（`mechpipe s1 --view`） | 模型 | 內容 |
+|---|---|---|
+| `edit` | 2511 | 原圖＋修改文字，**姿勢與構圖不動**（只改指定的東西，最忠實）→ `pick` 為 `master_edited` |
+| `apose` | 2511 | `master_edited`（圖1）＋原圖（圖2，補看不到的細節）→ 正面 A-pose → `pick` 為 `master_front` |
+| `design` → `restyle` | 2512 → 2511 | 文字為「全新設計」時：2512 依文字生成 → 2511 套原圖畫風並轉 A-pose |
+| `variant` | 2511 | 改色＋轉姿勢一步完成（對照組；比例與機械細節走樣，不建議） |
 
-依 `config/parts.yaml` 逐一處理。實作兩條路線，M3 會做 A/B 比較。
+- 每步預設 4 或 2 個種子，以對照表挑選後 `mechpipe pick`。
+- `apose` 只用草稿模式：定稿模式（CFG 4）會把原圖（圖2）的舊配色帶回來。
+- 2511 用來「全新設計」會照抄參考圖，所以全新設計交給 2512。
 
-**A 路線：裁切 → 單色遮罩 → 物件抽取（`extract`）**
-1. 依 `parts.yaml` 中的 bbox 從 `master_front.png` 裁切該部位（四周保留 10–15% 邊距），補白邊成正方形後縮放到 1024×1024。
-2. 若 `parts.yaml` 標記了遮擋區（`occluders`），在裁切圖上把遮擋物塗成**不透明單色**（依 model card，建議原色，且避開機甲本身的配色）。
-3. 處理後的裁切圖放 `IN_IMAGE_1`，以 model card 的固定提示詞跑 `extract`（一顆 LoRA 同時完成補完與抽取）。
-4. （M3 額外變體）再把全身基準圖放 `IN_IMAGE_2` 當參考，比較是否更能保留配色與標記。
+### 框選
 
-**B 路線：ICEdit 示範**
-- `IN_IMAGE_1`：示範全身圖（`assets/examples/<pair>/full.png`）
-- `IN_IMAGE_2`：示範部件圖（`assets/examples/<pair>/<part>.png`）
-- `IN_IMAGE_3`：目標機甲的全身基準圖
-- 提示詞依 model card。
+`mechpipe boxes <mech_id>`：依 A-pose 身體比例自動預框 18 個部位，在本機網頁（`http://127.0.0.1:8199/`）拖拉調整後存到 `config/mechs/<mech_id>.boxes.yaml`。框只畫在正面 master 上。
 
-**部件圖通用要求（寫進提示詞或作為驗收標準）**：
-- 只有該部件，獨立擺放。
+### S2 部件圖（2026-10-04 改版；給 TRELLIS.2 的圖）
+
+前置：S1 另產生 **45° 全身 master**（`s1 --view 45`：camera-angle LoRA 把正面 A-pose 轉成左前方 45°，看得到機甲正面與它本身的右側；`pick --view 45` → `master_45.png`）。
+
+層級：**A-pose master → 頭、軀幹、四肢 → 各自再拆成細分部位**，最後每個部位都是**左前方 45°、平視**（使用者在 TRELLIS.2 專案驗證過）。`mechpipe s2 <mech_id> --seed N`，每個種子各走一條完整的鏈，輸出在 `s2_45/`。
+
+| 部位 | 做法 |
+|---|---|
+| 頭、整隻手臂、整條腿 | **45° master**＋文字（只畫出這個部位、維持原視角）；畫布比例依該部位的框，高度多留 35%（腿 60%）；3 次都不過時改為「正面 master 抽取 → 轉 45°」 |
+| 手臂、腿的細分部位 | 從對應的乾淨整件，依正面 master 上框的**垂直比例**切出一段（繞垂直軸轉動不改變高度比例），四周留 50% 白邊 → 補完切口為關節座、維持 45° |
+| 整個軀幹 | 正面 master 刪除雙臂（一次刪除編輯）→ 頭、腿、殘留肩甲以框**幾何塗除** → 依軀幹框裁切 → 補完（正面）→ 轉 45° |
+| 胸＋腰、腰＋髖 | 從正面的乾淨軀幹依框垂直比例切段 → 補完（正面）→ 轉 45° |
+| 軀幹組轉 45° | 先用文字提示（2 次），沒轉動再用 camera-angle LoRA（3 次） |
+
+為什麼頭與四肢從 45° 全身圖拿、軀幹組才逐件轉：單一部件轉 45° 時，LoRA 會把細長的腿轉倒或壓扁，文字提示又轉不動扁平的手臂；整台機甲一起轉則比例穩定。軀幹逐件轉沒有這個問題，而且在 45° 全身圖上無法用正面的框塗除鄰件。
+
+每一步都有自動檢查，不通過就換種子重試（最多 3 次），結果寫進 metadata 的 `qc`：純白背景、未被畫面切到、無地面陰影、長寬比合理（抓轉倒／畫成整件）、不是整台機甲、不是又畫回整件、沒有 master 沒有的新顏色（抓重新設計）、軀幹組 45° 有轉（輪廓 IoU＋內容差異）。部位正確性與視角方向仍需目視驗收（對照表）。
+
+**實驗過但淘汰的做法**（2026-10-04，RC01／RC02）：ObjectExtraction LoRA（裁切圖不是單一主體，什麼都沒抽出或補出整台）、在全身圖上畫框（大部件會重畫整台）、只保留框內內容（構圖照抄、殘留鄰件）、在 master 上一次刪除多樣（變成半透明殘影）、補完時帶整件當參考圖（模型改畫整件）、只靠文字抽細分部位（都畫成整隻肢體）、以文字抽取軀幹（會補回頭腿）、在白底部件上刪大腿（不穩定）、單一部件用 LoRA 轉 45°（細長件轉倒）、fal Multiple-Angles LoRA（front-left／front-right 結果相同，方向錯）。
+
+**部件圖通用要求（驗收標準）**：
+- 只有該部件，獨立擺放；斷面是**乾淨的機械關節座**，不要垂掛的斷線。
 - 與全身圖相同的比例、裝甲形狀、配色、刻線與標記。
-- 斷面是**乾淨的機械關節座**，不要垂掛的斷線。
-- 淺灰或白色純色背景，無地面陰影。
+- 純白背景，無地面陰影；部件完整，不被畫面邊緣切到。
+- 45° 視角：部件往畫面右側轉約 45°，看得到它本身的右側面。
 
 ### S3 3D 輸入版
 
-依序（每步一個 workflow、一顆任務 LoRA）：
-1. **線稿轉渲染**：`anything2real`（2601 A 版）。若出現擅自加入的環境或景深，先降低強度，不要加大。
-2. **統一打光**：`delight`。
-3. **轉 3/4 視角**：`cam_object`。輸入必須是步驟 1、2 處理後的渲染圖，不要直接用線稿。
-
-補充提示詞範本（不掛 LoRA 時的對照組）：
-```
-Convert this line-art mech part into a clean 3D render,
-same shape and colors, no black outlines, flat even studio lighting,
-no cast shadows, no ground shadow, 3/4 view, plain light grey background.
-```
+原規格的「線稿轉渲染、統一打光」不做：使用者已驗證 TRELLIS.2 用左前方 45° 的線稿風格圖即可。轉 45° 已併入 S1（45° master）與 S2。
 
 ### S4 去背與交付
 
 - 用 BiRefNet（`ComfyUI-RMBG`）輸出 RGBA PNG，獨立 workflow。
 - 檢查 alpha：灰色裝甲與細小結構不能被吃掉；若被吃掉，改試 BiRefNet 的其他變體或調整參數，並回報給我。
-- 交付資料夾：`runs/<mech_id>/deliver/`，檔名 `<mech_id>_<PART>.png`，另附 `manifest.json` 列出每個部件的來源 metadata。
+- 交付資料夾：`mechpipe deliver <mech_id>` → `runs/<mech_id>/deliver/<mech_id>_<PART>_<chain seed>.png`（每個部位、每條鏈取最後一張 QC 通過的圖），另附 `manifest.json` 列出來源與 QC 結果。
 
 ### 修補（按需）
 
@@ -217,31 +215,18 @@ no cast shadows, no ground shadow, 3/4 view, plain light grey background.
 
 ---
 
-## 6. 部件清單（`config/parts.yaml` 初版）
+## 6. 部件清單（`config/parts.yaml`，2026-10-04 使用者指定的 18 個部位）
 
-```yaml
-parts:
-  - id: HEAD
-  - id: TORSO
-  - id: BACKPACK_WEAPON
-  - id: SHOULDER_L
-  - id: SHOULDER_R
-  - id: ARM_L
-  - id: ARM_R
-  - id: THIGH_L
-  - id: THIGH_R
-  - id: SHIN_FOOT_L
-  - id: SHIN_FOOT_R
+| 細分（13） | 整件（5） |
+|---|---|
+| `HEAD_NECK` 頭部含頸部 | `TORSO_FULL` 整個軀幹 |
+| `CHEST_WAIST` 胸部含腰部、`WAIST_HIP` 腰部含髖部與襠部 | `ARM_FULL_L/R` 整隻手臂 |
+| `SHOULDER_UPPERARM_L/R` 肩含上臂、`FOREARM_HAND_L/R` 下臂含手掌 | `LEG_FULL_L/R` 整隻腳 |
+| `THIGH_KNEE_L/R` 大腿含膝蓋、`KNEE_SHIN_L/R` 膝蓋含小腿、`ANKLE_FOOT_L/R` 腳踝含腳掌 | |
 
-# 每台機甲另有 parts.<mech_id>.yaml，內容為：
-#   bbox: [x, y, w, h]        # 在 master_front.png 上的位置，先由我手動標
-#   occluders: [[x,y,w,h],..] # 選用，遮擋區
-#   notes: "white '7' marking on thigh armor, dark grey"  # 必須保留的特徵
-```
-
-- 先由我手動提供 bbox；**SAM3 自動分割列為之後的選配**，不在初期範圍。
-- `notes` 欄位會被代入提示詞，用來明確描述要保留的配色與標記。
-- 左右部件分開生成，不要自動鏡像。
+- 左右指機甲本身（正面圖中機甲的右邊在畫面左側）；左右分開生成，不自動鏡像。
+- 重疊的部位兩邊都畫（例如膝蓋同時在大腿與小腿）。
+- `desc`（中文）代入提示詞；每台機甲的框在 `config/mechs/<mech_id>.boxes.yaml`，必須保留的特徵寫在 `<mech_id>.yaml` 的 `parts.<ID>.notes`。
 
 ---
 

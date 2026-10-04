@@ -1,0 +1,44 @@
+# Every value here is copied from the model card linked in `source` (see docs/lora-notes.md).
+# Task-LoRA prompts stay in the card's original language (English): the LoRA was trained on that
+# exact wording. All other prompts in prompts/ are Traditional Chinese.
+# Entries still marked `verified: false` must be checked against the card before use (M3).
+loras:
+  lightning:
+    file: Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors
+    source: https://huggingface.co/lightx2v/Qwen-Image-Edit-2511-Lightning
+    license: apache-2.0
+    strength: 1.0
+    notes: 4 steps, CFG 1.0 (official ComfyUI template)
+    verified: true
+
+  extract:
+    file: QIE2511_ObjectExtraction_V10_dim1_1e-3-000120.safetensors
+    source: https://huggingface.co/tori29umai/QwenImageEdit2511_LoRA
+    license: apache-2.0
+    strength: null          # card gives no recommended strength
+    mask: opaque solid color (primary colors recommended)
+    prompt: >-
+      From picture1, extract only the main object itself and remove everything else.
+      This means removing not just the background, but also any objects in the foreground
+      that obscure or appear in front of the main object, all shadows the object casts onto
+      surfaces, any ground shadows or reflections, and any surrounding artifacts or context.
+      Keep the object's natural surface details, textures, and the shading that defines its
+      form, but eliminate all external shadows, reflections, and foreground obstructions.
+      The result should be a clean cutout of just the main object on a pure white background,
+      looking as though it was photographed in complete isolation without any environmental
+      lighting effects.
+    verified: true
+
+  cam_object:
+    file: qwen_edit_2511_camera_angle_lora.safetensors
+    source: https://huggingface.co/berkerdooo/qwen-image-edit-2511-camera-angle-lora
+    license: apache-2.0
+    strength: null          # card gives no recommended strength; 1.0 used (tested 2026-10-04)
+    # Card format: "Move the camera <0-180> degrees to the <right|left> around the object. Target camera
+    # elevation: <-10..65> degrees. Keep the object, its colors, and the white background the same."
+    # Camera to the left = the object's own right side shows (the user's TRELLIS.2 view).
+    prompt: >-
+      Move the camera 45 degrees to the left around the object. Target camera elevation: 0 degrees.
+      Keep the object, its colors, and the white background the same.
+    notes: trained on 512px Objaverse renders on white; works on our line-art parts at 1024px (RC01 test)
+    verified: true
