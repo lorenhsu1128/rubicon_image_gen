@@ -1,0 +1,1358 @@
+{
+ "id": "1e2f1c34-1601-44e9-b5df-d9e678624ada",
+ "revision": 0,
+ "last_node_id": 19,
+ "last_link_id": 46,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UnetLoaderGGUF",
+   "pos": [
+    500,
+    0
+   ],
+   "size": [
+    270,
+    58
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "unet_name",
+     "name": "unet_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "unet_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      24
+     ]
+    }
+   ],
+   "title": "UNET",
+   "properties": {
+    "Node name for S&R": "UnetLoaderGGUF"
+   },
+   "widgets_values": [
+    "qwen-image-edit-2511-Q4_K_M.gguf"
+   ],
+   "widgets_values_named": {
+    "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
+   }
+  },
+  {
+   "id": 2,
+   "type": "ModelSamplingAuraFlow",
+   "pos": [
+    980,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 24
+    },
+    {
+     "localized_name": "偏移",
+     "name": "shift",
+     "type": "FLOAT",
+     "widget": {
+      "name": "shift"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "採樣",
+     "name": "sampling",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "sampling"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      25
+     ]
+    }
+   ],
+   "title": "Model Sampling AuraFlow",
+   "properties": {
+    "Node name for S&R": "ModelSamplingAuraFlow"
+   },
+   "widgets_values": [
+    3.1,
+    "flow"
+   ],
+   "widgets_values_named": {
+    "shift": 3.1,
+    "sampling": "flow"
+   }
+  },
+  {
+   "id": 3,
+   "type": "CFGNorm",
+   "pos": [
+    1330,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "模型",
+     "name": "model",
+     "type": "MODEL",
+     "link": 25
+    },
+    {
+     "localized_name": "強度",
+     "name": "strength",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "pre_cfg",
+     "name": "pre_cfg",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "pre_cfg"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "修補模型",
+     "name": "patched_model",
+     "type": "MODEL",
+     "links": [
+      26
+     ]
+    }
+   ],
+   "title": "CFG Norm",
+   "properties": {
+    "Node name for S&R": "CFGNorm"
+   },
+   "widgets_values": [
+    1,
+    false
+   ],
+   "widgets_values_named": {
+    "strength": 1,
+    "pre_cfg": false
+   }
+  },
+  {
+   "id": 4,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    1810,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 26
+    },
+    {
+     "localized_name": "lora_name",
+     "name": "lora_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "lora_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "strength_model",
+     "name": "strength_model",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength_model"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      27
+     ]
+    }
+   ],
+   "title": "LORA_LIGHTNING",
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+    1
+   ],
+   "widgets_values_named": {
+    "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+    "strength_model": 1
+   }
+  },
+  {
+   "id": 5,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    2183.7193359375,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 27
+    },
+    {
+     "localized_name": "lora_name",
+     "name": "lora_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "lora_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "strength_model",
+     "name": "strength_model",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength_model"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      40
+     ]
+    }
+   ],
+   "title": "LORA_TASK",
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "qwen_edit_2511_camera_angle_lora.safetensors",
+    1
+   ],
+   "widgets_values_named": {
+    "lora_name": "qwen_edit_2511_camera_angle_lora.safetensors",
+    "strength_model": 1
+   }
+  },
+  {
+   "id": 6,
+   "type": "CLIPLoader",
+   "pos": [
+    500,
+    118
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip_name",
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "type",
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "CLIP",
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      29,
+      33
+     ]
+    }
+   ],
+   "title": "TEXT_ENCODER",
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+    "qwen_image",
+    "default"
+   ],
+   "widgets_values_named": {
+    "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+    "type": "qwen_image",
+    "device": "default"
+   }
+  },
+  {
+   "id": 7,
+   "type": "VAELoader",
+   "pos": [
+    500,
+    284
+   ],
+   "size": [
+    270,
+    58
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "vae_name",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      30,
+      34,
+      39,
+      45
+     ]
+    }
+   ],
+   "title": "VAE",
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "qwen_image_vae.safetensors"
+   ],
+   "widgets_values_named": {
+    "vae_name": "qwen_image_vae.safetensors"
+   }
+  },
+  {
+   "id": 8,
+   "type": "LoadImage",
+   "pos": [
+    500,
+    402
+   ],
+   "size": [
+    320,
+    402
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "影像",
+     "name": "image",
+     "type": "COMBO",
+     "widget": {
+      "name": "image"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "選擇要上傳的檔案",
+     "name": "upload",
+     "type": "IMAGEUPLOAD",
+     "widget": {
+      "name": "upload"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      28
+     ]
+    },
+    {
+     "localized_name": "遮罩",
+     "name": "MASK",
+     "type": "MASK",
+     "links": null
+    }
+   ],
+   "title": "正面 A-pose 全身圖（02 的結果）",
+   "properties": {
+    "Node name for S&R": "LoadImage"
+   },
+   "widgets_values": [
+    "example.png",
+    "image"
+   ],
+   "widgets_values_named": {
+    "image": "example.png",
+    "upload": "image"
+   }
+  },
+  {
+   "id": 9,
+   "type": "MechPrompt",
+   "pos": [
+    500,
+    864
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "template",
+     "name": "template",
+     "type": "COMBO",
+     "widget": {
+      "name": "template"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "part",
+     "name": "part",
+     "type": "COMBO",
+     "widget": {
+      "name": "part"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "view",
+     "name": "view",
+     "type": "COMBO",
+     "widget": {
+      "name": "view"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "text",
+     "name": "text",
+     "type": "STRING",
+     "widget": {
+      "name": "text"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "links": [
+      31
+     ]
+    }
+   ],
+   "title": "提示詞（camera-angle LoRA 原文）",
+   "properties": {
+    "Node name for S&R": "MechPrompt"
+   },
+   "widgets_values": [
+    "cam_lora",
+    "（無）",
+    "keep",
+    ""
+   ],
+   "widgets_values_named": {
+    "template": "cam_lora",
+    "part": "（無）",
+    "view": "keep",
+    "text": ""
+   }
+  },
+  {
+   "id": 10,
+   "type": "FluxKontextImageScale",
+   "pos": [
+    980,
+    142
+   ],
+   "size": [
+    194.9458984375,
+    26
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "圖像",
+     "name": "image",
+     "type": "IMAGE",
+     "link": 28
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      32,
+      35,
+      38
+     ]
+    }
+   ],
+   "title": "轉 45°：縮放",
+   "properties": {
+    "Node name for S&R": "FluxKontextImageScale"
+   }
+  },
+  {
+   "id": 11,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    1330,
+    142
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 29
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 30
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 32
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 31
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      36
+     ]
+    }
+   ],
+   "title": "轉 45°：提示詞",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 12,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    1330,
+    402
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 33
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 34
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 35
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      37
+     ]
+    }
+   ],
+   "title": "轉 45°：負面",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 13,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1810,
+    142
+   ],
+   "size": [
+    293.7193359375,
+    58
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 36
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      41
+     ]
+    }
+   ],
+   "title": "轉 45°：參考方式",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 14,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1810,
+    260
+   ],
+   "size": [
+    293.7193359375,
+    58
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 37
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      42
+     ]
+    }
+   ],
+   "title": "轉 45°：參考方式（負）",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 15,
+   "type": "VAEEncode",
+   "pos": [
+    1330,
+    662
+   ],
+   "size": [
+    148.59375,
+    46
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "像素",
+     "name": "pixels",
+     "type": "IMAGE",
+     "link": 38
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 39
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      43
+     ]
+    }
+   ],
+   "title": "轉 45°：編碼",
+   "properties": {
+    "Node name for S&R": "VAEEncode"
+   }
+  },
+  {
+   "id": 16,
+   "type": "KSampler",
+   "pos": [
+    2533.7193359375,
+    0
+   ],
+   "size": [
+    270,
+    262
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "模型",
+     "name": "model",
+     "type": "MODEL",
+     "link": 40
+    },
+    {
+     "localized_name": "正向條件",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 41
+    },
+    {
+     "localized_name": "負向條件",
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 42
+    },
+    {
+     "localized_name": "潛在空間影像",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 43
+    },
+    {
+     "localized_name": "種子",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "步驟數",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cfg",
+     "name": "cfg",
+     "type": "FLOAT",
+     "widget": {
+      "name": "cfg"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "取樣器",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "排程器",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "去雜訊強度",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      44
+     ]
+    }
+   ],
+   "title": "轉 45°：取樣",
+   "properties": {
+    "Node name for S&R": "KSampler"
+   },
+   "widgets_values": [
+    0,
+    "randomize",
+    4,
+    1,
+    "euler",
+    "simple",
+    1
+   ],
+   "widgets_values_named": {
+    "seed": 0,
+    "control_after_generate": "randomize",
+    "steps": 4,
+    "cfg": 1,
+    "sampler_name": "euler",
+    "scheduler": "simple",
+    "denoise": 1
+   }
+  },
+  {
+   "id": 17,
+   "type": "VAEDecode",
+   "pos": [
+    2883.7193359375,
+    0
+   ],
+   "size": [
+    140,
+    46
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "samples",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 44
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 45
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      46
+     ]
+    }
+   ],
+   "title": "轉 45°：解碼",
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 18,
+   "type": "SaveImage",
+   "pos": [
+    3103.7193359375,
+    0
+   ],
+   "size": [
+    320,
+    358
+   ],
+   "flags": {},
+   "order": 18,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "影像",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 46
+    },
+    {
+     "localized_name": "檔名前綴",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "輸出",
+   "properties": {},
+   "widgets_values": [
+    "mech/03_turn45"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "mech/03_turn45"
+   }
+  },
+  {
+   "id": 19,
+   "type": "MarkdownNote",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    440,
+    420
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "使用說明",
+   "properties": {},
+   "widgets_values": [
+    "## 03 全身轉 45 度\n1. 「正面 A-pose 全身圖」放 02 的結果。\n2. 按「執行」：camera-angle LoRA 把整台機甲轉到左前方 45 度（看得到機甲正面與它自己的右側）。\n\n挑好的圖：`bash scripts/mechpipe.sh pick <機甲> <圖檔> --view 45`（存成 master_45.png），04、05 會用到。"
+   ],
+   "widgets_values_named": {
+    "text": "## 03 全身轉 45 度\n1. 「正面 A-pose 全身圖」放 02 的結果。\n2. 按「執行」：camera-angle LoRA 把整台機甲轉到左前方 45 度（看得到機甲正面與它自己的右側）。\n\n挑好的圖：`bash scripts/mechpipe.sh pick <機甲> <圖檔> --view 45`（存成 master_45.png），04、05 會用到。"
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  }
+ ],
+ "links": [
+  [
+   24,
+   1,
+   0,
+   2,
+   0,
+   "MODEL"
+  ],
+  [
+   25,
+   2,
+   0,
+   3,
+   0,
+   "MODEL"
+  ],
+  [
+   26,
+   3,
+   0,
+   4,
+   0,
+   "MODEL"
+  ],
+  [
+   27,
+   4,
+   0,
+   5,
+   0,
+   "MODEL"
+  ],
+  [
+   28,
+   8,
+   0,
+   10,
+   0,
+   "IMAGE"
+  ],
+  [
+   29,
+   6,
+   0,
+   11,
+   0,
+   "CLIP"
+  ],
+  [
+   30,
+   7,
+   0,
+   11,
+   1,
+   "VAE"
+  ],
+  [
+   31,
+   9,
+   0,
+   11,
+   5,
+   "STRING"
+  ],
+  [
+   32,
+   10,
+   0,
+   11,
+   2,
+   "IMAGE"
+  ],
+  [
+   33,
+   6,
+   0,
+   12,
+   0,
+   "CLIP"
+  ],
+  [
+   34,
+   7,
+   0,
+   12,
+   1,
+   "VAE"
+  ],
+  [
+   35,
+   10,
+   0,
+   12,
+   2,
+   "IMAGE"
+  ],
+  [
+   36,
+   11,
+   0,
+   13,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   37,
+   12,
+   0,
+   14,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   38,
+   10,
+   0,
+   15,
+   0,
+   "IMAGE"
+  ],
+  [
+   39,
+   7,
+   0,
+   15,
+   1,
+   "VAE"
+  ],
+  [
+   40,
+   5,
+   0,
+   16,
+   0,
+   "MODEL"
+  ],
+  [
+   41,
+   13,
+   0,
+   16,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   42,
+   14,
+   0,
+   16,
+   2,
+   "CONDITIONING"
+  ],
+  [
+   43,
+   15,
+   0,
+   16,
+   3,
+   "LATENT"
+  ],
+  [
+   44,
+   16,
+   0,
+   17,
+   0,
+   "LATENT"
+  ],
+  [
+   45,
+   7,
+   0,
+   17,
+   1,
+   "VAE"
+  ],
+  [
+   46,
+   17,
+   0,
+   18,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.5,
+   "offset": [
+    40,
+    80
+   ]
+  }
+ },
+ "version": 0.4
+}

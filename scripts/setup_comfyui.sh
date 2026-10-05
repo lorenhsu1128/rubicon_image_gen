@@ -21,6 +21,9 @@ for entry in "${NODES[@]}"; do
   git -C "$dir" fetch -q origin && git -C "$dir" checkout -q "$commit"
 done
 
+# Our own node pack + step-by-step templates (shown first under 擴充功能 in the template library)
+ln -sfn ../../comfy_nodes/0_MechPipeline ComfyUI/custom_nodes/0_MechPipeline
+
 [ -x "$VENV/bin/python" ] || uv venv --python 3.13 "$VENV"
 source "$VENV/bin/activate"
 # cu130 wheels include sm_120 (RTX 50 series / Blackwell)

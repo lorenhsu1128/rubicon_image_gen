@@ -1,0 +1,1346 @@
+{
+ "id": "cd86ce6f-7900-418c-9655-573eaadab7cc",
+ "revision": 0,
+ "last_node_id": 18,
+ "last_link_id": 42,
+ "nodes": [
+  {
+   "id": 1,
+   "type": "UnetLoaderGGUF",
+   "pos": [
+    500,
+    0
+   ],
+   "size": [
+    270,
+    58
+   ],
+   "flags": {},
+   "order": 0,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "unet_name",
+     "name": "unet_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "unet_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      22
+     ]
+    }
+   ],
+   "title": "UNET",
+   "properties": {
+    "Node name for S&R": "UnetLoaderGGUF"
+   },
+   "widgets_values": [
+    "qwen-image-edit-2511-Q4_K_M.gguf"
+   ],
+   "widgets_values_named": {
+    "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
+   }
+  },
+  {
+   "id": 2,
+   "type": "ModelSamplingAuraFlow",
+   "pos": [
+    980,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 22
+    },
+    {
+     "localized_name": "偏移",
+     "name": "shift",
+     "type": "FLOAT",
+     "widget": {
+      "name": "shift"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "採樣",
+     "name": "sampling",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "sampling"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      23
+     ]
+    }
+   ],
+   "title": "Model Sampling AuraFlow",
+   "properties": {
+    "Node name for S&R": "ModelSamplingAuraFlow"
+   },
+   "widgets_values": [
+    3.1,
+    "flow"
+   ],
+   "widgets_values_named": {
+    "shift": 3.1,
+    "sampling": "flow"
+   }
+  },
+  {
+   "id": 3,
+   "type": "CFGNorm",
+   "pos": [
+    1460,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "模型",
+     "name": "model",
+     "type": "MODEL",
+     "link": 23
+    },
+    {
+     "localized_name": "強度",
+     "name": "strength",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "pre_cfg",
+     "name": "pre_cfg",
+     "shape": 7,
+     "type": "BOOLEAN",
+     "widget": {
+      "name": "pre_cfg"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "修補模型",
+     "name": "patched_model",
+     "type": "MODEL",
+     "links": [
+      24
+     ]
+    }
+   ],
+   "title": "CFG Norm",
+   "properties": {
+    "Node name for S&R": "CFGNorm"
+   },
+   "widgets_values": [
+    1,
+    false
+   ],
+   "widgets_values_named": {
+    "strength": 1,
+    "pre_cfg": false
+   }
+  },
+  {
+   "id": 4,
+   "type": "LoraLoaderModelOnly",
+   "pos": [
+    1833.7193359375,
+    0
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "model",
+     "name": "model",
+     "type": "MODEL",
+     "link": 24
+    },
+    {
+     "localized_name": "lora_name",
+     "name": "lora_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "lora_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "strength_model",
+     "name": "strength_model",
+     "type": "FLOAT",
+     "widget": {
+      "name": "strength_model"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "模型",
+     "name": "MODEL",
+     "type": "MODEL",
+     "links": [
+      36
+     ]
+    }
+   ],
+   "title": "LORA_LIGHTNING",
+   "properties": {
+    "Node name for S&R": "LoraLoaderModelOnly"
+   },
+   "widgets_values": [
+    "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+    1
+   ],
+   "widgets_values_named": {
+    "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+    "strength_model": 1
+   }
+  },
+  {
+   "id": 5,
+   "type": "CLIPLoader",
+   "pos": [
+    500,
+    118
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 1,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip_name",
+     "name": "clip_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "clip_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "type",
+     "name": "type",
+     "type": "COMBO",
+     "widget": {
+      "name": "type"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "device",
+     "name": "device",
+     "shape": 7,
+     "type": "COMBO",
+     "widget": {
+      "name": "device"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "CLIP",
+     "name": "CLIP",
+     "type": "CLIP",
+     "links": [
+      25,
+      29
+     ]
+    }
+   ],
+   "title": "TEXT_ENCODER",
+   "properties": {
+    "Node name for S&R": "CLIPLoader"
+   },
+   "widgets_values": [
+    "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+    "qwen_image",
+    "default"
+   ],
+   "widgets_values_named": {
+    "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+    "type": "qwen_image",
+    "device": "default"
+   }
+  },
+  {
+   "id": 6,
+   "type": "VAELoader",
+   "pos": [
+    500,
+    284
+   ],
+   "size": [
+    270,
+    58
+   ],
+   "flags": {},
+   "order": 2,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "vae_name",
+     "name": "vae_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "vae_name"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "VAE",
+     "name": "VAE",
+     "type": "VAE",
+     "links": [
+      26,
+      30,
+      41
+     ]
+    }
+   ],
+   "title": "VAE",
+   "properties": {
+    "Node name for S&R": "VAELoader"
+   },
+   "widgets_values": [
+    "qwen_image_vae.safetensors"
+   ],
+   "widgets_values_named": {
+    "vae_name": "qwen_image_vae.safetensors"
+   }
+  },
+  {
+   "id": 7,
+   "type": "MechLoadMaster",
+   "pos": [
+    500,
+    402
+   ],
+   "size": [
+    270,
+    82
+   ],
+   "flags": {},
+   "order": 3,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "mech_id",
+     "name": "mech_id",
+     "type": "STRING",
+     "widget": {
+      "name": "mech_id"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "view",
+     "name": "view",
+     "type": "COMBO",
+     "widget": {
+      "name": "view"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      28,
+      31
+     ]
+    }
+   ],
+   "title": "45° 全身圖",
+   "properties": {
+    "Node name for S&R": "MechLoadMaster"
+   },
+   "widgets_values": [
+    "RC01",
+    "45"
+   ],
+   "widgets_values_named": {
+    "mech_id": "RC01",
+    "view": "45"
+   }
+  },
+  {
+   "id": 8,
+   "type": "MechPartCanvas",
+   "pos": [
+    500,
+    544
+   ],
+   "size": [
+    281.9,
+    150
+   ],
+   "flags": {},
+   "order": 4,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "mech_id",
+     "name": "mech_id",
+     "type": "STRING",
+     "widget": {
+      "name": "mech_id"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "part",
+     "name": "part",
+     "type": "COMBO",
+     "widget": {
+      "name": "part"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "headroom",
+     "name": "headroom",
+     "type": "FLOAT",
+     "widget": {
+      "name": "headroom"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "pixels",
+     "name": "pixels",
+     "type": "INT",
+     "widget": {
+      "name": "pixels"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "width",
+     "name": "width",
+     "type": "INT",
+     "links": [
+      34
+     ]
+    },
+    {
+     "localized_name": "height",
+     "name": "height",
+     "type": "INT",
+     "links": [
+      35
+     ]
+    }
+   ],
+   "title": "畫布尺寸（依框）",
+   "properties": {
+    "Node name for S&R": "MechPartCanvas"
+   },
+   "widgets_values": [
+    "RC01",
+    "ARM_FULL_R",
+    1.35,
+    1024
+   ],
+   "widgets_values_named": {
+    "mech_id": "RC01",
+    "part": "ARM_FULL_R",
+    "headroom": 1.35,
+    "pixels": 1024
+   }
+  },
+  {
+   "id": 9,
+   "type": "MechPrompt",
+   "pos": [
+    500,
+    754
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 5,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "template",
+     "name": "template",
+     "type": "COMBO",
+     "widget": {
+      "name": "template"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "part",
+     "name": "part",
+     "type": "COMBO",
+     "widget": {
+      "name": "part"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "view",
+     "name": "view",
+     "type": "COMBO",
+     "widget": {
+      "name": "view"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "text",
+     "name": "text",
+     "type": "STRING",
+     "widget": {
+      "name": "text"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "links": [
+      27
+     ]
+    }
+   ],
+   "title": "提示詞（選部位）",
+   "properties": {
+    "Node name for S&R": "MechPrompt"
+   },
+   "widgets_values": [
+    "s2_part",
+    "ARM_FULL_R",
+    "keep",
+    ""
+   ],
+   "widgets_values_named": {
+    "template": "s2_part",
+    "part": "ARM_FULL_R",
+    "view": "keep",
+    "text": ""
+   }
+  },
+  {
+   "id": 10,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    980,
+    142
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 10,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 25
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 26
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 28
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 27
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      32
+     ]
+    }
+   ],
+   "title": "抽取部位：提示詞",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 11,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    980,
+    402
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 29
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 30
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 31
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      33
+     ]
+    }
+   ],
+   "title": "抽取部位：負面",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 12,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1460,
+    142
+   ],
+   "size": [
+    293.7193359375,
+    58
+   ],
+   "flags": {},
+   "order": 13,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 32
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      37
+     ]
+    }
+   ],
+   "title": "抽取部位：參考方式",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 13,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1460,
+    260
+   ],
+   "size": [
+    293.7193359375,
+    58
+   ],
+   "flags": {},
+   "order": 12,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 33
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      38
+     ]
+    }
+   ],
+   "title": "抽取部位：參考方式（負）",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 14,
+   "type": "EmptySD3LatentImage",
+   "pos": [
+    980,
+    662
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "寬度",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": 34
+    },
+    {
+     "localized_name": "高度",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": 35
+    },
+    {
+     "localized_name": "批次大小",
+     "name": "batch_size",
+     "type": "INT",
+     "widget": {
+      "name": "batch_size"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      39
+     ]
+    }
+   ],
+   "title": "抽取部位：畫布",
+   "properties": {
+    "Node name for S&R": "EmptySD3LatentImage"
+   },
+   "widgets_values": [
+    1024,
+    1024,
+    1
+   ],
+   "widgets_values_named": {
+    "width": 1024,
+    "height": 1024,
+    "batch_size": 1
+   }
+  },
+  {
+   "id": 15,
+   "type": "KSampler",
+   "pos": [
+    2183.7193359375,
+    0
+   ],
+   "size": [
+    270,
+    262
+   ],
+   "flags": {},
+   "order": 15,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "模型",
+     "name": "model",
+     "type": "MODEL",
+     "link": 36
+    },
+    {
+     "localized_name": "正向條件",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 37
+    },
+    {
+     "localized_name": "負向條件",
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 38
+    },
+    {
+     "localized_name": "潛在空間影像",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 39
+    },
+    {
+     "localized_name": "種子",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "步驟數",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cfg",
+     "name": "cfg",
+     "type": "FLOAT",
+     "widget": {
+      "name": "cfg"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "取樣器",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "排程器",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "去雜訊強度",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      40
+     ]
+    }
+   ],
+   "title": "抽取部位：取樣",
+   "properties": {
+    "Node name for S&R": "KSampler"
+   },
+   "widgets_values": [
+    0,
+    "randomize",
+    4,
+    1,
+    "euler",
+    "simple",
+    1
+   ],
+   "widgets_values_named": {
+    "seed": 0,
+    "control_after_generate": "randomize",
+    "steps": 4,
+    "cfg": 1,
+    "sampler_name": "euler",
+    "scheduler": "simple",
+    "denoise": 1
+   }
+  },
+  {
+   "id": 16,
+   "type": "VAEDecode",
+   "pos": [
+    2533.7193359375,
+    0
+   ],
+   "size": [
+    140,
+    46
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "samples",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 40
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 41
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      42
+     ]
+    }
+   ],
+   "title": "抽取部位：解碼",
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 17,
+   "type": "SaveImage",
+   "pos": [
+    2753.7193359375,
+    0
+   ],
+   "size": [
+    320,
+    358
+   ],
+   "flags": {},
+   "order": 17,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "影像",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 42
+    },
+    {
+     "localized_name": "檔名前綴",
+     "name": "filename_prefix",
+     "type": "STRING",
+     "widget": {
+      "name": "filename_prefix"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "輸出",
+   "properties": {},
+   "widgets_values": [
+    "mech/04_whole"
+   ],
+   "widgets_values_named": {
+    "filename_prefix": "mech/04_whole"
+   }
+  },
+  {
+   "id": 18,
+   "type": "MarkdownNote",
+   "pos": [
+    0,
+    0
+   ],
+   "size": [
+    440,
+    420
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [],
+   "outputs": [],
+   "title": "使用說明",
+   "properties": {},
+   "widgets_values": [
+    "## 04 抽取頭或四肢（45 度）\n需要：runs/<機甲>/master/master_45.png 與框選資料。\n1. 「45° 全身圖」與「畫布尺寸」的 mech_id 填機甲代號（例如 RC01）。\n2. 「畫布尺寸」與「提示詞」的 part 選同一個部位：HEAD_NECK、ARM_FULL_L/R、LEG_FULL_L/R。\n   腿的 headroom 建議 1.6（避免腿頂被切）。\n3. 按「執行」。\n\n左右是機甲本身的左右（_R 在正面圖的畫面左側）。"
+   ],
+   "widgets_values_named": {
+    "text": "## 04 抽取頭或四肢（45 度）\n需要：runs/<機甲>/master/master_45.png 與框選資料。\n1. 「45° 全身圖」與「畫布尺寸」的 mech_id 填機甲代號（例如 RC01）。\n2. 「畫布尺寸」與「提示詞」的 part 選同一個部位：HEAD_NECK、ARM_FULL_L/R、LEG_FULL_L/R。\n   腿的 headroom 建議 1.6（避免腿頂被切）。\n3. 按「執行」。\n\n左右是機甲本身的左右（_R 在正面圖的畫面左側）。"
+   },
+   "color": "#432",
+   "bgcolor": "#653"
+  }
+ ],
+ "links": [
+  [
+   22,
+   1,
+   0,
+   2,
+   0,
+   "MODEL"
+  ],
+  [
+   23,
+   2,
+   0,
+   3,
+   0,
+   "MODEL"
+  ],
+  [
+   24,
+   3,
+   0,
+   4,
+   0,
+   "MODEL"
+  ],
+  [
+   25,
+   5,
+   0,
+   10,
+   0,
+   "CLIP"
+  ],
+  [
+   26,
+   6,
+   0,
+   10,
+   1,
+   "VAE"
+  ],
+  [
+   27,
+   9,
+   0,
+   10,
+   5,
+   "STRING"
+  ],
+  [
+   28,
+   7,
+   0,
+   10,
+   2,
+   "IMAGE"
+  ],
+  [
+   29,
+   5,
+   0,
+   11,
+   0,
+   "CLIP"
+  ],
+  [
+   30,
+   6,
+   0,
+   11,
+   1,
+   "VAE"
+  ],
+  [
+   31,
+   7,
+   0,
+   11,
+   2,
+   "IMAGE"
+  ],
+  [
+   32,
+   10,
+   0,
+   12,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   33,
+   11,
+   0,
+   13,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   34,
+   8,
+   0,
+   14,
+   0,
+   "INT"
+  ],
+  [
+   35,
+   8,
+   1,
+   14,
+   1,
+   "INT"
+  ],
+  [
+   36,
+   4,
+   0,
+   15,
+   0,
+   "MODEL"
+  ],
+  [
+   37,
+   12,
+   0,
+   15,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   38,
+   13,
+   0,
+   15,
+   2,
+   "CONDITIONING"
+  ],
+  [
+   39,
+   14,
+   0,
+   15,
+   3,
+   "LATENT"
+  ],
+  [
+   40,
+   15,
+   0,
+   16,
+   0,
+   "LATENT"
+  ],
+  [
+   41,
+   6,
+   0,
+   16,
+   1,
+   "VAE"
+  ],
+  [
+   42,
+   16,
+   0,
+   17,
+   0,
+   "IMAGE"
+  ]
+ ],
+ "groups": [],
+ "config": {},
+ "extra": {
+  "ds": {
+   "scale": 0.5,
+   "offset": [
+    40,
+    80
+   ]
+  }
+ },
+ "version": 0.4
+}

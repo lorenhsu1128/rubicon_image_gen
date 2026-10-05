@@ -114,9 +114,6 @@ SEGMENT_OF = {
 # from it and completed like a segment; asking for "the torso" by text redraws head and legs.
 TORSO_ERASE = ("HEAD_NECK", "LEG_FULL_L", "LEG_FULL_R", "ARM_FULL_L", "ARM_FULL_R")
 TORSO_KEEP = ("CHEST_WAIST", "WAIST_HIP")
-REMOVE_ARMS = ("刪除這台機甲的兩隻手臂，包括肩甲、上臂、前臂與手掌。肩膀處畫成乾淨的關節接座。"
-               "其他部分完全不要改動：位置、大小、形狀、線條、配色與標記都和原圖相同。"
-               "刪除後空出來的地方補成和原圖相同的純淺灰色背景。")
 
 
 def part_canvas(bbox: list[int] | None, pixels: int) -> tuple[int, int]:
@@ -197,7 +194,7 @@ class S2Run:
     def no_arms(self) -> Path:
         if self._no_arms is None:
             job = Job(mech_id=self.mech_id, stage="s2_prep", part="no_arms", workflow="edit_keep.api.json",
-                      seed=self.seed, mode=self.mode, prompt=REMOVE_ARMS, input_images={"IN_IMAGE_1": rel(self.master)},
+                      seed=self.seed, mode=self.mode, prompt=_prompt("s2_remove_arms.txt"), input_images={"IN_IMAGE_1": rel(self.master)},
                       unet=settings()["models"]["edit"]["unet"])
             self._no_arms = job.run(self.comfy)
             self.log(f"  s2_prep/no_arms -> {rel(self._no_arms)}")

@@ -1,0 +1,302 @@
+{
+ "1": {
+  "class_type": "UnetLoaderGGUF",
+  "_meta": {
+   "title": "UNET"
+  },
+  "inputs": {
+   "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
+  }
+ },
+ "2": {
+  "class_type": "ModelSamplingAuraFlow",
+  "_meta": {
+   "title": "Model Sampling AuraFlow"
+  },
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "shift": 3.1
+  }
+ },
+ "3": {
+  "class_type": "CFGNorm",
+  "_meta": {
+   "title": "CFG Norm"
+  },
+  "inputs": {
+   "model": [
+    "2",
+    0
+   ],
+   "strength": 1.0,
+   "pre_cfg": false
+  }
+ },
+ "4": {
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "LORA_LIGHTNING"
+  },
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ],
+   "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+   "strength_model": 1.0
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "TEXT_ENCODER"
+  },
+  "inputs": {
+   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "VAE"
+  },
+  "inputs": {
+   "vae_name": "qwen_image_vae.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "要修的圖（右鍵 → 遮罩編輯器塗出範圍）"
+  },
+  "inputs": {
+   "image": "example.png"
+  }
+ },
+ "8": {
+  "class_type": "MechMarkMask",
+  "_meta": {
+   "title": "遮罩標記"
+  },
+  "inputs": {
+   "image": [
+    "7",
+    0
+   ],
+   "mask": [
+    "7",
+    1
+   ]
+  }
+ },
+ "9": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "只擦除"
+  },
+  "inputs": {
+   "images": [
+    "8",
+    1
+   ],
+   "filename_prefix": "mech/08_erase"
+  }
+ },
+ "10": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "補畫提示（text 可寫要求，例如：補成肩膀的圓形關節截面）"
+  },
+  "inputs": {
+   "template": "s2_fill",
+   "part": "（無）",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "11": {
+  "class_type": "FluxKontextImageScale",
+  "_meta": {
+   "title": "補畫：縮放"
+  },
+  "inputs": {
+   "image": [
+    "8",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "補畫：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "10",
+    0
+   ],
+   "image1": [
+    "11",
+    0
+   ]
+  }
+ },
+ "13": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "補畫：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "11",
+    0
+   ]
+  }
+ },
+ "14": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "補畫：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "12",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "15": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "補畫：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "13",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "16": {
+  "class_type": "VAEEncode",
+  "_meta": {
+   "title": "補畫：編碼"
+  },
+  "inputs": {
+   "pixels": [
+    "11",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "17": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "補畫：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "14",
+    0
+   ],
+   "negative": [
+    "15",
+    0
+   ],
+   "latent_image": [
+    "16",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "18": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "補畫：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "17",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "19": {
+  "class_type": "MechMaskComposite",
+  "_meta": {
+   "title": "只貼回遮罩範圍"
+  },
+  "inputs": {
+   "erased": [
+    "8",
+    1
+   ],
+   "repainted": [
+    "18",
+    0
+   ],
+   "mask": [
+    "7",
+    1
+   ],
+   "grow": 6,
+   "feather": 4
+  }
+ },
+ "20": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "擦除並補畫"
+  },
+  "inputs": {
+   "images": [
+    "19",
+    0
+   ],
+   "filename_prefix": "mech/08_repaint"
+  }
+ }
+}

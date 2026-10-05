@@ -1,0 +1,496 @@
+{
+ "1": {
+  "class_type": "UnetLoaderGGUF",
+  "_meta": {
+   "title": "UNET"
+  },
+  "inputs": {
+   "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
+  }
+ },
+ "2": {
+  "class_type": "ModelSamplingAuraFlow",
+  "_meta": {
+   "title": "Model Sampling AuraFlow"
+  },
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "shift": 3.1
+  }
+ },
+ "3": {
+  "class_type": "CFGNorm",
+  "_meta": {
+   "title": "CFG Norm"
+  },
+  "inputs": {
+   "model": [
+    "2",
+    0
+   ],
+   "strength": 1.0,
+   "pre_cfg": false
+  }
+ },
+ "4": {
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "LORA_LIGHTNING"
+  },
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ],
+   "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+   "strength_model": 1.0
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "TEXT_ENCODER"
+  },
+  "inputs": {
+   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "VAE"
+  },
+  "inputs": {
+   "vae_name": "qwen_image_vae.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "正面部件圖"
+  },
+  "inputs": {
+   "image": "example.png"
+  }
+ },
+ "8": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "畫布尺寸"
+  },
+  "inputs": {
+   "image": [
+    "7",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "9": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "文字提示詞"
+  },
+  "inputs": {
+   "template": "s2_rotate",
+   "part": "（無）",
+   "view": "45",
+   "text": ""
+  }
+ },
+ "10": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "文字轉 45°：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "9",
+    0
+   ],
+   "image1": [
+    "7",
+    0
+   ]
+  }
+ },
+ "11": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "文字轉 45°：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "7",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "文字轉 45°：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "10",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "13": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "文字轉 45°：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "11",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "14": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "文字轉 45°：畫布"
+  },
+  "inputs": {
+   "width": [
+    "8",
+    0
+   ],
+   "height": [
+    "8",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "15": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "文字轉 45°：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "12",
+    0
+   ],
+   "negative": [
+    "13",
+    0
+   ],
+   "latent_image": [
+    "14",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "16": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "文字轉 45°：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "15",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "17": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "45°（文字）"
+  },
+  "inputs": {
+   "images": [
+    "16",
+    0
+   ],
+   "filename_prefix": "mech/07_rotate_text"
+  }
+ },
+ "18": {
+  "class_type": "UnetLoaderGGUF",
+  "_meta": {
+   "title": "UNET"
+  },
+  "inputs": {
+   "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
+  }
+ },
+ "19": {
+  "class_type": "ModelSamplingAuraFlow",
+  "_meta": {
+   "title": "Model Sampling AuraFlow"
+  },
+  "inputs": {
+   "model": [
+    "18",
+    0
+   ],
+   "shift": 3.1
+  }
+ },
+ "20": {
+  "class_type": "CFGNorm",
+  "_meta": {
+   "title": "CFG Norm"
+  },
+  "inputs": {
+   "model": [
+    "19",
+    0
+   ],
+   "strength": 1.0,
+   "pre_cfg": false
+  }
+ },
+ "21": {
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "LORA_LIGHTNING"
+  },
+  "inputs": {
+   "model": [
+    "20",
+    0
+   ],
+   "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+   "strength_model": 1.0
+  }
+ },
+ "22": {
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "LORA_TASK"
+  },
+  "inputs": {
+   "model": [
+    "21",
+    0
+   ],
+   "lora_name": "qwen_edit_2511_camera_angle_lora.safetensors",
+   "strength_model": 1.0
+  }
+ },
+ "23": {
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "TEXT_ENCODER"
+  },
+  "inputs": {
+   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "24": {
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "VAE"
+  },
+  "inputs": {
+   "vae_name": "qwen_image_vae.safetensors"
+  }
+ },
+ "25": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "LoRA 提示詞"
+  },
+  "inputs": {
+   "template": "cam_lora",
+   "part": "（無）",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "26": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "LoRA 轉 45°：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "23",
+    0
+   ],
+   "vae": [
+    "24",
+    0
+   ],
+   "prompt": [
+    "25",
+    0
+   ],
+   "image1": [
+    "7",
+    0
+   ]
+  }
+ },
+ "27": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "LoRA 轉 45°：負面"
+  },
+  "inputs": {
+   "clip": [
+    "23",
+    0
+   ],
+   "vae": [
+    "24",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "7",
+    0
+   ]
+  }
+ },
+ "28": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "LoRA 轉 45°：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "26",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "29": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "LoRA 轉 45°：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "27",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "30": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "LoRA 轉 45°：畫布"
+  },
+  "inputs": {
+   "width": [
+    "8",
+    0
+   ],
+   "height": [
+    "8",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "31": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "LoRA 轉 45°：取樣"
+  },
+  "inputs": {
+   "model": [
+    "22",
+    0
+   ],
+   "positive": [
+    "28",
+    0
+   ],
+   "negative": [
+    "29",
+    0
+   ],
+   "latent_image": [
+    "30",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "32": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "LoRA 轉 45°：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "31",
+    0
+   ],
+   "vae": [
+    "24",
+    0
+   ]
+  }
+ },
+ "33": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "45°（camera LoRA）"
+  },
+  "inputs": {
+   "images": [
+    "32",
+    0
+   ],
+   "filename_prefix": "mech/07_rotate_lora"
+  }
+ }
+}

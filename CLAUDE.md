@@ -48,6 +48,7 @@
 4. `touchup <mech>`（選用）：瀏覽器修圖工具 `http://127.0.0.1:8198/`，筆刷擦除不要的地方，可選擇讓 2511 在擦除範圍補畫（截面、關節座）；範圍外像素不變，每次存新版本於 `s2_touch/`，可回到上一版
 5. `deliver <mech>`：收集每個部位、每條鏈的目前版本（有修圖就用最新修圖版）到 `runs/<mech>/deliver/`
 - 每階段都會產生 `contact_sheet.html`；`rerun <json>` 依 metadata 重跑單一步驟。
+- ComfyUI 範本庫「擴充功能 → 0_MechPipeline」有 8 個逐步範本（自訂節點在 `comfy_nodes/0_MechPipeline/`，說明見 `docs/comfy-templates.md`）；範本不做自動 QC／重試。
 
 ## Workflow 替換規則
 
