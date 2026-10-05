@@ -1,0 +1,46 @@
+{
+  "mech_id": "RC02",
+  "stage": "s1_45_try_cam_left45",
+  "part": "master",
+  "workflow": "edit_keep_lora.api.json",
+  "seed": 31,
+  "mode": "draft",
+  "prompt": "Move the camera 45 degrees to the left around the object. Target camera elevation: 0 degrees. Keep the object, its colors, and the white background the same.",
+  "input_images": {
+    "IN_IMAGE_1": "runs/RC02/master/master_front.png"
+  },
+  "unet": "qwen-image-edit-2511-Q4_K_M.gguf",
+  "loras": [
+    {
+      "name": "cam_left45",
+      "title": "LORA_TASK",
+      "file": "qwen_edit_2511_camera_angle_lora.safetensors",
+      "strength": 1.0
+    }
+  ],
+  "extra_patches": {},
+  "family": "edit",
+  "steps": 4,
+  "cfg": 1.0,
+  "lightning_strength": 1.0,
+  "input_sha256": {
+    "IN_IMAGE_1": "a791016b7cc063670860601772a579b9226b3a124493186172e118312635f7df"
+  },
+  "patches": {
+    "UNET.unet_name": "qwen-image-edit-2511-Q4_K_M.gguf",
+    "SAMPLER.seed": 31,
+    "SAMPLER.steps": 4,
+    "SAMPLER.cfg": 1.0,
+    "LORA_LIGHTNING.strength_model": 1.0,
+    "PROMPT_POS.prompt": "Move the camera 45 degrees to the left around the object. Target camera elevation: 0 degrees. Keep the object, its colors, and the white background the same.",
+    "LORA_TASK.lora_name": "qwen_edit_2511_camera_angle_lora.safetensors",
+    "LORA_TASK.strength_model": 1.0,
+    "IN_IMAGE_1.image": "a791016b7cc0_master_front.png"
+  },
+  "output": "runs/RC02/s1_45_try_cam_left45/master/20261004-154014_31.png",
+  "timestamp": "2026-10-04T15:40:14",
+  "seconds": 126.8,
+  "comfy_prompt_id": "2f3ae3a5-d388-4bc4-a822-8ddca2a62f77",
+  "comfyui_version": "0.38.0",
+  "picked_from": "runs/RC02/s1_45_try_cam_left45/master/20261004-154014_31.png"
+}

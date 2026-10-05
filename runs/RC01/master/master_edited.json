@@ -1,0 +1,37 @@
+{
+  "mech_id": "RC01",
+  "stage": "s1",
+  "part": "edit",
+  "workflow": "edit_keep.api.json",
+  "seed": 1260220008,
+  "mode": "draft",
+  "prompt": "裝甲改成紅色。只做這個修改，其他全部保持不變：姿勢、構圖、鏡頭角度、比例、裝甲形狀、機械結構、線條粗細與筆觸、編號與標記、背景都和原圖完全相同。",
+  "input_images": {
+    "IN_IMAGE_1": "assets/sources/RC01_source.jpg"
+  },
+  "unet": "qwen-image-edit-2511-Q4_K_M.gguf",
+  "loras": [],
+  "extra_patches": {},
+  "family": "edit",
+  "steps": 4,
+  "cfg": 1.0,
+  "lightning_strength": 1.0,
+  "input_sha256": {
+    "IN_IMAGE_1": "0f438b9c879767e7bd800d53b13108fd8d4c2880f6d4138d849ac667f26109ca"
+  },
+  "patches": {
+    "UNET.unet_name": "qwen-image-edit-2511-Q4_K_M.gguf",
+    "SAMPLER.seed": 1260220008,
+    "SAMPLER.steps": 4,
+    "SAMPLER.cfg": 1.0,
+    "LORA_LIGHTNING.strength_model": 1.0,
+    "PROMPT_POS.prompt": "裝甲改成紅色。只做這個修改，其他全部保持不變：姿勢、構圖、鏡頭角度、比例、裝甲形狀、機械結構、線條粗細與筆觸、編號與標記、背景都和原圖完全相同。",
+    "IN_IMAGE_1.image": "0f438b9c8797_RC01_source.jpg"
+  },
+  "output": "runs/RC01/s1/edit/20261004-082054_1260220008.png",
+  "timestamp": "2026-10-04T08:20:54",
+  "seconds": 39.3,
+  "comfy_prompt_id": "384e3f67-c977-42b4-a377-03e86ef3fc30",
+  "comfyui_version": "0.38.0",
+  "picked_from": "runs/RC01/s1/edit/20261004-082054_1260220008.png"
+}

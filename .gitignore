@@ -1,8 +1,14 @@
 # ComfyUI install (code, custom nodes, models, inputs/outputs) lives here but is not versioned
 /ComfyUI/
 
-# Pipeline outputs
-/runs/
+# Pipeline outputs: only the final results are versioned (selected masters and the deliverables
+# for TRELLIS.2); experiments, intermediate steps and rejected images stay local.
+/runs/**
+!/runs/*/
+!/runs/*/master/
+!/runs/*/master/**
+!/runs/*/deliver/
+!/runs/*/deliver/**
 
 # Python
 __pycache__/

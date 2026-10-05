@@ -1,0 +1,40 @@
+{
+  "mech_id": "RC02",
+  "stage": "s1",
+  "part": "apose",
+  "workflow": "s1_master.api.json",
+  "seed": 6102,
+  "mode": "draft",
+  "prompt": "把圖1的機甲改成正面視角、立正站好的 A 字站姿：四肢自然下垂，雙臂稍微離開軀幹讓大腿完整露出，雙腳之間留一點空隙，手上不拿武器。只改變姿勢與視角，機甲本身必須和圖1完全相同：相同的整體比例、相同的裝甲形狀與大小、相同的配色、相同的機械結構（包括四肢關節的形式、外露的機械骨架、油壓桿與管線）、相同的線條粗細與手繪筆觸、相同的編號與標記。圖2是同一台機甲的原始設計，用來對照被遮住或看不到的部位細節，但配色以圖1為準。\n從頭到腳的全身，正交視角，置中，純淺灰色背景，沒有地面陰影。",
+  "input_images": {
+    "IN_IMAGE_1": "runs/RC02/master/master_edited.png",
+    "IN_IMAGE_2": "assets/sources/RC02_source.jpg"
+  },
+  "unet": "qwen-image-edit-2511-Q4_K_M.gguf",
+  "loras": [],
+  "extra_patches": {},
+  "family": "edit",
+  "steps": 4,
+  "cfg": 1.0,
+  "lightning_strength": 1.0,
+  "input_sha256": {
+    "IN_IMAGE_1": "c9ee7ceb5c31f4b1287e68e346c6b77fe501bffe0acd8f1935e9dece95bafd83",
+    "IN_IMAGE_2": "d771e87e6b68056cecc18e0194bcbe0c154a48756a3ba6d1cbebb3fa90f1215e"
+  },
+  "patches": {
+    "UNET.unet_name": "qwen-image-edit-2511-Q4_K_M.gguf",
+    "SAMPLER.seed": 6102,
+    "SAMPLER.steps": 4,
+    "SAMPLER.cfg": 1.0,
+    "LORA_LIGHTNING.strength_model": 1.0,
+    "PROMPT_POS.prompt": "把圖1的機甲改成正面視角、立正站好的 A 字站姿：四肢自然下垂，雙臂稍微離開軀幹讓大腿完整露出，雙腳之間留一點空隙，手上不拿武器。只改變姿勢與視角，機甲本身必須和圖1完全相同：相同的整體比例、相同的裝甲形狀與大小、相同的配色、相同的機械結構（包括四肢關節的形式、外露的機械骨架、油壓桿與管線）、相同的線條粗細與手繪筆觸、相同的編號與標記。圖2是同一台機甲的原始設計，用來對照被遮住或看不到的部位細節，但配色以圖1為準。\n從頭到腳的全身，正交視角，置中，純淺灰色背景，沒有地面陰影。",
+    "IN_IMAGE_1.image": "c9ee7ceb5c31_master_edited.png",
+    "IN_IMAGE_2.image": "d771e87e6b68_RC02_source.jpg"
+  },
+  "output": "runs/RC02/s1/apose/20261004-104924_6102.png",
+  "timestamp": "2026-10-04T10:49:24",
+  "seconds": 142.2,
+  "comfy_prompt_id": "176e3d67-9809-4e84-bee3-f0fc1efd3b27",
+  "comfyui_version": "0.38.0",
+  "picked_from": "runs/RC02/s1/apose/20261004-104924_6102.png"
+}

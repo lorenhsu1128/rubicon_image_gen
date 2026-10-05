@@ -1,0 +1,699 @@
+{
+  "mech_id": "RC02",
+  "view": "45",
+  "parts": [
+    {
+      "part": "HEAD_NECK",
+      "chain_seed": 9501,
+      "file": "RC02_HEAD_NECK_9501.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "whole mech"
+        ],
+        "attempt": 3,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/HEAD_NECK/20261004-172229_11501.png"
+    },
+    {
+      "part": "HEAD_NECK",
+      "chain_seed": 9502,
+      "file": "RC02_HEAD_NECK_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 2,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/HEAD_NECK/20261004-182748_10502.png"
+    },
+    {
+      "part": "CHEST_WAIST",
+      "chain_seed": 9501,
+      "file": "RC02_CHEST_WAIST_9501.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/CHEST_WAIST/20261004-172829_9501.png"
+    },
+    {
+      "part": "CHEST_WAIST",
+      "chain_seed": 9502,
+      "file": "RC02_CHEST_WAIST_9502.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/CHEST_WAIST/20261004-183422_9502.png"
+    },
+    {
+      "part": "CHEST_WAIST",
+      "chain_seed": 9503,
+      "file": "RC02_CHEST_WAIST_9503.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9503
+      },
+      "source": "runs/RC02/s2_45/CHEST_WAIST/20261004-191921_9503.png"
+    },
+    {
+      "part": "WAIST_HIP",
+      "chain_seed": 9501,
+      "file": "RC02_WAIST_HIP_9501.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/WAIST_HIP/20261004-173145_9501.png"
+    },
+    {
+      "part": "WAIST_HIP",
+      "chain_seed": 9502,
+      "file": "RC02_WAIST_HIP_9502.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/WAIST_HIP/20261004-183848_9502.png"
+    },
+    {
+      "part": "WAIST_HIP",
+      "chain_seed": 9503,
+      "file": "RC02_WAIST_HIP_9503.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9503
+      },
+      "source": "runs/RC02/s2_45/WAIST_HIP/20261004-192350_9503.png"
+    },
+    {
+      "part": "SHOULDER_UPPERARM_R",
+      "chain_seed": 9501,
+      "file": "RC02_SHOULDER_UPPERARM_R_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 2,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/SHOULDER_UPPERARM_R/20261004-173429_10501.png"
+    },
+    {
+      "part": "SHOULDER_UPPERARM_R",
+      "chain_seed": 9502,
+      "file": "RC02_SHOULDER_UPPERARM_R_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/SHOULDER_UPPERARM_R/20261004-184053_9502.png"
+    },
+    {
+      "part": "FOREARM_HAND_R",
+      "chain_seed": 9501,
+      "file": "RC02_FOREARM_HAND_R_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/FOREARM_HAND_R/20261004-173533_9501.png"
+    },
+    {
+      "part": "FOREARM_HAND_R",
+      "chain_seed": 9502,
+      "file": "RC02_FOREARM_HAND_R_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/FOREARM_HAND_R/20261004-184155_9502.png"
+    },
+    {
+      "part": "SHOULDER_UPPERARM_L",
+      "chain_seed": 9501,
+      "file": "RC02_SHOULDER_UPPERARM_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 2,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/SHOULDER_UPPERARM_L/20261004-173811_10501.png"
+    },
+    {
+      "part": "SHOULDER_UPPERARM_L",
+      "chain_seed": 9502,
+      "file": "RC02_SHOULDER_UPPERARM_L_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/SHOULDER_UPPERARM_L/20261004-184359_9502.png"
+    },
+    {
+      "part": "FOREARM_HAND_L",
+      "chain_seed": 9501,
+      "file": "RC02_FOREARM_HAND_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/FOREARM_HAND_L/20261004-173914_9501.png"
+    },
+    {
+      "part": "FOREARM_HAND_L",
+      "chain_seed": 9502,
+      "file": "RC02_FOREARM_HAND_L_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/FOREARM_HAND_L/20261004-184501_9502.png"
+    },
+    {
+      "part": "THIGH_KNEE_R",
+      "chain_seed": 9501,
+      "file": "RC02_THIGH_KNEE_R_9501.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg",
+          "not_cut",
+          "aspect x0.56"
+        ],
+        "attempt": 3,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/THIGH_KNEE_R/20261004-174345_11501.png"
+    },
+    {
+      "part": "THIGH_KNEE_R",
+      "chain_seed": 9502,
+      "file": "RC02_THIGH_KNEE_R_9502.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "aspect x0.56"
+        ],
+        "attempt": 3,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/THIGH_KNEE_R/20261004-184925_11502.png"
+    },
+    {
+      "part": "THIGH_KNEE_R",
+      "chain_seed": 9504,
+      "file": "RC02_THIGH_KNEE_R_9504.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "aspect x0.58"
+        ],
+        "attempt": 3,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/THIGH_KNEE_R/20261004-193140_11504.png"
+    },
+    {
+      "part": "KNEE_SHIN_R",
+      "chain_seed": 9501,
+      "file": "RC02_KNEE_SHIN_R_9501.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg",
+          "aspect x0.61"
+        ],
+        "attempt": 3,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/KNEE_SHIN_R/20261004-174559_11501.png"
+    },
+    {
+      "part": "KNEE_SHIN_R",
+      "chain_seed": 9502,
+      "file": "RC02_KNEE_SHIN_R_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/KNEE_SHIN_R/20261004-185027_9502.png"
+    },
+    {
+      "part": "KNEE_SHIN_R",
+      "chain_seed": 9504,
+      "file": "RC02_KNEE_SHIN_R_9504.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "aspect x0.59"
+        ],
+        "attempt": 3,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/KNEE_SHIN_R/20261004-193355_11504.png"
+    },
+    {
+      "part": "ANKLE_FOOT_R",
+      "chain_seed": 9501,
+      "file": "RC02_ANKLE_FOOT_R_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 2,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/ANKLE_FOOT_R/20261004-174741_10501.png"
+    },
+    {
+      "part": "ANKLE_FOOT_R",
+      "chain_seed": 9502,
+      "file": "RC02_ANKLE_FOOT_R_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/ANKLE_FOOT_R/20261004-185129_9502.png"
+    },
+    {
+      "part": "ANKLE_FOOT_R",
+      "chain_seed": 9504,
+      "file": "RC02_ANKLE_FOOT_R_9504.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/ANKLE_FOOT_R/20261004-193458_9504.png"
+    },
+    {
+      "part": "THIGH_KNEE_L",
+      "chain_seed": 9501,
+      "file": "RC02_THIGH_KNEE_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 2,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/THIGH_KNEE_L/20261004-175023_10501.png"
+    },
+    {
+      "part": "THIGH_KNEE_L",
+      "chain_seed": 9502,
+      "file": "RC02_THIGH_KNEE_L_9502.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "aspect x0.56",
+          "whole mech"
+        ],
+        "attempt": 3,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/THIGH_KNEE_L/20261004-185556_11502.png"
+    },
+    {
+      "part": "THIGH_KNEE_L",
+      "chain_seed": 9504,
+      "file": "RC02_THIGH_KNEE_L_9504.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "aspect x0.54"
+        ],
+        "attempt": 3,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/THIGH_KNEE_L/20261004-194137_11504.png"
+    },
+    {
+      "part": "KNEE_SHIN_L",
+      "chain_seed": 9501,
+      "file": "RC02_KNEE_SHIN_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/KNEE_SHIN_L/20261004-175126_9501.png"
+    },
+    {
+      "part": "KNEE_SHIN_L",
+      "chain_seed": 9502,
+      "file": "RC02_KNEE_SHIN_L_9502.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg"
+        ],
+        "attempt": 3,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/KNEE_SHIN_L/20261004-185810_11502.png"
+    },
+    {
+      "part": "KNEE_SHIN_L",
+      "chain_seed": 9504,
+      "file": "RC02_KNEE_SHIN_L_9504.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 2,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/KNEE_SHIN_L/20261004-194316_10504.png"
+    },
+    {
+      "part": "ANKLE_FOOT_L",
+      "chain_seed": 9501,
+      "file": "RC02_ANKLE_FOOT_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/ANKLE_FOOT_L/20261004-175229_9501.png"
+    },
+    {
+      "part": "ANKLE_FOOT_L",
+      "chain_seed": 9502,
+      "file": "RC02_ANKLE_FOOT_L_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/ANKLE_FOOT_L/20261004-185912_9502.png"
+    },
+    {
+      "part": "ANKLE_FOOT_L",
+      "chain_seed": 9504,
+      "file": "RC02_ANKLE_FOOT_L_9504.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg",
+          "not_cut",
+          "aspect x0.56"
+        ],
+        "attempt": 3,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/ANKLE_FOOT_L/20261004-194531_11504.png"
+    },
+    {
+      "part": "ARM_FULL_L",
+      "chain_seed": 9501,
+      "file": "RC02_ARM_FULL_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/ARM_FULL_L/20261004-173635_9501.png"
+    },
+    {
+      "part": "ARM_FULL_L",
+      "chain_seed": 9502,
+      "file": "RC02_ARM_FULL_L_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/ARM_FULL_L/20261004-184257_9502.png"
+    },
+    {
+      "part": "ARM_FULL_R",
+      "chain_seed": 9501,
+      "file": "RC02_ARM_FULL_R_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/ARM_FULL_R/20261004-173249_9501.png"
+    },
+    {
+      "part": "ARM_FULL_R",
+      "chain_seed": 9502,
+      "file": "RC02_ARM_FULL_R_9502.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/ARM_FULL_R/20261004-183951_9502.png"
+    },
+    {
+      "part": "LEG_FULL_L",
+      "chain_seed": 9501,
+      "file": "RC02_LEG_FULL_L_9501.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/LEG_FULL_L/20261004-174844_9501.png"
+    },
+    {
+      "part": "LEG_FULL_L",
+      "chain_seed": 9502,
+      "file": "RC02_LEG_FULL_L_9502.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg",
+          "not_cut"
+        ],
+        "attempt": 3,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/LEG_FULL_L/20261004-185343_11502.png"
+    },
+    {
+      "part": "LEG_FULL_L",
+      "chain_seed": 9504,
+      "file": "RC02_LEG_FULL_L_9504.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/LEG_FULL_L/20261004-193919_9504.png"
+    },
+    {
+      "part": "LEG_FULL_R",
+      "chain_seed": 9501,
+      "file": "RC02_LEG_FULL_R_9501.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg",
+          "not_cut"
+        ],
+        "attempt": 3,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/LEG_FULL_R/20261004-174130_11501.png"
+    },
+    {
+      "part": "LEG_FULL_R",
+      "chain_seed": 9502,
+      "file": "RC02_LEG_FULL_R_9502.png",
+      "qc_ok": false,
+      "manual_pick": false,
+      "qc": {
+        "ok": false,
+        "problems": [
+          "white_bg",
+          "not_cut"
+        ],
+        "attempt": 3,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/LEG_FULL_R/20261004-184713_11502.png"
+    },
+    {
+      "part": "LEG_FULL_R",
+      "chain_seed": 9504,
+      "file": "RC02_LEG_FULL_R_9504.png",
+      "qc_ok": true,
+      "manual_pick": false,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9504
+      },
+      "source": "runs/RC02/s2_45/LEG_FULL_R/20261004-192920_9504.png"
+    },
+    {
+      "part": "TORSO_FULL",
+      "chain_seed": 9501,
+      "file": "RC02_TORSO_FULL_9501.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9501
+      },
+      "source": "runs/RC02/s2_45/TORSO_FULL/20261004-175332_9501.png"
+    },
+    {
+      "part": "TORSO_FULL",
+      "chain_seed": 9502,
+      "file": "RC02_TORSO_FULL_9502.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9502
+      },
+      "source": "runs/RC02/s2_45/TORSO_FULL/20261004-190013_9502.png"
+    },
+    {
+      "part": "TORSO_FULL",
+      "chain_seed": 9503,
+      "file": "RC02_TORSO_FULL_9503.png",
+      "qc_ok": true,
+      "manual_pick": true,
+      "qc": {
+        "ok": true,
+        "problems": [],
+        "attempt": 1,
+        "chain_seed": 9503
+      },
+      "source": "runs/RC02/s2_45/TORSO_FULL/20261004-191529_9503.png"
+    }
+  ]
+}
