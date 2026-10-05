@@ -40,7 +40,7 @@ for api in sorted(API_DIR.glob("*.api.json")):
         if node["class_type"] != "LoadImage":
             continue
         title = node["_meta"]["title"]
-        src = touchup_image() if title.startswith("要修的圖") else next(p for k, p in INPUTS.items() if title.startswith(k))
+        src = touchup_image() if title.startswith("要修的圖") else next(p for k, p in INPUTS.items() if k in title)  # 09 prefixes titles with its group
         node["inputs"]["image"] = comfy.upload(src)
     entry = comfy.wait(comfy.queue(wf))
     outs = [i["filename"] for o in entry["outputs"].values() for i in o.get("images", []) if i["type"] == "output"]

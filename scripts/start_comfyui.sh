@@ -5,6 +5,8 @@ cd "$(dirname "$(readlink -f "$0")")/.."
 VENV="${COMFY_VENV:-$HOME/.venvs/rubicon-comfy}"
 source "$VENV/bin/activate"
 export COMFY_PORT="${COMFY_PORT:-8188}"
+# 0.0.0.0 = reachable from other machines on the LAN; set COMFY_LISTEN=127.0.0.1 for local only
+export COMFY_LISTEN="${COMFY_LISTEN:-0.0.0.0}"
 export PYTHONUNBUFFERED=1
 # Do not set PYTORCH_CUDA_ALLOC_CONF here: ComfyUI picks the allocator backend itself
 # (cudaMallocAsync by default) and an override makes torch fail with an INTERNAL ASSERT.
@@ -20,6 +22,7 @@ fi
 echo "============================================================"
 echo " ComfyUI 啟動中"
 echo " 本機：      http://127.0.0.1:${COMFY_PORT}"
+echo " 監聽位址：  ${COMFY_LISTEN}（區網其他電腦用本機 IP 連線）"
 echo " 關閉服務：  在此視窗按 Ctrl+C"
 echo "============================================================"
 # Server output goes to a log file and this window only tails it: selecting text in a Windows
@@ -29,7 +32,7 @@ LOG="$LOG_DIR/comfyui.log"
 mkdir -p "$LOG_DIR"
 [ -f "$LOG" ] && mv -f "$LOG" "$LOG.prev"
 echo " 伺服器紀錄： $LOG"
-python ComfyUI/main.py --listen 127.0.0.1 --port "$COMFY_PORT" "$@" > "$LOG" 2>&1 &
+python ComfyUI/main.py --listen "$COMFY_LISTEN" --port "$COMFY_PORT" "$@" > "$LOG" 2>&1 &
 SERVER_PID=$!
 trap 'kill $SERVER_PID 2>/dev/null; wait $SERVER_PID 2>/dev/null' INT TERM EXIT
 tail -n +1 -F --pid="$SERVER_PID" "$LOG" 2>/dev/null

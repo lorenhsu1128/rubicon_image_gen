@@ -11,7 +11,14 @@
 - 範圍外：訓練 LoRA、3D 生成、TRELLIS.2 的修改、網頁 UI、SAM3 自動分割。
 - 每張產出圖旁要有同名 `.json` metadata，可用 `mechpipe rerun <json>` 重跑。
 
-## 環境（WSL2 Ubuntu-24.04，比照 TRELLIS.2 專案）
+## 環境（WSL2，比照 TRELLIS.2 專案）
+
+| 機器 | WSL 發行版 | repo 在 WSL 的路徑 | GPU |
+|---|---|---|---|
+| 原筆電 | `Ubuntu-24.04` | `/mnt/c/Users/loren/Documents/_projects/rubicon_image_gen` | RTX 5070 Ti Laptop 12GB |
+| 桌機（2026-10-05 建立） | `Ubuntu-22.04` | `/mnt/c/Users/ADMIN/Desktop/rubicon_image_gen` | RTX 5090 32GB |
+
+Python 3.13 由 uv 提供，與發行版的系統 Python 無關。
 
 - 程式碼與 `ComfyUI/`（含外掛、模型）都在本 repo 目錄；`ComfyUI/`、`runs/` 已在 `.gitignore`。
 - ComfyUI 版本固定在 tag `v0.38.0`（`Comfy-Org/ComfyUI`）；外掛：`ComfyUI-GGUF`、`ComfyUI-RMBG`（只用 BiRefNet，**禁用 RMBG-2.0 權重**）。
@@ -19,15 +26,16 @@
   - ComfyUI：`~/.venvs/rubicon-comfy`（uv，Python 3.13，torch cu130）
   - 不得修改其他專案的環境（例如 conda `trellis2`）。
 - 從 Claude Code 的 Git Bash 呼叫 WSL 時要加 `MSYS_NO_PATHCONV=1`，否則 `/mnt/c/...` 會被改寫：
-  `MSYS_NO_PATHCONV=1 wsl.exe -d Ubuntu-24.04 --cd "/mnt/c/Users/loren/Documents/_projects/rubicon_image_gen" -- bash -lc '...'`
+  `MSYS_NO_PATHCONV=1 wsl.exe -d <發行版> --cd "<repo 路徑>" -- bash -lc '...'`（發行版與路徑見上表）
+- `start_comfyui.bat` 用預設 WSL 發行版；要指定時設環境變數 `RUBICON_WSL_DISTRO`。
 - 安裝／重建 ComfyUI 與外掛（版本固定）：`bash scripts/setup_comfyui.sh`
 - 下載模型：`bash scripts/download_models.sh`（可重複執行，會續傳）
 - 不要設定 `PYTORCH_CUDA_ALLOC_CONF`：會和 ComfyUI 自選的 `cudaMallocAsync` 衝突，導致無法啟動。
-- 啟動 ComfyUI：Windows 雙擊 `start_comfyui.bat`，或在 WSL 執行 `bash scripts/start_comfyui.sh`；紀錄檔在 `~/.cache/rubicon/comfyui.log`。
+- 啟動 ComfyUI：Windows 雙擊 `start_comfyui.bat`，或在 WSL 執行 `bash scripts/start_comfyui.sh`；紀錄檔在 `~/.cache/rubicon/comfyui.log`。預設監聽 `0.0.0.0`（區網可連；`COMFY_LISTEN=127.0.0.1` 改回只限本機）；桌機已加 Windows 防火牆規則「ComfyUI rubicon (WSL) TCP 8188」（限本地子網路）。WSL mirrored 模式下，本機用自己的區網 IP 連 WSL 會逾時，要從別台電腦測試。
 
 ## 硬體限制
 
-- GPU：RTX 5070 Ti **Laptop，12GB 顯存**；WSL 記憶體 48GB。
+- GPU：RTX 5070 Ti **Laptop，12GB 顯存**；WSL 記憶體 48GB。流程以這台為準設計，桌機（5090 32GB）也照同樣規則跑，確保兩台結果一致。
 - 與 TRELLIS.2 共用 GPU，出圖前要先關掉 TRELLIS.2。
 - 一個 workflow 只放 Qwen-Image-Edit 主流程；去背、分割另開 workflow。
 - 每次只掛 Lightning LoRA ＋ 最多一顆任務 LoRA。
