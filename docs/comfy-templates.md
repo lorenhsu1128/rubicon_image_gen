@@ -23,6 +23,10 @@
   （`web/mech_prompt.js` 向 `/mech/prompt` 取得）；改 template、part、view、text 會重新產生，也可以直接改方框內容，
   執行時就用方框的文字。方框留空則依上面的欄位產生。
 - 範本更新後若在範本庫看到舊版，按 Ctrl+F5 重新整理瀏覽器（範本檔會被瀏覽器快取）。
+- 預設流程改為空白畫布（`web/blank_default.js`）：ComfyUI 內建的預設是 Z-Image 範例，本專案沒有它的模型，
+  每次開啟都會跳缺模型警告。要清掉所有未存的分頁：F12 主控台執行
+  `const ws = comfyAPI.app.app.extensionManager.workflow; for (const w of [...ws.openWorkflows]) await ws.closeWorkflow(w);`
+  （直接刪 localStorage 沒用：重新整理前前端會把開著的分頁再存回去）。
 - 草稿模式（Lightning 4 步）；KSampler 的種子預設每次隨機。
 
 ## 檔案
