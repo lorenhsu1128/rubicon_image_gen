@@ -12,14 +12,14 @@ def content_aspect(png: Path) -> float:
     return (x1 - x0) / (y1 - y0)
 
 
-def _silhouette(png: Path) -> Image.Image:
-    im = Image.open(png).convert("RGB")
+def _silhouette(png: Path | Image.Image) -> Image.Image:
+    im = (png if isinstance(png, Image.Image) else Image.open(png)).convert("RGB")
     mask = ImageChops.difference(im, Image.new("RGB", im.size, background(im))).convert("L")
     mask = mask.point(lambda v: 255 if v > 40 else 0).filter(ImageFilter.MedianFilter(5))
     return mask.crop(mask.getbbox()).resize((64, 64))
 
 
-def same_view(a: Path, b: Path) -> float:
+def same_view(a: Path | Image.Image, b: Path | Image.Image) -> float:
     """Silhouette IoU of two part images, also against the mirror image. A turned part scores
     below ~0.8; an unturned (or merely mirrored) one ~0.9 (calibrated on RC01, 2026-10-04)."""
     sa, sb = _silhouette(a), _silhouette(b)
@@ -31,6 +31,17 @@ def same_view(a: Path, b: Path) -> float:
         return inter / max(1, union)
 
     return max(iou(sa, sb), iou(ImageOps.mirror(sa), sb))
+
+
+# A-pose pass that only copied its input: silhouette IoU with the input >= this. Copies scored
+# 0.92-1.00, real re-poses 0.59-0.66 (red crouched mech, yellow mech, RC01; 2026-10-05).
+APOSE_COPY_IOU = 0.85
+
+
+def apose_copied(src: Path | Image.Image, out: Path | Image.Image) -> bool:
+    """True when the A-pose result kept the input's pose (the text-only pass does this for 3/4 or
+    crouched mechs; then the pose-skeleton pass is used instead)."""
+    return same_view(src, out) >= APOSE_COPY_IOU
 
 
 def content_diff(a: Path, b: Path) -> float:

@@ -1,8 +1,8 @@
 {
  "id": "42cdb8f3-7850-4ddc-822a-42752adf6e8f",
  "revision": 0,
- "last_node_id": 21,
- "last_link_id": 53,
+ "last_node_id": 32,
+ "last_link_id": 74,
  "nodes": [
   {
    "id": 1,
@@ -62,7 +62,7 @@
     82
    ],
    "flags": {},
-   "order": 8,
+   "order": 10,
    "mode": 0,
    "inputs": [
     {
@@ -126,7 +126,7 @@
     82
    ],
    "flags": {},
-   "order": 11,
+   "order": 15,
    "mode": 0,
    "inputs": [
     {
@@ -190,7 +190,7 @@
     82
    ],
    "flags": {},
-   "order": 14,
+   "order": 20,
    "mode": 0,
    "inputs": [
     {
@@ -224,7 +224,8 @@
      "name": "MODEL",
      "type": "MODEL",
      "links": [
-      42
+      42,
+      63
      ]
     }
    ],
@@ -292,7 +293,9 @@
      "type": "CLIP",
      "links": [
       29,
-      34
+      34,
+      54,
+      57
      ]
     }
    ],
@@ -344,7 +347,10 @@
      "links": [
       30,
       35,
-      47
+      47,
+      55,
+      58,
+      68
      ]
     }
    ],
@@ -400,7 +406,10 @@
      "type": "IMAGE",
      "links": [
       50,
-      52
+      52,
+      56,
+      59,
+      69
      ]
     },
     {
@@ -495,7 +504,7 @@
      ]
     }
    ],
-   "title": "提示詞",
+   "title": "A-pose 提示詞（骨架版）",
    "properties": {
     "Node name for S&R": "MechPrompt"
    },
@@ -526,7 +535,7 @@
     200
    ],
    "flags": {},
-   "order": 9,
+   "order": 12,
    "mode": 0,
    "inputs": [
     {
@@ -583,7 +592,7 @@
      ]
     }
    ],
-   "title": "轉 A-pose：提示詞",
+   "title": "轉 A-pose（骨架）：提示詞",
    "properties": {
     "Node name for S&R": "TextEncodeQwenImageEditPlus"
    },
@@ -606,7 +615,7 @@
     200
    ],
    "flags": {},
-   "order": 10,
+   "order": 13,
    "mode": 0,
    "inputs": [
     {
@@ -663,7 +672,7 @@
      ]
     }
    ],
-   "title": "轉 A-pose：負面",
+   "title": "轉 A-pose（骨架）：負面",
    "properties": {
     "Node name for S&R": "TextEncodeQwenImageEditPlus"
    },
@@ -686,7 +695,7 @@
     58
    ],
    "flags": {},
-   "order": 12,
+   "order": 17,
    "mode": 0,
    "inputs": [
     {
@@ -715,7 +724,7 @@
      ]
     }
    ],
-   "title": "轉 A-pose：參考方式",
+   "title": "轉 A-pose（骨架）：參考方式",
    "properties": {
     "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
    },
@@ -738,7 +747,7 @@
     58
    ],
    "flags": {},
-   "order": 13,
+   "order": 18,
    "mode": 0,
    "inputs": [
     {
@@ -767,7 +776,7 @@
      ]
     }
    ],
-   "title": "轉 A-pose：參考方式（負）",
+   "title": "轉 A-pose（骨架）：參考方式（負）",
    "properties": {
     "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
    },
@@ -790,7 +799,7 @@
     262
    ],
    "flags": {},
-   "order": 15,
+   "order": 21,
    "mode": 0,
    "inputs": [
     {
@@ -882,7 +891,7 @@
      ]
     }
    ],
-   "title": "轉 A-pose：取樣",
+   "title": "轉 A-pose（骨架）：取樣",
    "properties": {
     "Node name for S&R": "KSampler"
    },
@@ -917,7 +926,7 @@
     46
    ],
    "flags": {},
-   "order": 16,
+   "order": 23,
    "mode": 0,
    "inputs": [
     {
@@ -939,11 +948,12 @@
      "name": "IMAGE",
      "type": "IMAGE",
      "links": [
-      48
+      71,
+      73
      ]
     }
    ],
-   "title": "轉 A-pose：解碼",
+   "title": "轉 A-pose（骨架）：解碼",
    "properties": {
     "Node name for S&R": "VAEDecode"
    }
@@ -960,14 +970,14 @@
     338
    ],
    "flags": {},
-   "order": 17,
+   "order": 28,
    "mode": 0,
    "inputs": [
     {
      "localized_name": "影像",
      "name": "images",
      "type": "IMAGE",
-     "link": 48
+     "link": 74
     },
     {
      "localized_name": "檔名前綴",
@@ -1015,10 +1025,10 @@
    "title": "使用說明",
    "properties": {},
    "widgets_values": [
-    "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「A-pose 骨架圖」是姿勢參考（自動產生，不用改）；機甲原本是斜側面、蹲低或持武器的姿勢也能轉正。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n「提示詞」節點下方的方框會顯示實際使用的提示詞，可以直接修改。"
+    "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 按「執行」會跑兩版，再自動挑一張：\n   - 文字版：只靠提示詞，最能保持原本的比例（腿的長短粗細、軀幹、頭、肩甲）。\n   - 骨架版：多給一張 A-pose 骨架圖當姿勢參考；斜側面、蹲低的機甲只靠文字會原樣照抄，這時改用它。\n   「自動挑選」節點：文字版和原圖輪廓幾乎一樣（照抄）就用骨架版，否則用文字版。兩版都會顯示在預覽，不滿意可以自己挑。\n3. 得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n「提示詞」節點下方的方框會顯示實際使用的提示詞，可以直接修改。"
    ],
    "widgets_values_named": {
-    "text": "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n注意：原圖若已經是正面站姿，模型可能把原圖的舊配色帶回來；這時把「原始機甲圖」換成和「改好的機甲圖」同一張即可。"
+    "text": "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「A-pose 骨架圖」是姿勢參考（自動產生，不用改）；機甲原本是斜側面、蹲低或持武器的姿勢也能轉正。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n「提示詞」節點下方的方框會顯示實際使用的提示詞，可以直接修改。"
    },
    "color": "#432",
    "bgcolor": "#653"
@@ -1076,7 +1086,7 @@
      ]
     }
    ],
-   "title": "轉 A-pose：畫布",
+   "title": "轉 A-pose（骨架）：畫布",
    "properties": {
     "Node name for S&R": "EmptySD3LatentImage"
    },
@@ -1147,6 +1157,740 @@
    "widgets_values_named": {
     "width": 864,
     "height": 1152
+   }
+  },
+  {
+   "id": 22,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    1330,
+    1030
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 14,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 54
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 55
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 56
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 60
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      61
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：提示詞",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 23,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    1330,
+    1290
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 11,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 57
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 58
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 59
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      62
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：負面",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 24,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1810,
+    1030
+   ],
+   "size": [
+    293.7193359375,
+    58
+   ],
+   "flags": {},
+   "order": 19,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 61
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      64
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：參考方式",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 25,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1810,
+    1148
+   ],
+   "size": [
+    293.7193359375,
+    58
+   ],
+   "flags": {},
+   "order": 16,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 62
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      65
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：參考方式（負）",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 26,
+   "type": "EmptySD3LatentImage",
+   "pos": [
+    1330,
+    1550
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 8,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "寬度",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "高度",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "批次大小",
+     "name": "batch_size",
+     "type": "INT",
+     "widget": {
+      "name": "batch_size"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      66
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：畫布",
+   "properties": {
+    "Node name for S&R": "EmptySD3LatentImage"
+   },
+   "widgets_values": [
+    864,
+    1152,
+    1
+   ],
+   "widgets_values_named": {
+    "width": 864,
+    "height": 1152,
+    "batch_size": 1
+   }
+  },
+  {
+   "id": 27,
+   "type": "KSampler",
+   "pos": [
+    2183.7193359375,
+    888
+   ],
+   "size": [
+    270,
+    262
+   ],
+   "flags": {},
+   "order": 22,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "模型",
+     "name": "model",
+     "type": "MODEL",
+     "link": 63
+    },
+    {
+     "localized_name": "正向條件",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 64
+    },
+    {
+     "localized_name": "負向條件",
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 65
+    },
+    {
+     "localized_name": "潛在空間影像",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 66
+    },
+    {
+     "localized_name": "種子",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "步驟數",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cfg",
+     "name": "cfg",
+     "type": "FLOAT",
+     "widget": {
+      "name": "cfg"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "取樣器",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "排程器",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "去雜訊強度",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      67
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：取樣",
+   "properties": {
+    "Node name for S&R": "KSampler"
+   },
+   "widgets_values": [
+    0,
+    "randomize",
+    4,
+    1,
+    "euler",
+    "simple",
+    1
+   ],
+   "widgets_values_named": {
+    "seed": 0,
+    "control_after_generate": "randomize",
+    "steps": 4,
+    "cfg": 1,
+    "sampler_name": "euler",
+    "scheduler": "simple",
+    "denoise": 1
+   }
+  },
+  {
+   "id": 28,
+   "type": "VAEDecode",
+   "pos": [
+    2533.7193359375,
+    888
+   ],
+   "size": [
+    147.9830078125,
+    46
+   ],
+   "flags": {},
+   "order": 24,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "samples",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 67
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 68
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      70,
+      72
+     ]
+    }
+   ],
+   "title": "轉 A-pose（文字）：解碼",
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 29,
+   "type": "MechPrompt",
+   "pos": [
+    500,
+    2174
+   ],
+   "size": [
+    420,
+    400
+   ],
+   "flags": {},
+   "order": 9,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "template",
+     "name": "template",
+     "type": "COMBO",
+     "widget": {
+      "name": "template"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "part",
+     "name": "part",
+     "type": "COMBO",
+     "widget": {
+      "name": "part"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "view",
+     "name": "view",
+     "type": "COMBO",
+     "widget": {
+      "name": "view"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "text",
+     "name": "text",
+     "type": "STRING",
+     "widget": {
+      "name": "text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "links": [
+      60
+     ]
+    }
+   ],
+   "title": "A-pose 提示詞（文字版）",
+   "properties": {
+    "Node name for S&R": "MechPrompt"
+   },
+   "widgets_values": [
+    "s1_apose_text",
+    "（無）",
+    "keep",
+    "",
+    ""
+   ],
+   "widgets_values_named": {
+    "template": "s1_apose_text",
+    "part": "（無）",
+    "view": "keep",
+    "text": "",
+    "full_prompt": ""
+   }
+  },
+  {
+   "id": 30,
+   "type": "MechPickAPose",
+   "pos": [
+    2733.7193359375,
+    384
+   ],
+   "size": [
+    375.9830078125,
+    98
+   ],
+   "flags": {},
+   "order": 26,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "edited",
+     "name": "edited",
+     "type": "IMAGE",
+     "link": 69
+    },
+    {
+     "localized_name": "text_result",
+     "name": "text_result",
+     "type": "IMAGE",
+     "link": 70
+    },
+    {
+     "localized_name": "skeleton_result",
+     "name": "skeleton_result",
+     "type": "IMAGE",
+     "link": 71
+    },
+    {
+     "localized_name": "copy_iou",
+     "name": "copy_iou",
+     "type": "FLOAT",
+     "widget": {
+      "name": "copy_iou"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "image",
+     "name": "image",
+     "type": "IMAGE",
+     "links": [
+      74
+     ]
+    },
+    {
+     "localized_name": "choice",
+     "name": "choice",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "自動挑選（文字版照抄原圖時用骨架版）",
+   "properties": {
+    "Node name for S&R": "MechPickAPose"
+   },
+   "widgets_values": [
+    0.85
+   ],
+   "widgets_values_named": {
+    "copy_iou": 0.85
+   }
+  },
+  {
+   "id": 31,
+   "type": "PreviewImage",
+   "pos": [
+    3169.70234375,
+    888
+   ],
+   "size": [
+    320,
+    400
+   ],
+   "flags": {},
+   "order": 27,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "圖片",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 72
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "文字版結果",
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   }
+  },
+  {
+   "id": 32,
+   "type": "PreviewImage",
+   "pos": [
+    3169.70234375,
+    0
+   ],
+   "size": [
+    320,
+    400
+   ],
+   "flags": {},
+   "order": 25,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "圖片",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 73
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "骨架版結果",
+   "properties": {
+    "Node name for S&R": "PreviewImage"
    }
   }
  ],
@@ -1272,14 +2016,6 @@
    "VAE"
   ],
   [
-   48,
-   17,
-   0,
-   18,
-   0,
-   "IMAGE"
-  ],
-  [
    49,
    20,
    0,
@@ -1317,6 +2053,174 @@
    0,
    12,
    3,
+   "IMAGE"
+  ],
+  [
+   54,
+   5,
+   0,
+   22,
+   0,
+   "CLIP"
+  ],
+  [
+   55,
+   6,
+   0,
+   22,
+   1,
+   "VAE"
+  ],
+  [
+   56,
+   7,
+   0,
+   22,
+   2,
+   "IMAGE"
+  ],
+  [
+   57,
+   5,
+   0,
+   23,
+   0,
+   "CLIP"
+  ],
+  [
+   58,
+   6,
+   0,
+   23,
+   1,
+   "VAE"
+  ],
+  [
+   59,
+   7,
+   0,
+   23,
+   2,
+   "IMAGE"
+  ],
+  [
+   60,
+   29,
+   0,
+   22,
+   5,
+   "STRING"
+  ],
+  [
+   61,
+   22,
+   0,
+   24,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   62,
+   23,
+   0,
+   25,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   63,
+   4,
+   0,
+   27,
+   0,
+   "MODEL"
+  ],
+  [
+   64,
+   24,
+   0,
+   27,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   65,
+   25,
+   0,
+   27,
+   2,
+   "CONDITIONING"
+  ],
+  [
+   66,
+   26,
+   0,
+   27,
+   3,
+   "LATENT"
+  ],
+  [
+   67,
+   27,
+   0,
+   28,
+   0,
+   "LATENT"
+  ],
+  [
+   68,
+   6,
+   0,
+   28,
+   1,
+   "VAE"
+  ],
+  [
+   69,
+   7,
+   0,
+   30,
+   0,
+   "IMAGE"
+  ],
+  [
+   70,
+   28,
+   0,
+   30,
+   1,
+   "IMAGE"
+  ],
+  [
+   71,
+   17,
+   0,
+   30,
+   2,
+   "IMAGE"
+  ],
+  [
+   72,
+   28,
+   0,
+   31,
+   0,
+   "IMAGE"
+  ],
+  [
+   73,
+   17,
+   0,
+   32,
+   0,
+   "IMAGE"
+  ],
+  [
+   74,
+   30,
+   0,
+   18,
+   0,
    "IMAGE"
   ]
  ],

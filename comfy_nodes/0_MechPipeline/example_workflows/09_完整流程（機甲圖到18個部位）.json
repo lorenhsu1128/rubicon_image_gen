@@ -1,8 +1,8 @@
 {
  "id": "2a71eba3-ff53-4934-94d6-26a04a5cb351",
  "revision": 0,
- "last_node_id": 273,
- "last_link_id": 1015,
+ "last_node_id": 284,
+ "last_link_id": 1040,
  "nodes": [
   {
    "id": 1,
@@ -62,7 +62,7 @@
     82
    ],
    "flags": {},
-   "order": 32,
+   "order": 34,
    "mode": 0,
    "inputs": [
     {
@@ -126,7 +126,7 @@
     82
    ],
    "flags": {},
-   "order": 34,
+   "order": 36,
    "mode": 0,
    "inputs": [
     {
@@ -190,7 +190,7 @@
     82
    ],
    "flags": {},
-   "order": 38,
+   "order": 40,
    "mode": 0,
    "inputs": [
     {
@@ -248,7 +248,8 @@
       948,
       966,
       985,
-      1004
+      1004,
+      1025
      ]
     }
    ],
@@ -364,7 +365,9 @@
       974,
       978,
       993,
-      997
+      997,
+      1016,
+      1019
      ]
     }
    ],
@@ -491,7 +494,10 @@
       990,
       994,
       998,
-      1009
+      1009,
+      1017,
+      1020,
+      1030
      ]
     }
    ],
@@ -518,7 +524,7 @@
     82
    ],
    "flags": {},
-   "order": 41,
+   "order": 43,
    "mode": 0,
    "inputs": [
     {
@@ -735,7 +741,7 @@
     26
    ],
    "flags": {},
-   "order": 33,
+   "order": 35,
    "mode": 0,
    "inputs": [
     {
@@ -774,7 +780,7 @@
     200
    ],
    "flags": {},
-   "order": 35,
+   "order": 37,
    "mode": 0,
    "inputs": [
     {
@@ -854,7 +860,7 @@
     200
    ],
    "flags": {},
-   "order": 36,
+   "order": 38,
    "mode": 0,
    "inputs": [
     {
@@ -934,7 +940,7 @@
     58
    ],
    "flags": {},
-   "order": 39,
+   "order": 41,
    "mode": 0,
    "inputs": [
     {
@@ -986,7 +992,7 @@
     58
    ],
    "flags": {},
-   "order": 40,
+   "order": 42,
    "mode": 0,
    "inputs": [
     {
@@ -1038,7 +1044,7 @@
     46
    ],
    "flags": {},
-   "order": 37,
+   "order": 39,
    "mode": 0,
    "inputs": [
     {
@@ -1081,7 +1087,7 @@
     262
    ],
    "flags": {},
-   "order": 42,
+   "order": 44,
    "mode": 0,
    "inputs": [
     {
@@ -1208,7 +1214,7 @@
     46
    ],
    "flags": {},
-   "order": 43,
+   "order": 45,
    "mode": 0,
    "inputs": [
     {
@@ -1232,7 +1238,10 @@
      "links": [
       528,
       1012,
-      1014
+      1014,
+      1018,
+      1021,
+      1031
      ]
     }
    ],
@@ -1253,7 +1262,7 @@
     338
    ],
    "flags": {},
-   "order": 44,
+   "order": 46,
    "mode": 0,
    "inputs": [
     {
@@ -1361,7 +1370,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】A-pose 提示詞",
+   "title": "【2 轉 A-pose】A-pose 提示詞（骨架版）",
    "properties": {
     "Node name for S&R": "MechPrompt"
    },
@@ -1392,7 +1401,7 @@
     200
    ],
    "flags": {},
-   "order": 45,
+   "order": 47,
    "mode": 0,
    "inputs": [
     {
@@ -1449,7 +1458,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：提示詞",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：提示詞",
    "properties": {
     "Node name for S&R": "TextEncodeQwenImageEditPlus"
    },
@@ -1472,7 +1481,7 @@
     200
    ],
    "flags": {},
-   "order": 46,
+   "order": 48,
    "mode": 0,
    "inputs": [
     {
@@ -1529,7 +1538,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：負面",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：負面",
    "properties": {
     "Node name for S&R": "TextEncodeQwenImageEditPlus"
    },
@@ -1552,7 +1561,7 @@
     58
    ],
    "flags": {},
-   "order": 47,
+   "order": 51,
    "mode": 0,
    "inputs": [
     {
@@ -1581,7 +1590,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：參考方式",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：參考方式",
    "properties": {
     "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
    },
@@ -1604,7 +1613,7 @@
     58
    ],
    "flags": {},
-   "order": 48,
+   "order": 52,
    "mode": 0,
    "inputs": [
     {
@@ -1633,7 +1642,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：參考方式（負）",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：參考方式（負）",
    "properties": {
     "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
    },
@@ -1656,7 +1665,7 @@
     262
    ],
    "flags": {},
-   "order": 49,
+   "order": 55,
    "mode": 0,
    "inputs": [
     {
@@ -1748,7 +1757,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：取樣",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：取樣",
    "properties": {
     "Node name for S&R": "KSampler"
    },
@@ -1783,7 +1792,7 @@
     46
    ],
    "flags": {},
-   "order": 50,
+   "order": 57,
    "mode": 0,
    "inputs": [
     {
@@ -1805,15 +1814,12 @@
      "name": "IMAGE",
      "type": "IMAGE",
      "links": [
-      547,
-      548,
-      567,
-      568,
-      876
+      1033,
+      1035
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：解碼",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：解碼",
    "properties": {
     "Node name for S&R": "VAEDecode"
    }
@@ -1830,14 +1836,14 @@
     338
    ],
    "flags": {},
-   "order": 51,
+   "order": 62,
    "mode": 0,
    "inputs": [
     {
      "localized_name": "影像",
      "name": "images",
      "type": "IMAGE",
-     "link": 547
+     "link": 1036
     },
     {
      "localized_name": "檔名前綴",
@@ -1871,7 +1877,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    1912
+    2598
    ],
    "size": [
     420,
@@ -1962,21 +1968,21 @@
    "type": "FluxKontextImageScale",
    "pos": [
     1090,
-    1912
+    2598
    ],
    "size": [
     218.4,
     26
    ],
    "flags": {},
-   "order": 52,
+   "order": 63,
    "mode": 0,
    "inputs": [
     {
      "localized_name": "圖像",
      "name": "image",
      "type": "IMAGE",
-     "link": 548
+     "link": 1037
     }
    ],
    "outputs": [
@@ -2001,14 +2007,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1358.4,
-    1912
+    2598
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 55,
+   "order": 66,
    "mode": 0,
    "inputs": [
     {
@@ -2081,14 +2087,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1358.4,
-    2142
+    2828
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 56,
+   "order": 67,
    "mode": 0,
    "inputs": [
     {
@@ -2161,14 +2167,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1808.4,
-    1912
+    2598
    ],
    "size": [
     293.7193359375,
     58
    ],
    "flags": {},
-   "order": 67,
+   "order": 78,
    "mode": 0,
    "inputs": [
     {
@@ -2213,14 +2219,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1808.4,
-    2000
+    2686
    ],
    "size": [
     293.7193359375,
     58
    ],
    "flags": {},
-   "order": 68,
+   "order": 79,
    "mode": 0,
    "inputs": [
     {
@@ -2265,14 +2271,14 @@
    "type": "VAEEncode",
    "pos": [
     1358.4,
-    2372
+    3058
    ],
    "size": [
     218.4,
     46
    ],
    "flags": {},
-   "order": 57,
+   "order": 68,
    "mode": 0,
    "inputs": [
     {
@@ -2308,14 +2314,14 @@
    "type": "KSampler",
    "pos": [
     2152.1193359375,
-    1912
+    2598
    ],
    "size": [
     270,
     262
    ],
    "flags": {},
-   "order": 77,
+   "order": 88,
    "mode": 0,
    "inputs": [
     {
@@ -2435,14 +2441,14 @@
    "type": "VAEDecode",
    "pos": [
     2472.1193359375,
-    1912
+    2598
    ],
    "size": [
     218.4,
     46
    ],
    "flags": {},
-   "order": 79,
+   "order": 90,
    "mode": 0,
    "inputs": [
     {
@@ -2488,14 +2494,14 @@
    "type": "SaveImage",
    "pos": [
     2740.5193359375003,
-    1912
+    2598
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 81,
+   "order": 92,
    "mode": 0,
    "inputs": [
     {
@@ -2536,21 +2542,21 @@
    "type": "MechBoxes",
    "pos": [
     640,
-    2578
+    3264
    ],
    "size": [
     350.3404296875,
     58
    ],
    "flags": {},
-   "order": 53,
+   "order": 64,
    "mode": 0,
    "inputs": [
     {
      "localized_name": "front",
      "name": "front",
      "type": "IMAGE",
-     "link": 567
+     "link": 1038
     },
     {
      "localized_name": "mech_id",
@@ -2606,21 +2612,21 @@
    "type": "MechDrawBoxes",
    "pos": [
     1040.3404296875,
-    2696
+    3382
    ],
    "size": [
     192.8814453125,
     46
    ],
    "flags": {},
-   "order": 58,
+   "order": 69,
    "mode": 0,
    "inputs": [
     {
      "localized_name": "front",
      "name": "front",
      "type": "IMAGE",
-     "link": 568
+     "link": 1039
     },
     {
      "localized_name": "boxes",
@@ -2649,14 +2655,14 @@
    "type": "SaveImage",
    "pos": [
     1283.2218750000002,
-    2578
+    3264
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 69,
+   "order": 80,
    "mode": 0,
    "inputs": [
     {
@@ -2697,14 +2703,14 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    3076
+    3762
    ],
    "size": [
     281.9,
     150
    ],
    "flags": {},
-   "order": 59,
+   "order": 70,
    "mode": 0,
    "inputs": [
     {
@@ -2791,7 +2797,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    3076
+    3762
    ],
    "size": [
     420,
@@ -2882,14 +2888,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1748.7609375000002,
-    3076
+    3762
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 82,
+   "order": 93,
    "mode": 0,
    "inputs": [
     {
@@ -2962,14 +2968,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1748.7609375000002,
-    3306
+    3992
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 83,
+   "order": 94,
    "mode": 0,
    "inputs": [
     {
@@ -3042,14 +3048,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2198.7609375,
-    3076
+    3762
    ],
    "size": [
     304.8609375,
     58
    ],
    "flags": {},
-   "order": 93,
+   "order": 104,
    "mode": 0,
    "inputs": [
     {
@@ -3094,14 +3100,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2198.7609375,
-    3164
+    3850
    ],
    "size": [
     346.8609375,
     58
    ],
    "flags": {},
-   "order": 94,
+   "order": 105,
    "mode": 0,
    "inputs": [
     {
@@ -3146,14 +3152,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    3076
+    3762
    ],
    "size": [
     276.8609375,
     106
    ],
    "flags": {},
-   "order": 70,
+   "order": 81,
    "mode": 0,
    "inputs": [
     {
@@ -3214,14 +3220,14 @@
    "type": "KSampler",
    "pos": [
     2595.6218750000003,
-    3076
+    3762
    ],
    "size": [
     276.8609375,
     262
    ],
    "flags": {},
-   "order": 106,
+   "order": 117,
    "mode": 0,
    "inputs": [
     {
@@ -3341,14 +3347,14 @@
    "type": "VAEDecode",
    "pos": [
     2922.4828125000004,
-    3076
+    3762
    ],
    "size": [
     276.8609375,
     46
    ],
    "flags": {},
-   "order": 114,
+   "order": 125,
    "mode": 0,
    "inputs": [
     {
@@ -3384,14 +3390,14 @@
    "type": "SaveImage",
    "pos": [
     3249.3437500000005,
-    3076
+    3762
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 120,
+   "order": 131,
    "mode": 0,
    "inputs": [
     {
@@ -3432,14 +3438,14 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    3666
+    4352
    ],
    "size": [
     281.9,
     150
    ],
    "flags": {},
-   "order": 60,
+   "order": 71,
    "mode": 0,
    "inputs": [
     {
@@ -3526,7 +3532,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    3666
+    4352
    ],
    "size": [
     420,
@@ -3617,14 +3623,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1758.9054687500002,
-    3666
+    4352
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 84,
+   "order": 95,
    "mode": 0,
    "inputs": [
     {
@@ -3697,14 +3703,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1758.9054687500002,
-    3896
+    4582
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 85,
+   "order": 96,
    "mode": 0,
    "inputs": [
     {
@@ -3777,14 +3783,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2208.90546875,
-    3666
+    4352
    ],
    "size": [
     315.00546875,
     58
    ],
    "flags": {},
-   "order": 95,
+   "order": 106,
    "mode": 0,
    "inputs": [
     {
@@ -3829,14 +3835,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2208.90546875,
-    3754
+    4440
    ],
    "size": [
     357.00546875,
     58
    ],
    "flags": {},
-   "order": 96,
+   "order": 107,
    "mode": 0,
    "inputs": [
     {
@@ -3881,14 +3887,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    3666
+    4352
    ],
    "size": [
     287.00546875,
     106
    ],
    "flags": {},
-   "order": 71,
+   "order": 82,
    "mode": 0,
    "inputs": [
     {
@@ -3949,14 +3955,14 @@
    "type": "KSampler",
    "pos": [
     2615.9109375000003,
-    3666
+    4352
    ],
    "size": [
     287.00546875,
     262
    ],
    "flags": {},
-   "order": 107,
+   "order": 118,
    "mode": 0,
    "inputs": [
     {
@@ -4076,14 +4082,14 @@
    "type": "VAEDecode",
    "pos": [
     2952.9164062500004,
-    3666
+    4352
    ],
    "size": [
     287.00546875,
     46
    ],
    "flags": {},
-   "order": 115,
+   "order": 126,
    "mode": 0,
    "inputs": [
     {
@@ -4121,14 +4127,14 @@
    "type": "SaveImage",
    "pos": [
     3289.9218750000005,
-    3666
+    4352
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 121,
+   "order": 132,
    "mode": 0,
    "inputs": [
     {
@@ -4169,14 +4175,14 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    4256
+    4942
    ],
    "size": [
     281.9,
     150
    ],
    "flags": {},
-   "order": 61,
+   "order": 72,
    "mode": 0,
    "inputs": [
     {
@@ -4263,7 +4269,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    4256
+    4942
    ],
    "size": [
     420,
@@ -4354,14 +4360,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1756.7179687500002,
-    4256
+    4942
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 86,
+   "order": 97,
    "mode": 0,
    "inputs": [
     {
@@ -4434,14 +4440,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1756.7179687500002,
-    4486
+    5172
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 87,
+   "order": 98,
    "mode": 0,
    "inputs": [
     {
@@ -4514,14 +4520,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2206.71796875,
-    4256
+    4942
    ],
    "size": [
     312.81796875,
     58
    ],
    "flags": {},
-   "order": 97,
+   "order": 108,
    "mode": 0,
    "inputs": [
     {
@@ -4566,14 +4572,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2206.71796875,
-    4344
+    5030
    ],
    "size": [
     354.81796875,
     58
    ],
    "flags": {},
-   "order": 98,
+   "order": 109,
    "mode": 0,
    "inputs": [
     {
@@ -4618,14 +4624,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    4256
+    4942
    ],
    "size": [
     284.81796875,
     106
    ],
    "flags": {},
-   "order": 72,
+   "order": 83,
    "mode": 0,
    "inputs": [
     {
@@ -4686,14 +4692,14 @@
    "type": "KSampler",
    "pos": [
     2611.5359375000003,
-    4256
+    4942
    ],
    "size": [
     284.81796875,
     262
    ],
    "flags": {},
-   "order": 108,
+   "order": 119,
    "mode": 0,
    "inputs": [
     {
@@ -4813,14 +4819,14 @@
    "type": "VAEDecode",
    "pos": [
     2946.3539062500004,
-    4256
+    4942
    ],
    "size": [
     284.81796875,
     46
    ],
    "flags": {},
-   "order": 116,
+   "order": 127,
    "mode": 0,
    "inputs": [
     {
@@ -4858,14 +4864,14 @@
    "type": "SaveImage",
    "pos": [
     3281.1718750000005,
-    4256
+    4942
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 124,
+   "order": 135,
    "mode": 0,
    "inputs": [
     {
@@ -4906,14 +4912,14 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    4846
+    5532
    ],
    "size": [
     281.9,
     150
    ],
    "flags": {},
-   "order": 62,
+   "order": 73,
    "mode": 0,
    "inputs": [
     {
@@ -5000,7 +5006,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    4846
+    5532
    ],
    "size": [
     420,
@@ -5091,14 +5097,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1749.8273437500002,
-    4846
+    5532
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 88,
+   "order": 99,
    "mode": 0,
    "inputs": [
     {
@@ -5171,14 +5177,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1749.8273437500002,
-    5076
+    5762
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 89,
+   "order": 100,
    "mode": 0,
    "inputs": [
     {
@@ -5251,14 +5257,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2199.82734375,
-    4846
+    5532
    ],
    "size": [
     305.92734375,
     58
    ],
    "flags": {},
-   "order": 99,
+   "order": 110,
    "mode": 0,
    "inputs": [
     {
@@ -5303,14 +5309,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2199.82734375,
-    4934
+    5620
    ],
    "size": [
     347.92734375,
     58
    ],
    "flags": {},
-   "order": 100,
+   "order": 111,
    "mode": 0,
    "inputs": [
     {
@@ -5355,14 +5361,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    4846
+    5532
    ],
    "size": [
     277.92734375,
     106
    ],
    "flags": {},
-   "order": 73,
+   "order": 84,
    "mode": 0,
    "inputs": [
     {
@@ -5423,14 +5429,14 @@
    "type": "KSampler",
    "pos": [
     2597.7546875000003,
-    4846
+    5532
    ],
    "size": [
     277.92734375,
     262
    ],
    "flags": {},
-   "order": 109,
+   "order": 120,
    "mode": 0,
    "inputs": [
     {
@@ -5550,14 +5556,14 @@
    "type": "VAEDecode",
    "pos": [
     2925.6820312500004,
-    4846
+    5532
    ],
    "size": [
     277.92734375,
     46
    ],
    "flags": {},
-   "order": 117,
+   "order": 128,
    "mode": 0,
    "inputs": [
     {
@@ -5596,14 +5602,14 @@
    "type": "SaveImage",
    "pos": [
     3253.6093750000005,
-    4846
+    5532
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 127,
+   "order": 138,
    "mode": 0,
    "inputs": [
     {
@@ -5644,14 +5650,14 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    5436
+    6122
    ],
    "size": [
     281.9,
     150
    ],
    "flags": {},
-   "order": 63,
+   "order": 74,
    "mode": 0,
    "inputs": [
     {
@@ -5738,7 +5744,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    5436
+    6122
    ],
    "size": [
     420,
@@ -5829,14 +5835,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1747.6398437500002,
-    5436
+    6122
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 90,
+   "order": 101,
    "mode": 0,
    "inputs": [
     {
@@ -5909,14 +5915,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1747.6398437500002,
-    5666
+    6352
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 91,
+   "order": 102,
    "mode": 0,
    "inputs": [
     {
@@ -5989,14 +5995,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2197.63984375,
-    5436
+    6122
    ],
    "size": [
     303.73984375,
     58
    ],
    "flags": {},
-   "order": 101,
+   "order": 112,
    "mode": 0,
    "inputs": [
     {
@@ -6041,14 +6047,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2197.63984375,
-    5524
+    6210
    ],
    "size": [
     345.73984375,
     58
    ],
    "flags": {},
-   "order": 102,
+   "order": 113,
    "mode": 0,
    "inputs": [
     {
@@ -6093,14 +6099,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    5436
+    6122
    ],
    "size": [
     275.73984375,
     106
    ],
    "flags": {},
-   "order": 74,
+   "order": 85,
    "mode": 0,
    "inputs": [
     {
@@ -6161,14 +6167,14 @@
    "type": "KSampler",
    "pos": [
     2593.3796875000003,
-    5436
+    6122
    ],
    "size": [
     275.73984375,
     262
    ],
    "flags": {},
-   "order": 110,
+   "order": 121,
    "mode": 0,
    "inputs": [
     {
@@ -6288,14 +6294,14 @@
    "type": "VAEDecode",
    "pos": [
     2919.1195312500004,
-    5436
+    6122
    ],
    "size": [
     275.73984375,
     46
    ],
    "flags": {},
-   "order": 118,
+   "order": 129,
    "mode": 0,
    "inputs": [
     {
@@ -6334,14 +6340,14 @@
    "type": "SaveImage",
    "pos": [
     3244.8593750000005,
-    5436
+    6122
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 131,
+   "order": 142,
    "mode": 0,
    "inputs": [
     {
@@ -6382,14 +6388,14 @@
    "type": "MechCutSegment",
    "pos": [
     1153.222265625,
-    6026
+    6712
    ],
    "size": [
     449.222265625,
     126
    ],
    "flags": {},
-   "order": 122,
+   "order": 133,
    "mode": 0,
    "inputs": [
     {
@@ -6465,14 +6471,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1652.4445312500002,
-    6026
+    6712
    ],
    "size": [
     449.222265625,
     78
    ],
    "flags": {},
-   "order": 136,
+   "order": 147,
    "mode": 0,
    "inputs": [
     {
@@ -6525,7 +6531,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    6026
+    6712
    ],
    "size": [
     463.222265625,
@@ -6616,14 +6622,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1652.4445312500002,
-    6134
+    6820
    ],
    "size": [
     473.284765625,
     200
    ],
    "flags": {},
-   "order": 137,
+   "order": 148,
    "mode": 0,
    "inputs": [
     {
@@ -6696,14 +6702,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1652.4445312500002,
-    6364
+    7050
    ],
    "size": [
     459.284765625,
     200
    ],
    "flags": {},
-   "order": 138,
+   "order": 149,
    "mode": 0,
    "inputs": [
     {
@@ -6776,14 +6782,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2175.7292968750003,
-    6026
+    6712
    ],
    "size": [
     487.284765625,
     58
    ],
    "flags": {},
-   "order": 172,
+   "order": 183,
    "mode": 0,
    "inputs": [
     {
@@ -6828,14 +6834,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2175.7292968750003,
-    6114
+    6800
    ],
    "size": [
     529.284765625,
     58
    ],
    "flags": {},
-   "order": 173,
+   "order": 184,
    "mode": 0,
    "inputs": [
     {
@@ -6880,14 +6886,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     2175.7292968750003,
-    6202
+    6888
    ],
    "size": [
     459.284765625,
     106
    ],
    "flags": {},
-   "order": 171,
+   "order": 182,
    "mode": 0,
    "inputs": [
     {
@@ -6948,14 +6954,14 @@
    "type": "KSampler",
    "pos": [
     2755.0140625000004,
-    6026
+    6712
    ],
    "size": [
     459.284765625,
     262
    ],
    "flags": {},
-   "order": 210,
+   "order": 221,
    "mode": 0,
    "inputs": [
     {
@@ -7075,14 +7081,14 @@
    "type": "VAEDecode",
    "pos": [
     3264.2988281250005,
-    6026
+    6712
    ],
    "size": [
     459.284765625,
     46
    ],
    "flags": {},
-   "order": 227,
+   "order": 238,
    "mode": 0,
    "inputs": [
     {
@@ -7118,14 +7124,14 @@
    "type": "SaveImage",
    "pos": [
     3773.5835937500005,
-    6026
+    6712
    ],
    "size": [
     417.284765625,
     338
    ],
    "flags": {},
-   "order": 240,
+   "order": 251,
    "mode": 0,
    "inputs": [
     {
@@ -7166,14 +7172,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    6724
+    7410
    ],
    "size": [
     361.025,
     126
    ],
    "flags": {},
-   "order": 123,
+   "order": 134,
    "mode": 0,
    "inputs": [
     {
@@ -7249,14 +7255,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1501.025,
-    6724
+    7410
    ],
    "size": [
     361.025,
     78
    ],
    "flags": {},
-   "order": 139,
+   "order": 150,
    "mode": 0,
    "inputs": [
     {
@@ -7309,7 +7315,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    6724
+    7410
    ],
    "size": [
     420,
@@ -7400,14 +7406,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1501.025,
-    6832
+    7518
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 140,
+   "order": 151,
    "mode": 0,
    "inputs": [
     {
@@ -7480,14 +7486,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1501.025,
-    7062
+    7748
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 141,
+   "order": 152,
    "mode": 0,
    "inputs": [
     {
@@ -7560,14 +7566,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1951.025,
-    6724
+    7410
    ],
    "size": [
     399.0875,
     58
    ],
    "flags": {},
-   "order": 175,
+   "order": 186,
    "mode": 0,
    "inputs": [
     {
@@ -7612,14 +7618,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1951.025,
-    6812
+    7498
    ],
    "size": [
     441.0875,
     58
    ],
    "flags": {},
-   "order": 176,
+   "order": 187,
    "mode": 0,
    "inputs": [
     {
@@ -7664,14 +7670,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1951.025,
-    6900
+    7586
    ],
    "size": [
     371.0875,
     106
    ],
    "flags": {},
-   "order": 174,
+   "order": 185,
    "mode": 0,
    "inputs": [
     {
@@ -7732,14 +7738,14 @@
    "type": "KSampler",
    "pos": [
     2442.1125,
-    6724
+    7410
    ],
    "size": [
     371.0875,
     262
    ],
    "flags": {},
-   "order": 211,
+   "order": 222,
    "mode": 0,
    "inputs": [
     {
@@ -7859,14 +7865,14 @@
    "type": "VAEDecode",
    "pos": [
     2863.2000000000003,
-    6724
+    7410
    ],
    "size": [
     371.0875,
     46
    ],
    "flags": {},
-   "order": 228,
+   "order": 239,
    "mode": 0,
    "inputs": [
     {
@@ -7902,14 +7908,14 @@
    "type": "SaveImage",
    "pos": [
     3284.2875000000004,
-    6724
+    7410
    ],
    "size": [
     329.0875,
     338
    ],
    "flags": {},
-   "order": 241,
+   "order": 252,
    "mode": 0,
    "inputs": [
     {
@@ -7950,14 +7956,14 @@
    "type": "MechCutSegment",
    "pos": [
     1151.034765625,
-    7422
+    8108
    ],
    "size": [
     447.034765625,
     126
    ],
    "flags": {},
-   "order": 125,
+   "order": 136,
    "mode": 0,
    "inputs": [
     {
@@ -8033,14 +8039,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1648.0695312500002,
-    7422
+    8108
    ],
    "size": [
     447.034765625,
     78
    ],
    "flags": {},
-   "order": 142,
+   "order": 153,
    "mode": 0,
    "inputs": [
     {
@@ -8093,7 +8099,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    7422
+    8108
    ],
    "size": [
     461.034765625,
@@ -8184,14 +8190,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1648.0695312500002,
-    7530
+    8216
    ],
    "size": [
     471.097265625,
     200
    ],
    "flags": {},
-   "order": 143,
+   "order": 154,
    "mode": 0,
    "inputs": [
     {
@@ -8264,14 +8270,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1648.0695312500002,
-    7760
+    8446
    ],
    "size": [
     457.097265625,
     200
    ],
    "flags": {},
-   "order": 144,
+   "order": 155,
    "mode": 0,
    "inputs": [
     {
@@ -8344,14 +8350,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2169.1667968750003,
-    7422
+    8108
    ],
    "size": [
     485.097265625,
     58
    ],
    "flags": {},
-   "order": 178,
+   "order": 189,
    "mode": 0,
    "inputs": [
     {
@@ -8396,14 +8402,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2169.1667968750003,
-    7510
+    8196
    ],
    "size": [
     527.097265625,
     58
    ],
    "flags": {},
-   "order": 179,
+   "order": 190,
    "mode": 0,
    "inputs": [
     {
@@ -8448,14 +8454,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     2169.1667968750003,
-    7598
+    8284
    ],
    "size": [
     457.097265625,
     106
    ],
    "flags": {},
-   "order": 177,
+   "order": 188,
    "mode": 0,
    "inputs": [
     {
@@ -8516,14 +8522,14 @@
    "type": "KSampler",
    "pos": [
     2746.2640625000004,
-    7422
+    8108
    ],
    "size": [
     457.097265625,
     262
    ],
    "flags": {},
-   "order": 212,
+   "order": 223,
    "mode": 0,
    "inputs": [
     {
@@ -8643,14 +8649,14 @@
    "type": "VAEDecode",
    "pos": [
     3253.3613281250005,
-    7422
+    8108
    ],
    "size": [
     457.097265625,
     46
    ],
    "flags": {},
-   "order": 229,
+   "order": 240,
    "mode": 0,
    "inputs": [
     {
@@ -8686,14 +8692,14 @@
    "type": "SaveImage",
    "pos": [
     3760.4585937500005,
-    7422
+    8108
    ],
    "size": [
     415.097265625,
     338
    ],
    "flags": {},
-   "order": 242,
+   "order": 253,
    "mode": 0,
    "inputs": [
     {
@@ -8734,14 +8740,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    8120
+    8806
    ],
    "size": [
     358.8375,
     126
    ],
    "flags": {},
-   "order": 126,
+   "order": 137,
    "mode": 0,
    "inputs": [
     {
@@ -8817,14 +8823,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1498.8375,
-    8120
+    8806
    ],
    "size": [
     358.8375,
     78
    ],
    "flags": {},
-   "order": 145,
+   "order": 156,
    "mode": 0,
    "inputs": [
     {
@@ -8877,7 +8883,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    8120
+    8806
    ],
    "size": [
     420,
@@ -8968,14 +8974,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1498.8375,
-    8228
+    8914
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 146,
+   "order": 157,
    "mode": 0,
    "inputs": [
     {
@@ -9048,14 +9054,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1498.8375,
-    8458
+    9144
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 147,
+   "order": 158,
    "mode": 0,
    "inputs": [
     {
@@ -9128,14 +9134,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1948.8375,
-    8120
+    8806
    ],
    "size": [
     396.9,
     58
    ],
    "flags": {},
-   "order": 181,
+   "order": 192,
    "mode": 0,
    "inputs": [
     {
@@ -9180,14 +9186,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1948.8375,
-    8208
+    8894
    ],
    "size": [
     438.9,
     58
    ],
    "flags": {},
-   "order": 182,
+   "order": 193,
    "mode": 0,
    "inputs": [
     {
@@ -9232,14 +9238,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1948.8375,
-    8296
+    8982
    ],
    "size": [
     368.9,
     106
    ],
    "flags": {},
-   "order": 180,
+   "order": 191,
    "mode": 0,
    "inputs": [
     {
@@ -9300,14 +9306,14 @@
    "type": "KSampler",
    "pos": [
     2437.7375,
-    8120
+    8806
    ],
    "size": [
     368.9,
     262
    ],
    "flags": {},
-   "order": 213,
+   "order": 224,
    "mode": 0,
    "inputs": [
     {
@@ -9427,14 +9433,14 @@
    "type": "VAEDecode",
    "pos": [
     2856.6375000000003,
-    8120
+    8806
    ],
    "size": [
     368.9,
     46
    ],
    "flags": {},
-   "order": 230,
+   "order": 241,
    "mode": 0,
    "inputs": [
     {
@@ -9470,14 +9476,14 @@
    "type": "SaveImage",
    "pos": [
     3275.5375000000004,
-    8120
+    8806
    ],
    "size": [
     326.9,
     338
    ],
    "flags": {},
-   "order": 243,
+   "order": 254,
    "mode": 0,
    "inputs": [
     {
@@ -9518,14 +9524,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    8818
+    9504
    ],
    "size": [
     306.952734375,
     126
    ],
    "flags": {},
-   "order": 128,
+   "order": 139,
    "mode": 0,
    "inputs": [
     {
@@ -9601,14 +9607,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1446.952734375,
-    8818
+    9504
    ],
    "size": [
     306.952734375,
     78
    ],
    "flags": {},
-   "order": 148,
+   "order": 159,
    "mode": 0,
    "inputs": [
     {
@@ -9661,7 +9667,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    8818
+    9504
    ],
    "size": [
     420,
@@ -9752,14 +9758,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1446.952734375,
-    8926
+    9612
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 149,
+   "order": 160,
    "mode": 0,
    "inputs": [
     {
@@ -9832,14 +9838,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1446.952734375,
-    9156
+    9842
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 150,
+   "order": 161,
    "mode": 0,
    "inputs": [
     {
@@ -9912,14 +9918,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1896.952734375,
-    8818
+    9504
    ],
    "size": [
     345.015234375,
     58
    ],
    "flags": {},
-   "order": 184,
+   "order": 195,
    "mode": 0,
    "inputs": [
     {
@@ -9964,14 +9970,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1896.952734375,
-    8906
+    9592
    ],
    "size": [
     387.015234375,
     58
    ],
    "flags": {},
-   "order": 185,
+   "order": 196,
    "mode": 0,
    "inputs": [
     {
@@ -10016,14 +10022,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1896.952734375,
-    8994
+    9680
    ],
    "size": [
     317.015234375,
     106
    ],
    "flags": {},
-   "order": 183,
+   "order": 194,
    "mode": 0,
    "inputs": [
     {
@@ -10084,14 +10090,14 @@
    "type": "KSampler",
    "pos": [
     2333.96796875,
-    8818
+    9504
    ],
    "size": [
     317.015234375,
     262
    ],
    "flags": {},
-   "order": 214,
+   "order": 225,
    "mode": 0,
    "inputs": [
     {
@@ -10211,14 +10217,14 @@
    "type": "VAEDecode",
    "pos": [
     2700.9832031250003,
-    8818
+    9504
    ],
    "size": [
     317.015234375,
     46
    ],
    "flags": {},
-   "order": 231,
+   "order": 242,
    "mode": 0,
    "inputs": [
     {
@@ -10254,14 +10260,14 @@
    "type": "SaveImage",
    "pos": [
     3067.9984375000004,
-    8818
+    9504
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 244,
+   "order": 255,
    "mode": 0,
    "inputs": [
     {
@@ -10302,14 +10308,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    9516
+    10202
    ],
    "size": [
     285.296484375,
     126
    ],
    "flags": {},
-   "order": 129,
+   "order": 140,
    "mode": 0,
    "inputs": [
     {
@@ -10385,14 +10391,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1425.296484375,
-    9516
+    10202
    ],
    "size": [
     285.296484375,
     78
    ],
    "flags": {},
-   "order": 151,
+   "order": 162,
    "mode": 0,
    "inputs": [
     {
@@ -10445,7 +10451,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    9516
+    10202
    ],
    "size": [
     420,
@@ -10536,14 +10542,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1425.296484375,
-    9624
+    10310
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 152,
+   "order": 163,
    "mode": 0,
    "inputs": [
     {
@@ -10616,14 +10622,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1425.296484375,
-    9854
+    10540
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 153,
+   "order": 164,
    "mode": 0,
    "inputs": [
     {
@@ -10696,14 +10702,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1875.296484375,
-    9516
+    10202
    ],
    "size": [
     323.358984375,
     58
    ],
    "flags": {},
-   "order": 187,
+   "order": 198,
    "mode": 0,
    "inputs": [
     {
@@ -10748,14 +10754,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1875.296484375,
-    9604
+    10290
    ],
    "size": [
     365.358984375,
     58
    ],
    "flags": {},
-   "order": 188,
+   "order": 199,
    "mode": 0,
    "inputs": [
     {
@@ -10800,14 +10806,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1875.296484375,
-    9692
+    10378
    ],
    "size": [
     295.358984375,
     106
    ],
    "flags": {},
-   "order": 186,
+   "order": 197,
    "mode": 0,
    "inputs": [
     {
@@ -10868,14 +10874,14 @@
    "type": "KSampler",
    "pos": [
     2290.65546875,
-    9516
+    10202
    ],
    "size": [
     295.358984375,
     262
    ],
    "flags": {},
-   "order": 215,
+   "order": 226,
    "mode": 0,
    "inputs": [
     {
@@ -10995,14 +11001,14 @@
    "type": "VAEDecode",
    "pos": [
     2636.0144531250003,
-    9516
+    10202
    ],
    "size": [
     295.358984375,
     46
    ],
    "flags": {},
-   "order": 232,
+   "order": 243,
    "mode": 0,
    "inputs": [
     {
@@ -11038,14 +11044,14 @@
    "type": "SaveImage",
    "pos": [
     2981.3734375000004,
-    9516
+    10202
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 245,
+   "order": 256,
    "mode": 0,
    "inputs": [
     {
@@ -11086,14 +11092,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    10214
+    10900
    ],
    "size": [
     312.175390625,
     126
    ],
    "flags": {},
-   "order": 130,
+   "order": 141,
    "mode": 0,
    "inputs": [
     {
@@ -11169,14 +11175,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1452.175390625,
-    10214
+    10900
    ],
    "size": [
     312.175390625,
     78
    ],
    "flags": {},
-   "order": 154,
+   "order": 165,
    "mode": 0,
    "inputs": [
     {
@@ -11229,7 +11235,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    10214
+    10900
    ],
    "size": [
     420,
@@ -11320,14 +11326,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1452.175390625,
-    10322
+    11008
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 155,
+   "order": 166,
    "mode": 0,
    "inputs": [
     {
@@ -11400,14 +11406,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1452.175390625,
-    10552
+    11238
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 156,
+   "order": 167,
    "mode": 0,
    "inputs": [
     {
@@ -11480,14 +11486,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1902.175390625,
-    10214
+    10900
    ],
    "size": [
     350.237890625,
     58
    ],
    "flags": {},
-   "order": 190,
+   "order": 201,
    "mode": 0,
    "inputs": [
     {
@@ -11532,14 +11538,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1902.175390625,
-    10302
+    10988
    ],
    "size": [
     392.237890625,
     58
    ],
    "flags": {},
-   "order": 191,
+   "order": 202,
    "mode": 0,
    "inputs": [
     {
@@ -11584,14 +11590,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1902.175390625,
-    10390
+    11076
    ],
    "size": [
     322.237890625,
     106
    ],
    "flags": {},
-   "order": 189,
+   "order": 200,
    "mode": 0,
    "inputs": [
     {
@@ -11652,14 +11658,14 @@
    "type": "KSampler",
    "pos": [
     2344.41328125,
-    10214
+    10900
    ],
    "size": [
     322.237890625,
     262
    ],
    "flags": {},
-   "order": 216,
+   "order": 227,
    "mode": 0,
    "inputs": [
     {
@@ -11779,14 +11785,14 @@
    "type": "VAEDecode",
    "pos": [
     2716.6511718750003,
-    10214
+    10900
    ],
    "size": [
     322.237890625,
     46
    ],
    "flags": {},
-   "order": 233,
+   "order": 244,
    "mode": 0,
    "inputs": [
     {
@@ -11822,14 +11828,14 @@
    "type": "SaveImage",
    "pos": [
     3088.8890625000004,
-    10214
+    10900
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 246,
+   "order": 257,
    "mode": 0,
    "inputs": [
     {
@@ -11870,14 +11876,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    10912
+    11598
    ],
    "size": [
     304.765234375,
     126
    ],
    "flags": {},
-   "order": 132,
+   "order": 143,
    "mode": 0,
    "inputs": [
     {
@@ -11953,14 +11959,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1444.765234375,
-    10912
+    11598
    ],
    "size": [
     304.765234375,
     78
    ],
    "flags": {},
-   "order": 157,
+   "order": 168,
    "mode": 0,
    "inputs": [
     {
@@ -12013,7 +12019,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    10912
+    11598
    ],
    "size": [
     420,
@@ -12104,14 +12110,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1444.765234375,
-    11020
+    11706
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 158,
+   "order": 169,
    "mode": 0,
    "inputs": [
     {
@@ -12184,14 +12190,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1444.765234375,
-    11250
+    11936
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 159,
+   "order": 170,
    "mode": 0,
    "inputs": [
     {
@@ -12264,14 +12270,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1894.765234375,
-    10912
+    11598
    ],
    "size": [
     342.827734375,
     58
    ],
    "flags": {},
-   "order": 193,
+   "order": 204,
    "mode": 0,
    "inputs": [
     {
@@ -12316,14 +12322,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1894.765234375,
-    11000
+    11686
    ],
    "size": [
     384.827734375,
     58
    ],
    "flags": {},
-   "order": 194,
+   "order": 205,
    "mode": 0,
    "inputs": [
     {
@@ -12368,14 +12374,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1894.765234375,
-    11088
+    11774
    ],
    "size": [
     314.827734375,
     106
    ],
    "flags": {},
-   "order": 192,
+   "order": 203,
    "mode": 0,
    "inputs": [
     {
@@ -12436,14 +12442,14 @@
    "type": "KSampler",
    "pos": [
     2329.59296875,
-    10912
+    11598
    ],
    "size": [
     314.827734375,
     262
    ],
    "flags": {},
-   "order": 217,
+   "order": 228,
    "mode": 0,
    "inputs": [
     {
@@ -12563,14 +12569,14 @@
    "type": "VAEDecode",
    "pos": [
     2694.4207031250003,
-    10912
+    11598
    ],
    "size": [
     314.827734375,
     46
    ],
    "flags": {},
-   "order": 234,
+   "order": 245,
    "mode": 0,
    "inputs": [
     {
@@ -12606,14 +12612,14 @@
    "type": "SaveImage",
    "pos": [
     3059.2484375000004,
-    10912
+    11598
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 247,
+   "order": 258,
    "mode": 0,
    "inputs": [
     {
@@ -12654,14 +12660,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    11610
+    12296
    ],
    "size": [
     283.108984375,
     126
    ],
    "flags": {},
-   "order": 133,
+   "order": 144,
    "mode": 0,
    "inputs": [
     {
@@ -12737,14 +12743,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1423.108984375,
-    11610
+    12296
    ],
    "size": [
     283.108984375,
     78
    ],
    "flags": {},
-   "order": 160,
+   "order": 171,
    "mode": 0,
    "inputs": [
     {
@@ -12797,7 +12803,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    11610
+    12296
    ],
    "size": [
     420,
@@ -12888,14 +12894,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1423.108984375,
-    11718
+    12404
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 161,
+   "order": 172,
    "mode": 0,
    "inputs": [
     {
@@ -12968,14 +12974,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1423.108984375,
-    11948
+    12634
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 162,
+   "order": 173,
    "mode": 0,
    "inputs": [
     {
@@ -13048,14 +13054,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1873.108984375,
-    11610
+    12296
    ],
    "size": [
     321.171484375,
     58
    ],
    "flags": {},
-   "order": 196,
+   "order": 207,
    "mode": 0,
    "inputs": [
     {
@@ -13100,14 +13106,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1873.108984375,
-    11698
+    12384
    ],
    "size": [
     363.171484375,
     58
    ],
    "flags": {},
-   "order": 197,
+   "order": 208,
    "mode": 0,
    "inputs": [
     {
@@ -13152,14 +13158,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1873.108984375,
-    11786
+    12472
    ],
    "size": [
     293.171484375,
     106
    ],
    "flags": {},
-   "order": 195,
+   "order": 206,
    "mode": 0,
    "inputs": [
     {
@@ -13220,14 +13226,14 @@
    "type": "KSampler",
    "pos": [
     2286.28046875,
-    11610
+    12296
    ],
    "size": [
     293.171484375,
     262
    ],
    "flags": {},
-   "order": 218,
+   "order": 229,
    "mode": 0,
    "inputs": [
     {
@@ -13347,14 +13353,14 @@
    "type": "VAEDecode",
    "pos": [
     2629.4519531250003,
-    11610
+    12296
    ],
    "size": [
     293.171484375,
     46
    ],
    "flags": {},
-   "order": 235,
+   "order": 246,
    "mode": 0,
    "inputs": [
     {
@@ -13390,14 +13396,14 @@
    "type": "SaveImage",
    "pos": [
     2972.6234375000004,
-    11610
+    12296
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 248,
+   "order": 259,
    "mode": 0,
    "inputs": [
     {
@@ -13438,14 +13444,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    12308
+    12994
    ],
    "size": [
     309.987890625,
     126
    ],
    "flags": {},
-   "order": 134,
+   "order": 145,
    "mode": 0,
    "inputs": [
     {
@@ -13521,14 +13527,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1449.987890625,
-    12308
+    12994
    ],
    "size": [
     309.987890625,
     78
    ],
    "flags": {},
-   "order": 163,
+   "order": 174,
    "mode": 0,
    "inputs": [
     {
@@ -13581,7 +13587,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    12308
+    12994
    ],
    "size": [
     420,
@@ -13672,14 +13678,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1449.987890625,
-    12416
+    13102
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 164,
+   "order": 175,
    "mode": 0,
    "inputs": [
     {
@@ -13752,14 +13758,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1449.987890625,
-    12646
+    13332
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 165,
+   "order": 176,
    "mode": 0,
    "inputs": [
     {
@@ -13832,14 +13838,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1899.987890625,
-    12308
+    12994
    ],
    "size": [
     348.050390625,
     58
    ],
    "flags": {},
-   "order": 199,
+   "order": 210,
    "mode": 0,
    "inputs": [
     {
@@ -13884,14 +13890,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1899.987890625,
-    12396
+    13082
    ],
    "size": [
     390.050390625,
     58
    ],
    "flags": {},
-   "order": 200,
+   "order": 211,
    "mode": 0,
    "inputs": [
     {
@@ -13936,14 +13942,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1899.987890625,
-    12484
+    13170
    ],
    "size": [
     320.050390625,
     106
    ],
    "flags": {},
-   "order": 198,
+   "order": 209,
    "mode": 0,
    "inputs": [
     {
@@ -14004,14 +14010,14 @@
    "type": "KSampler",
    "pos": [
     2340.03828125,
-    12308
+    12994
    ],
    "size": [
     320.050390625,
     262
    ],
    "flags": {},
-   "order": 219,
+   "order": 230,
    "mode": 0,
    "inputs": [
     {
@@ -14131,14 +14137,14 @@
    "type": "VAEDecode",
    "pos": [
     2710.0886718750003,
-    12308
+    12994
    ],
    "size": [
     320.050390625,
     46
    ],
    "flags": {},
-   "order": 236,
+   "order": 247,
    "mode": 0,
    "inputs": [
     {
@@ -14174,14 +14180,14 @@
    "type": "SaveImage",
    "pos": [
     3080.1390625000004,
-    12308
+    12994
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 249,
+   "order": 260,
    "mode": 0,
    "inputs": [
     {
@@ -14222,7 +14228,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    13006
+    13692
    ],
    "size": [
     420,
@@ -14313,21 +14319,21 @@
    "type": "FluxKontextImageScale",
    "pos": [
     1090,
-    13006
+    13692
    ],
    "size": [
     296.73984375,
     26
    ],
    "flags": {},
-   "order": 54,
+   "order": 65,
    "mode": 0,
    "inputs": [
     {
      "localized_name": "圖像",
      "name": "image",
      "type": "IMAGE",
-     "link": 876
+     "link": 1040
     }
    ],
    "outputs": [
@@ -14352,14 +14358,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1436.73984375,
-    13006
+    13692
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 64,
+   "order": 75,
    "mode": 0,
    "inputs": [
     {
@@ -14432,14 +14438,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1436.73984375,
-    13236
+    13922
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 65,
+   "order": 76,
    "mode": 0,
    "inputs": [
     {
@@ -14512,14 +14518,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1886.73984375,
-    13006
+    13692
    ],
    "size": [
     324.73984375,
     58
    ],
    "flags": {},
-   "order": 75,
+   "order": 86,
    "mode": 0,
    "inputs": [
     {
@@ -14564,14 +14570,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1886.73984375,
-    13094
+    13780
    ],
    "size": [
     366.73984375,
     58
    ],
    "flags": {},
-   "order": 76,
+   "order": 87,
    "mode": 0,
    "inputs": [
     {
@@ -14616,14 +14622,14 @@
    "type": "VAEEncode",
    "pos": [
     1436.73984375,
-    13466
+    14152
    ],
    "size": [
     296.73984375,
     46
    ],
    "flags": {},
-   "order": 66,
+   "order": 77,
    "mode": 0,
    "inputs": [
     {
@@ -14659,14 +14665,14 @@
    "type": "KSampler",
    "pos": [
     2303.4796875,
-    13006
+    13692
    ],
    "size": [
     296.73984375,
     262
    ],
    "flags": {},
-   "order": 78,
+   "order": 89,
    "mode": 0,
    "inputs": [
     {
@@ -14786,14 +14792,14 @@
    "type": "VAEDecode",
    "pos": [
     2650.2195312500003,
-    13006
+    13692
    ],
    "size": [
     296.73984375,
     46
    ],
    "flags": {},
-   "order": 80,
+   "order": 91,
    "mode": 0,
    "inputs": [
     {
@@ -14829,14 +14835,14 @@
    "type": "MechTorsoCut",
    "pos": [
     2996.9593750000004,
-    13006
+    13692
    ],
    "size": [
     296.73984375,
     102
    ],
    "flags": {},
-   "order": 92,
+   "order": 103,
    "mode": 0,
    "inputs": [
     {
@@ -14901,14 +14907,14 @@
    "type": "MechImageCanvas",
    "pos": [
     3343.6992187500005,
-    13006
+    13692
    ],
    "size": [
     270,
     78
    ],
    "flags": {},
-   "order": 103,
+   "order": 114,
    "mode": 0,
    "inputs": [
     {
@@ -14961,7 +14967,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    13426
+    14112
    ],
    "size": [
     420,
@@ -15052,14 +15058,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3343.6992187500005,
-    13114
+    13800
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 104,
+   "order": 115,
    "mode": 0,
    "inputs": [
     {
@@ -15132,14 +15138,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3343.6992187500005,
-    13344
+    14030
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 105,
+   "order": 116,
    "mode": 0,
    "inputs": [
     {
@@ -15212,14 +15218,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3793.6992187500005,
-    13006
+    13692
    ],
    "size": [
     296.73984375,
     58
    ],
    "flags": {},
-   "order": 112,
+   "order": 123,
    "mode": 0,
    "inputs": [
     {
@@ -15264,14 +15270,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3793.6992187500005,
-    13094
+    13780
    ],
    "size": [
     338.73984375,
     58
    ],
    "flags": {},
-   "order": 113,
+   "order": 124,
    "mode": 0,
    "inputs": [
     {
@@ -15316,14 +15322,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     3793.6992187500005,
-    13182
+    13868
    ],
    "size": [
     270,
     106
    ],
    "flags": {},
-   "order": 111,
+   "order": 122,
    "mode": 0,
    "inputs": [
     {
@@ -15384,14 +15390,14 @@
    "type": "KSampler",
    "pos": [
     4182.439062500001,
-    13006
+    13692
    ],
    "size": [
     270,
     262
    ],
    "flags": {},
-   "order": 119,
+   "order": 130,
    "mode": 0,
    "inputs": [
     {
@@ -15511,14 +15517,14 @@
    "type": "VAEDecode",
    "pos": [
     4502.439062500001,
-    13006
+    13692
    ],
    "size": [
     268.73984375,
     46
    ],
    "flags": {},
-   "order": 135,
+   "order": 146,
    "mode": 0,
    "inputs": [
     {
@@ -15558,14 +15564,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    14366
+    15052
    ],
    "size": [
     293.759375,
     126
    ],
    "flags": {},
-   "order": 166,
+   "order": 177,
    "mode": 0,
    "inputs": [
     {
@@ -15641,14 +15647,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1433.759375,
-    14366
+    15052
    ],
    "size": [
     293.759375,
     78
    ],
    "flags": {},
-   "order": 201,
+   "order": 212,
    "mode": 0,
    "inputs": [
     {
@@ -15701,7 +15707,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    14366
+    15052
    ],
    "size": [
     420,
@@ -15792,14 +15798,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1433.759375,
-    14474
+    15160
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 202,
+   "order": 213,
    "mode": 0,
    "inputs": [
     {
@@ -15872,14 +15878,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1433.759375,
-    14704
+    15390
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 203,
+   "order": 214,
    "mode": 0,
    "inputs": [
     {
@@ -15952,14 +15958,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1883.759375,
-    14366
+    15052
    ],
    "size": [
     331.821875,
     58
    ],
    "flags": {},
-   "order": 221,
+   "order": 232,
    "mode": 0,
    "inputs": [
     {
@@ -16004,14 +16010,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1883.759375,
-    14454
+    15140
    ],
    "size": [
     373.821875,
     58
    ],
    "flags": {},
-   "order": 222,
+   "order": 233,
    "mode": 0,
    "inputs": [
     {
@@ -16056,14 +16062,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1883.759375,
-    14542
+    15228
    ],
    "size": [
     303.821875,
     106
    ],
    "flags": {},
-   "order": 220,
+   "order": 231,
    "mode": 0,
    "inputs": [
     {
@@ -16124,14 +16130,14 @@
    "type": "KSampler",
    "pos": [
     2307.58125,
-    14366
+    15052
    ],
    "size": [
     303.821875,
     262
    ],
    "flags": {},
-   "order": 237,
+   "order": 248,
    "mode": 0,
    "inputs": [
     {
@@ -16251,14 +16257,14 @@
    "type": "VAEDecode",
    "pos": [
     2661.4031250000003,
-    14366
+    15052
    ],
    "size": [
     303.821875,
     46
    ],
    "flags": {},
-   "order": 250,
+   "order": 261,
    "mode": 0,
    "inputs": [
     {
@@ -16296,14 +16302,14 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    15306
+    15992
    ],
    "size": [
     270,
     126
    ],
    "flags": {},
-   "order": 167,
+   "order": 178,
    "mode": 0,
    "inputs": [
     {
@@ -16379,14 +16385,14 @@
    "type": "MechImageCanvas",
    "pos": [
     1410,
-    15306
+    15992
    ],
    "size": [
     270,
     78
    ],
    "flags": {},
-   "order": 204,
+   "order": 215,
    "mode": 0,
    "inputs": [
     {
@@ -16439,7 +16445,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    15306
+    15992
    ],
    "size": [
     420,
@@ -16530,14 +16536,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1410,
-    15414
+    16100
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 205,
+   "order": 216,
    "mode": 0,
    "inputs": [
     {
@@ -16610,14 +16616,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1410,
-    15644
+    16330
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 206,
+   "order": 217,
    "mode": 0,
    "inputs": [
     {
@@ -16690,14 +16696,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1860,
-    15306
+    15992
    ],
    "size": [
     293.7193359375,
     58
    ],
    "flags": {},
-   "order": 224,
+   "order": 235,
    "mode": 0,
    "inputs": [
     {
@@ -16742,14 +16748,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1860,
-    15394
+    16080
    ],
    "size": [
     326.98203125,
     58
    ],
    "flags": {},
-   "order": 225,
+   "order": 236,
    "mode": 0,
    "inputs": [
     {
@@ -16794,14 +16800,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1860,
-    15482
+    16168
    ],
    "size": [
     270,
     106
    ],
    "flags": {},
-   "order": 223,
+   "order": 234,
    "mode": 0,
    "inputs": [
     {
@@ -16862,14 +16868,14 @@
    "type": "KSampler",
    "pos": [
     2236.98203125,
-    15306
+    15992
    ],
    "size": [
     270,
     262
    ],
    "flags": {},
-   "order": 238,
+   "order": 249,
    "mode": 0,
    "inputs": [
     {
@@ -16989,14 +16995,14 @@
    "type": "VAEDecode",
    "pos": [
     2556.98203125,
-    15306
+    15992
    ],
    "size": [
     256.98203125,
     46
    ],
    "flags": {},
-   "order": 251,
+   "order": 262,
    "mode": 0,
    "inputs": [
     {
@@ -17034,14 +17040,14 @@
    "type": "MechImageCanvas",
    "pos": [
     4821.17890625,
-    13006
+    13692
    ],
    "size": [
     305.1822265625,
     78
    ],
    "flags": {},
-   "order": 168,
+   "order": 179,
    "mode": 0,
    "inputs": [
     {
@@ -17094,7 +17100,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    13846
+    14532
    ],
    "size": [
     420,
@@ -17185,14 +17191,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     4821.17890625,
-    13114
+    13800
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 169,
+   "order": 180,
    "mode": 0,
    "inputs": [
     {
@@ -17265,14 +17271,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     4821.17890625,
-    13344
+    14030
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 170,
+   "order": 181,
    "mode": 0,
    "inputs": [
     {
@@ -17345,14 +17351,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     5271.17890625,
-    13006
+    13692
    ],
    "size": [
     361.1822265625,
     58
    ],
    "flags": {},
-   "order": 208,
+   "order": 219,
    "mode": 0,
    "inputs": [
     {
@@ -17397,14 +17403,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     5271.17890625,
-    13094
+    13780
    ],
    "size": [
     403.1822265625,
     58
    ],
    "flags": {},
-   "order": 209,
+   "order": 220,
    "mode": 0,
    "inputs": [
     {
@@ -17449,14 +17455,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     5271.17890625,
-    13182
+    13868
    ],
    "size": [
     333.1822265625,
     106
    ],
    "flags": {},
-   "order": 207,
+   "order": 218,
    "mode": 0,
    "inputs": [
     {
@@ -17517,14 +17523,14 @@
    "type": "KSampler",
    "pos": [
     5724.3611328125,
-    13006
+    13692
    ],
    "size": [
     333.1822265625,
     262
    ],
    "flags": {},
-   "order": 226,
+   "order": 237,
    "mode": 0,
    "inputs": [
     {
@@ -17644,14 +17650,14 @@
    "type": "VAEDecode",
    "pos": [
     6107.543359374999,
-    13006
+    13692
    ],
    "size": [
     333.1822265625,
     46
    ],
    "flags": {},
-   "order": 239,
+   "order": 250,
    "mode": 0,
    "inputs": [
     {
@@ -17687,14 +17693,14 @@
    "type": "SaveImage",
    "pos": [
     6490.725585937499,
-    13006
+    13692
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 252,
+   "order": 263,
    "mode": 0,
    "inputs": [
     {
@@ -17735,14 +17741,14 @@
    "type": "MechImageCanvas",
    "pos": [
     3015.2250000000004,
-    14366
+    15052
    ],
    "size": [
     321.4244140625,
     78
    ],
    "flags": {},
-   "order": 253,
+   "order": 264,
    "mode": 0,
    "inputs": [
     {
@@ -17795,7 +17801,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    14786
+    15472
    ],
    "size": [
     420,
@@ -17886,14 +17892,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3015.2250000000004,
-    14474
+    15160
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 254,
+   "order": 265,
    "mode": 0,
    "inputs": [
     {
@@ -17966,14 +17972,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3015.2250000000004,
-    14704
+    15390
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 255,
+   "order": 266,
    "mode": 0,
    "inputs": [
     {
@@ -18046,14 +18052,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3465.2250000000004,
-    14366
+    15052
    ],
    "size": [
     377.4244140625,
     58
    ],
    "flags": {},
-   "order": 260,
+   "order": 271,
    "mode": 0,
    "inputs": [
     {
@@ -18098,14 +18104,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3465.2250000000004,
-    14454
+    15140
    ],
    "size": [
     419.4244140625,
     58
    ],
    "flags": {},
-   "order": 261,
+   "order": 272,
    "mode": 0,
    "inputs": [
     {
@@ -18150,14 +18156,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     3465.2250000000004,
-    14542
+    15228
    ],
    "size": [
     349.4244140625,
     106
    ],
    "flags": {},
-   "order": 259,
+   "order": 270,
    "mode": 0,
    "inputs": [
     {
@@ -18218,14 +18224,14 @@
    "type": "KSampler",
    "pos": [
     3934.6494140625005,
-    14366
+    15052
    ],
    "size": [
     349.4244140625,
     262
    ],
    "flags": {},
-   "order": 265,
+   "order": 276,
    "mode": 0,
    "inputs": [
     {
@@ -18345,14 +18351,14 @@
    "type": "VAEDecode",
    "pos": [
     4334.073828125001,
-    14366
+    15052
    ],
    "size": [
     349.4244140625,
     46
    ],
    "flags": {},
-   "order": 267,
+   "order": 278,
    "mode": 0,
    "inputs": [
     {
@@ -18388,14 +18394,14 @@
    "type": "SaveImage",
    "pos": [
     4733.4982421875,
-    14366
+    15052
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 269,
+   "order": 280,
    "mode": 0,
    "inputs": [
     {
@@ -18436,14 +18442,14 @@
    "type": "MechImageCanvas",
    "pos": [
     2863.9640625,
-    15306
+    15992
    ],
    "size": [
     274.5845703125,
     78
    ],
    "flags": {},
-   "order": 256,
+   "order": 267,
    "mode": 0,
    "inputs": [
     {
@@ -18496,7 +18502,7 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    15726
+    16412
    ],
    "size": [
     420,
@@ -18587,14 +18593,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     2863.9640625,
-    15414
+    16100
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 257,
+   "order": 268,
    "mode": 0,
    "inputs": [
     {
@@ -18667,14 +18673,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     2863.9640625,
-    15644
+    16330
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 258,
+   "order": 269,
    "mode": 0,
    "inputs": [
     {
@@ -18747,14 +18753,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3313.9640625,
-    15306
+    15992
    ],
    "size": [
     330.5845703125,
     58
    ],
    "flags": {},
-   "order": 263,
+   "order": 274,
    "mode": 0,
    "inputs": [
     {
@@ -18799,14 +18805,14 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3313.9640625,
-    15394
+    16080
    ],
    "size": [
     372.5845703125,
     58
    ],
    "flags": {},
-   "order": 264,
+   "order": 275,
    "mode": 0,
    "inputs": [
     {
@@ -18851,14 +18857,14 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     3313.9640625,
-    15482
+    16168
    ],
    "size": [
     302.5845703125,
     106
    ],
    "flags": {},
-   "order": 262,
+   "order": 273,
    "mode": 0,
    "inputs": [
     {
@@ -18919,14 +18925,14 @@
    "type": "KSampler",
    "pos": [
     3736.5486328125003,
-    15306
+    15992
    ],
    "size": [
     302.5845703125,
     262
    ],
    "flags": {},
-   "order": 266,
+   "order": 277,
    "mode": 0,
    "inputs": [
     {
@@ -19046,14 +19052,14 @@
    "type": "VAEDecode",
    "pos": [
     4089.1332031250004,
-    15306
+    15992
    ],
    "size": [
     302.5845703125,
     46
    ],
    "flags": {},
-   "order": 268,
+   "order": 279,
    "mode": 0,
    "inputs": [
     {
@@ -19089,14 +19095,14 @@
    "type": "SaveImage",
    "pos": [
     4441.7177734375,
-    15306
+    15992
    ],
    "size": [
     320,
     338
    ],
    "flags": {},
-   "order": 270,
+   "order": 281,
    "mode": 0,
    "inputs": [
     {
@@ -19151,7 +19157,7 @@
    "title": "使用說明",
    "properties": {},
    "widgets_values": [
-    "## 09 完整流程：一張機甲圖 → 18 個部位（45°）\n1. 「原始機甲圖」上傳機甲圖，「修改內容」的 text 寫要改的地方（不改就寫：維持原樣）。\n2. 按「執行」。依序：改色 → 正面 A-pose → 45° 全身 → 自動預框 → 頭與四肢 → 10 個細分部位 → 軀幹組。\n   共約 25 次生成，12GB 顯卡約 20–30 分鐘。\n3. 結果在 ComfyUI/output/mech/full/：1_edit、2_front、3_45、4_boxes（預框預覽）與 18 個部位。\n\n注意：\n- 中間不會停下來讓你挑圖或調框；不滿意就換種子再跑，或改用 01–08 逐步做。\n- 部位框是依身體比例自動預框，肩甲特別大或比例特殊的機甲可能不準，先看 4_boxes。\n  若已用 `mechpipe boxes <機甲>` 框好，在「部位框」節點填 mech_id 就會改用你的框。\n- 沒有自動品質檢查與重試；軀幹組約一半會多長出手腳，可用 08 修圖。"
+    "## 09 完整流程：一張機甲圖 → 18 個部位（45°）\n1. 「原始機甲圖」上傳機甲圖，「修改內容」的 text 寫要改的地方（不改就寫：維持原樣）。\n2. 按「執行」。依序：改色 → 正面 A-pose（文字版與骨架版各跑一次，自動挑選）→ 45° 全身 → 自動預框 → 頭與四肢 → 10 個細分部位 → 軀幹組。\n   共約 26 次生成，12GB 顯卡約 20–30 分鐘。\n3. 結果在 ComfyUI/output/mech/full/：1_edit、2_front、3_45、4_boxes（預框預覽）與 18 個部位。\n\n注意：\n- 中間不會停下來讓你挑圖或調框；不滿意就換種子再跑，或改用 01–08 逐步做。\n- 部位框是依身體比例自動預框，肩甲特別大或比例特殊的機甲可能不準，先看 4_boxes。\n  若已用 `mechpipe boxes <機甲>` 框好，在「部位框」節點填 mech_id 就會改用你的框。\n- 沒有自動品質檢查與重試；軀幹組約一半會多長出手腳，可用 08 修圖。"
    ],
    "widgets_values_named": {
     "text": "## 09 完整流程：一張機甲圖 → 18 個部位（45°）\n1. 「原始機甲圖」上傳機甲圖，「修改內容」的 text 寫要改的地方（不改就寫：維持原樣）。\n2. 按「執行」。依序：改色 → 正面 A-pose → 45° 全身 → 自動預框 → 頭與四肢 → 10 個細分部位 → 軀幹組。\n   共約 25 次生成，12GB 顯卡約 20–30 分鐘。\n3. 結果在 ComfyUI/output/mech/full/：1_edit、2_front、3_45、4_boxes（預框預覽）與 18 個部位。\n\n注意：\n- 中間不會停下來讓你挑圖或調框；不滿意就換種子再跑，或改用 01–08 逐步做。\n- 部位框是依身體比例自動預框，肩甲特別大或比例特殊的機甲可能不準，先看 4_boxes。\n  若已用 `mechpipe boxes <機甲>` 框好，在「部位框」節點填 mech_id 就會改用你的框。\n- 沒有自動品質檢查與重試；軀幹組約一半會多長出手腳，可用 08 修圖。"
@@ -19212,7 +19218,7 @@
      ]
     }
    ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：畫布",
+   "title": "【2 轉 A-pose】2 轉 A-pose（骨架）：畫布",
    "properties": {
     "Node name for S&R": "EmptySD3LatentImage"
    },
@@ -19235,7 +19241,7 @@
     1606
    ],
    "size": [
-    319.9830078125,
+    324.5416015625,
     82
    ],
    "flags": {},
@@ -19283,6 +19289,744 @@
    "widgets_values_named": {
     "width": 864,
     "height": 1152
+   }
+  },
+  {
+   "id": 274,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    1407.0171875,
+    1872
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 49,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 1016
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 1017
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 1018
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": 1022
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      1023
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：提示詞",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 275,
+   "type": "TextEncodeQwenImageEditPlus",
+   "pos": [
+    1407.0171875,
+    2102
+   ],
+   "size": [
+    400,
+    200
+   ],
+   "flags": {},
+   "order": 50,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "clip",
+     "name": "clip",
+     "type": "CLIP",
+     "link": 1019
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "shape": 7,
+     "type": "VAE",
+     "link": 1020
+    },
+    {
+     "localized_name": "圖像1",
+     "name": "image1",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": 1021
+    },
+    {
+     "localized_name": "圖像2",
+     "name": "image2",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "圖像3",
+     "name": "image3",
+     "shape": 7,
+     "type": "IMAGE",
+     "link": null
+    },
+    {
+     "localized_name": "提示詞",
+     "name": "prompt",
+     "type": "STRING",
+     "widget": {
+      "name": "prompt"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      1024
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：負面",
+   "properties": {
+    "Node name for S&R": "TextEncodeQwenImageEditPlus"
+   },
+   "widgets_values": [
+    ""
+   ],
+   "widgets_values_named": {
+    "prompt": ""
+   }
+  },
+  {
+   "id": 276,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1857.0171875,
+    1872
+   ],
+   "size": [
+    295.0171875,
+    58
+   ],
+   "flags": {},
+   "order": 53,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 1023
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      1026
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：參考方式",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 277,
+   "type": "FluxKontextMultiReferenceLatentMethod",
+   "pos": [
+    1857.0171875,
+    1960
+   ],
+   "size": [
+    337.0171875,
+    58
+   ],
+   "flags": {},
+   "order": 54,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "條件化",
+     "name": "conditioning",
+     "type": "CONDITIONING",
+     "link": 1024
+    },
+    {
+     "localized_name": "參考潛在方法",
+     "name": "reference_latents_method",
+     "type": "COMBO",
+     "widget": {
+      "name": "reference_latents_method"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "條件設定",
+     "name": "CONDITIONING",
+     "type": "CONDITIONING",
+     "links": [
+      1027
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：參考方式（負）",
+   "properties": {
+    "Node name for S&R": "FluxKontextMultiReferenceLatentMethod"
+   },
+   "widgets_values": [
+    "index_timestep_zero"
+   ],
+   "widgets_values_named": {
+    "reference_latents_method": "index_timestep_zero"
+   }
+  },
+  {
+   "id": 278,
+   "type": "EmptySD3LatentImage",
+   "pos": [
+    1407.0171875,
+    2332
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 32,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "寬度",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "高度",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "批次大小",
+     "name": "batch_size",
+     "type": "INT",
+     "widget": {
+      "name": "batch_size"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      1028
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：畫布",
+   "properties": {
+    "Node name for S&R": "EmptySD3LatentImage"
+   },
+   "widgets_values": [
+    864,
+    1152,
+    1
+   ],
+   "widgets_values_named": {
+    "width": 864,
+    "height": 1152,
+    "batch_size": 1
+   }
+  },
+  {
+   "id": 279,
+   "type": "KSampler",
+   "pos": [
+    2244.034375,
+    1872
+   ],
+   "size": [
+    270,
+    262
+   ],
+   "flags": {},
+   "order": 56,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "模型",
+     "name": "model",
+     "type": "MODEL",
+     "link": 1025
+    },
+    {
+     "localized_name": "正向條件",
+     "name": "positive",
+     "type": "CONDITIONING",
+     "link": 1026
+    },
+    {
+     "localized_name": "負向條件",
+     "name": "negative",
+     "type": "CONDITIONING",
+     "link": 1027
+    },
+    {
+     "localized_name": "潛在空間影像",
+     "name": "latent_image",
+     "type": "LATENT",
+     "link": 1028
+    },
+    {
+     "localized_name": "種子",
+     "name": "seed",
+     "type": "INT",
+     "widget": {
+      "name": "seed"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "步驟數",
+     "name": "steps",
+     "type": "INT",
+     "widget": {
+      "name": "steps"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "cfg",
+     "name": "cfg",
+     "type": "FLOAT",
+     "widget": {
+      "name": "cfg"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "取樣器",
+     "name": "sampler_name",
+     "type": "COMBO",
+     "widget": {
+      "name": "sampler_name"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "排程器",
+     "name": "scheduler",
+     "type": "COMBO",
+     "widget": {
+      "name": "scheduler"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "去雜訊強度",
+     "name": "denoise",
+     "type": "FLOAT",
+     "widget": {
+      "name": "denoise"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      1029
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：取樣",
+   "properties": {
+    "Node name for S&R": "KSampler"
+   },
+   "widgets_values": [
+    0,
+    "randomize",
+    4,
+    1,
+    "euler",
+    "simple",
+    1
+   ],
+   "widgets_values_named": {
+    "seed": 0,
+    "control_after_generate": "randomize",
+    "steps": 4,
+    "cfg": 1,
+    "sampler_name": "euler",
+    "scheduler": "simple",
+    "denoise": 1
+   }
+  },
+  {
+   "id": 280,
+   "type": "VAEDecode",
+   "pos": [
+    2564.034375,
+    1872
+   ],
+   "size": [
+    267.0171875,
+    46
+   ],
+   "flags": {},
+   "order": 58,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "samples",
+     "name": "samples",
+     "type": "LATENT",
+     "link": 1029
+    },
+    {
+     "localized_name": "vae",
+     "name": "vae",
+     "type": "VAE",
+     "link": 1030
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1032,
+      1034
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose（文字）：解碼",
+   "properties": {
+    "Node name for S&R": "VAEDecode"
+   }
+  },
+  {
+   "id": 281,
+   "type": "MechPrompt",
+   "pos": [
+    640,
+    1872
+   ],
+   "size": [
+    420,
+    360
+   ],
+   "flags": {},
+   "order": 33,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "template",
+     "name": "template",
+     "type": "COMBO",
+     "widget": {
+      "name": "template"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "part",
+     "name": "part",
+     "type": "COMBO",
+     "widget": {
+      "name": "part"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "view",
+     "name": "view",
+     "type": "COMBO",
+     "widget": {
+      "name": "view"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "text",
+     "name": "text",
+     "type": "STRING",
+     "widget": {
+      "name": "text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "links": [
+      1022
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】A-pose 提示詞（文字版）",
+   "properties": {
+    "Node name for S&R": "MechPrompt"
+   },
+   "widgets_values": [
+    "s1_apose_text",
+    "（無）",
+    "keep",
+    "",
+    ""
+   ],
+   "widgets_values_named": {
+    "template": "s1_apose_text",
+    "part": "（無）",
+    "view": "keep",
+    "text": "",
+    "full_prompt": ""
+   }
+  },
+  {
+   "id": 282,
+   "type": "MechPickAPose",
+   "pos": [
+    2881.0515625000003,
+    1594
+   ],
+   "size": [
+    375.9830078125,
+    98
+   ],
+   "flags": {},
+   "order": 60,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "edited",
+     "name": "edited",
+     "type": "IMAGE",
+     "link": 1031
+    },
+    {
+     "localized_name": "text_result",
+     "name": "text_result",
+     "type": "IMAGE",
+     "link": 1032
+    },
+    {
+     "localized_name": "skeleton_result",
+     "name": "skeleton_result",
+     "type": "IMAGE",
+     "link": 1033
+    },
+    {
+     "localized_name": "copy_iou",
+     "name": "copy_iou",
+     "type": "FLOAT",
+     "widget": {
+      "name": "copy_iou"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "image",
+     "name": "image",
+     "type": "IMAGE",
+     "links": [
+      1036,
+      1037,
+      1038,
+      1039,
+      1040
+     ]
+    },
+    {
+     "localized_name": "choice",
+     "name": "choice",
+     "type": "STRING",
+     "links": null
+    }
+   ],
+   "title": "【2 轉 A-pose】自動挑選（文字版照抄原圖時用骨架版）",
+   "properties": {
+    "Node name for S&R": "MechPickAPose"
+   },
+   "widgets_values": [
+    0.85
+   ],
+   "widgets_values_named": {
+    "copy_iou": 0.85
+   }
+  },
+  {
+   "id": 283,
+   "type": "PreviewImage",
+   "pos": [
+    3261.0515625000003,
+    1872
+   ],
+   "size": [
+    320,
+    400
+   ],
+   "flags": {},
+   "order": 61,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "圖片",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 1034
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "【2 轉 A-pose】文字版結果",
+   "properties": {
+    "Node name for S&R": "PreviewImage"
+   }
+  },
+  {
+   "id": 284,
+   "type": "PreviewImage",
+   "pos": [
+    3261.0515625000003,
+    1186
+   ],
+   "size": [
+    320,
+    400
+   ],
+   "flags": {},
+   "order": 59,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "圖片",
+     "name": "images",
+     "type": "IMAGE",
+     "link": 1035
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "images",
+     "name": "images",
+     "type": "IMAGE",
+     "links": null
+    }
+   ],
+   "title": "【2 轉 A-pose】骨架版結果",
+   "properties": {
+    "Node name for S&R": "PreviewImage"
    }
   }
  ],
@@ -19568,22 +20312,6 @@
    "VAE"
   ],
   [
-   547,
-   27,
-   0,
-   28,
-   0,
-   "IMAGE"
-  ],
-  [
-   548,
-   27,
-   0,
-   30,
-   0,
-   "IMAGE"
-  ],
-  [
    549,
    5,
    0,
@@ -19724,22 +20452,6 @@
    37,
    0,
    38,
-   0,
-   "IMAGE"
-  ],
-  [
-   567,
-   27,
-   0,
-   39,
-   0,
-   "IMAGE"
-  ],
-  [
-   568,
-   27,
-   0,
-   40,
    0,
    "IMAGE"
   ],
@@ -22200,14 +22912,6 @@
    "IMAGE"
   ],
   [
-   876,
-   27,
-   0,
-   203,
-   0,
-   "IMAGE"
-  ],
-  [
    877,
    5,
    0,
@@ -23318,6 +24022,206 @@
    22,
    3,
    "IMAGE"
+  ],
+  [
+   1016,
+   5,
+   0,
+   274,
+   0,
+   "CLIP"
+  ],
+  [
+   1017,
+   6,
+   0,
+   274,
+   1,
+   "VAE"
+  ],
+  [
+   1018,
+   17,
+   0,
+   274,
+   2,
+   "IMAGE"
+  ],
+  [
+   1019,
+   5,
+   0,
+   275,
+   0,
+   "CLIP"
+  ],
+  [
+   1020,
+   6,
+   0,
+   275,
+   1,
+   "VAE"
+  ],
+  [
+   1021,
+   17,
+   0,
+   275,
+   2,
+   "IMAGE"
+  ],
+  [
+   1022,
+   281,
+   0,
+   274,
+   5,
+   "STRING"
+  ],
+  [
+   1023,
+   274,
+   0,
+   276,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   1024,
+   275,
+   0,
+   277,
+   0,
+   "CONDITIONING"
+  ],
+  [
+   1025,
+   4,
+   0,
+   279,
+   0,
+   "MODEL"
+  ],
+  [
+   1026,
+   276,
+   0,
+   279,
+   1,
+   "CONDITIONING"
+  ],
+  [
+   1027,
+   277,
+   0,
+   279,
+   2,
+   "CONDITIONING"
+  ],
+  [
+   1028,
+   278,
+   0,
+   279,
+   3,
+   "LATENT"
+  ],
+  [
+   1029,
+   279,
+   0,
+   280,
+   0,
+   "LATENT"
+  ],
+  [
+   1030,
+   6,
+   0,
+   280,
+   1,
+   "VAE"
+  ],
+  [
+   1031,
+   17,
+   0,
+   282,
+   0,
+   "IMAGE"
+  ],
+  [
+   1032,
+   280,
+   0,
+   282,
+   1,
+   "IMAGE"
+  ],
+  [
+   1033,
+   27,
+   0,
+   282,
+   2,
+   "IMAGE"
+  ],
+  [
+   1034,
+   280,
+   0,
+   283,
+   0,
+   "IMAGE"
+  ],
+  [
+   1035,
+   27,
+   0,
+   284,
+   0,
+   "IMAGE"
+  ],
+  [
+   1036,
+   282,
+   0,
+   28,
+   0,
+   "IMAGE"
+  ],
+  [
+   1037,
+   282,
+   0,
+   30,
+   0,
+   "IMAGE"
+  ],
+  [
+   1038,
+   282,
+   0,
+   39,
+   0,
+   "IMAGE"
+  ],
+  [
+   1039,
+   282,
+   0,
+   40,
+   0,
+   "IMAGE"
+  ],
+  [
+   1040,
+   282,
+   0,
+   203,
+   0,
+   "IMAGE"
   ]
  ],
  "groups": [
@@ -23351,8 +24255,8 @@
    "bounding": [
     610,
     1126,
-    2661.0515625000003,
-    666
+    3011.0515625000003,
+    1352
    ],
    "color": "#3f789e",
    "flags": {}
@@ -23362,7 +24266,7 @@
    "title": "3 轉 45°",
    "bounding": [
     610,
-    1852,
+    2538,
     2520.5193359375003,
     606
    ],
@@ -23374,7 +24278,7 @@
    "title": "4 部位框",
    "bounding": [
     610,
-    2518,
+    3204,
     1063.2218750000002,
     438
    ],
@@ -23386,7 +24290,7 @@
    "title": "HEAD_NECK",
    "bounding": [
     610,
-    3016,
+    3702,
     3029.3437500000005,
     530
    ],
@@ -23398,7 +24302,7 @@
    "title": "ARM_FULL_R",
    "bounding": [
     610,
-    3606,
+    4292,
     3069.9218750000005,
     530
    ],
@@ -23410,7 +24314,7 @@
    "title": "ARM_FULL_L",
    "bounding": [
     610,
-    4196,
+    4882,
     3061.1718750000005,
     530
    ],
@@ -23422,7 +24326,7 @@
    "title": "LEG_FULL_R",
    "bounding": [
     610,
-    4786,
+    5472,
     3033.6093750000005,
     530
    ],
@@ -23434,7 +24338,7 @@
    "title": "LEG_FULL_L",
    "bounding": [
     610,
-    5376,
+    6062,
     3024.8593750000005,
     530
    ],
@@ -23446,7 +24350,7 @@
    "title": "SHOULDER_UPPERARM_R",
    "bounding": [
     610,
-    5966,
+    6652,
     3650.868359375,
     638
    ],
@@ -23458,7 +24362,7 @@
    "title": "FOREARM_HAND_R",
    "bounding": [
     610,
-    6664,
+    7350,
     3073.3750000000005,
     638
    ],
@@ -23470,7 +24374,7 @@
    "title": "SHOULDER_UPPERARM_L",
    "bounding": [
     610,
-    7362,
+    8048,
     3635.555859375,
     638
    ],
@@ -23482,7 +24386,7 @@
    "title": "FOREARM_HAND_L",
    "bounding": [
     610,
-    8060,
+    8746,
     3062.4375000000005,
     638
    ],
@@ -23494,7 +24398,7 @@
    "title": "THIGH_KNEE_R",
    "bounding": [
     610,
-    8758,
+    9444,
     2847.9984375000004,
     638
    ],
@@ -23506,7 +24410,7 @@
    "title": "KNEE_SHIN_R",
    "bounding": [
     610,
-    9456,
+    10142,
     2761.3734375000004,
     638
    ],
@@ -23518,7 +24422,7 @@
    "title": "ANKLE_FOOT_R",
    "bounding": [
     610,
-    10154,
+    10840,
     2868.8890625000004,
     638
    ],
@@ -23530,7 +24434,7 @@
    "title": "THIGH_KNEE_L",
    "bounding": [
     610,
-    10852,
+    11538,
     2839.2484375000004,
     638
    ],
@@ -23542,7 +24446,7 @@
    "title": "KNEE_SHIN_L",
    "bounding": [
     610,
-    11550,
+    12236,
     2752.6234375000004,
     638
    ],
@@ -23554,7 +24458,7 @@
    "title": "ANKLE_FOOT_L",
    "bounding": [
     610,
-    12248,
+    12934,
     2860.1390625000004,
     638
    ],
@@ -23566,7 +24470,7 @@
    "title": "TORSO_FULL",
    "bounding": [
     610,
-    12946,
+    13632,
     6270.725585937499,
     1300
    ],
@@ -23578,7 +24482,7 @@
    "title": "CHEST_WAIST",
    "bounding": [
     610,
-    14306,
+    14992,
     4513.4982421875,
     880
    ],
@@ -23590,7 +24494,7 @@
    "title": "WAIST_HIP",
    "bounding": [
     610,
-    15246,
+    15932,
     4221.7177734375,
     880
    ],

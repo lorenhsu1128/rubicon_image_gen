@@ -79,31 +79,21 @@
   }
  },
  "8": {
-  "class_type": "MechAposeSkeleton",
-  "_meta": {
-   "title": "A-pose 骨架圖（姿勢參考）"
-  },
-  "inputs": {
-   "width": 864,
-   "height": 1152
-  }
- },
- "9": {
   "class_type": "MechPrompt",
   "_meta": {
-   "title": "提示詞"
+   "title": "A-pose 提示詞（文字版）"
   },
   "inputs": {
-   "template": "s1_apose",
+   "template": "s1_apose_text",
    "part": "（無）",
    "view": "keep",
    "text": ""
   }
  },
- "10": {
+ "9": {
   "class_type": "TextEncodeQwenImageEditPlus",
   "_meta": {
-   "title": "轉 A-pose：提示詞"
+   "title": "轉 A-pose（文字）：提示詞"
   },
   "inputs": {
    "clip": [
@@ -115,7 +105,157 @@
     0
    ],
    "prompt": [
+    "8",
+    0
+   ],
+   "image1": [
+    "7",
+    0
+   ]
+  }
+ },
+ "10": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "轉 A-pose（文字）：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "7",
+    0
+   ]
+  }
+ },
+ "11": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "轉 A-pose（文字）：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
     "9",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "12": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "轉 A-pose（文字）：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "10",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "13": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "轉 A-pose（文字）：畫布"
+  },
+  "inputs": {
+   "width": 864,
+   "height": 1152,
+   "batch_size": 1
+  }
+ },
+ "14": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "轉 A-pose（文字）：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "11",
+    0
+   ],
+   "negative": [
+    "12",
+    0
+   ],
+   "latent_image": [
+    "13",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "15": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "轉 A-pose（文字）：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "14",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "16": {
+  "class_type": "MechAposeSkeleton",
+  "_meta": {
+   "title": "A-pose 骨架圖（姿勢參考）"
+  },
+  "inputs": {
+   "width": 864,
+   "height": 1152
+  }
+ },
+ "17": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "A-pose 提示詞（骨架版）"
+  },
+  "inputs": {
+   "template": "s1_apose",
+   "part": "（無）",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "18": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "轉 A-pose（骨架）：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "17",
     0
    ],
    "image1": [
@@ -123,15 +263,15 @@
     0
    ],
    "image2": [
-    "8",
+    "16",
     0
    ]
   }
  },
- "11": {
+ "19": {
   "class_type": "TextEncodeQwenImageEditPlus",
   "_meta": {
-   "title": "轉 A-pose：負面"
+   "title": "轉 A-pose（骨架）：負面"
   },
   "inputs": {
    "clip": [
@@ -148,41 +288,41 @@
     0
    ],
    "image2": [
-    "8",
+    "16",
     0
    ]
   }
  },
- "12": {
+ "20": {
   "class_type": "FluxKontextMultiReferenceLatentMethod",
   "_meta": {
-   "title": "轉 A-pose：參考方式"
+   "title": "轉 A-pose（骨架）：參考方式"
   },
   "inputs": {
    "conditioning": [
-    "10",
+    "18",
     0
    ],
    "reference_latents_method": "index_timestep_zero"
   }
  },
- "13": {
+ "21": {
   "class_type": "FluxKontextMultiReferenceLatentMethod",
   "_meta": {
-   "title": "轉 A-pose：參考方式（負）"
+   "title": "轉 A-pose（骨架）：參考方式（負）"
   },
   "inputs": {
    "conditioning": [
-    "11",
+    "19",
     0
    ],
    "reference_latents_method": "index_timestep_zero"
   }
  },
- "14": {
+ "22": {
   "class_type": "EmptySD3LatentImage",
   "_meta": {
-   "title": "轉 A-pose：畫布"
+   "title": "轉 A-pose（骨架）：畫布"
   },
   "inputs": {
    "width": 864,
@@ -190,10 +330,10 @@
    "batch_size": 1
   }
  },
- "15": {
+ "23": {
   "class_type": "KSampler",
   "_meta": {
-   "title": "轉 A-pose：取樣"
+   "title": "轉 A-pose（骨架）：取樣"
   },
   "inputs": {
    "model": [
@@ -201,15 +341,15 @@
     0
    ],
    "positive": [
-    "12",
+    "20",
     0
    ],
    "negative": [
-    "13",
+    "21",
     0
    ],
    "latent_image": [
-    "14",
+    "22",
     0
    ],
    "seed": 0,
@@ -220,14 +360,14 @@
    "denoise": 1.0
   }
  },
- "16": {
+ "24": {
   "class_type": "VAEDecode",
   "_meta": {
-   "title": "轉 A-pose：解碼"
+   "title": "轉 A-pose（骨架）：解碼"
   },
   "inputs": {
    "samples": [
-    "15",
+    "23",
     0
    ],
    "vae": [
@@ -236,14 +376,59 @@
    ]
   }
  },
- "17": {
+ "25": {
+  "class_type": "PreviewImage",
+  "_meta": {
+   "title": "文字版結果"
+  },
+  "inputs": {
+   "images": [
+    "15",
+    0
+   ]
+  }
+ },
+ "26": {
+  "class_type": "PreviewImage",
+  "_meta": {
+   "title": "骨架版結果"
+  },
+  "inputs": {
+   "images": [
+    "24",
+    0
+   ]
+  }
+ },
+ "27": {
+  "class_type": "MechPickAPose",
+  "_meta": {
+   "title": "自動挑選（文字版照抄原圖時用骨架版）"
+  },
+  "inputs": {
+   "edited": [
+    "7",
+    0
+   ],
+   "text_result": [
+    "15",
+    0
+   ],
+   "skeleton_result": [
+    "24",
+    0
+   ],
+   "copy_iou": 0.85
+  }
+ },
+ "28": {
   "class_type": "SaveImage",
   "_meta": {
    "title": "輸出"
   },
   "inputs": {
    "images": [
-    "16",
+    "27",
     0
    ],
    "filename_prefix": "mech/02_apose"

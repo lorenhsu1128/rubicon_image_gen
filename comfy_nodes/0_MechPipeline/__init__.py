@@ -22,6 +22,7 @@ from mechpipe import boxes as mech_boxes  # noqa: E402
 from mechpipe.crop import background, content_bbox  # noqa: E402
 from mechpipe.jobs import load_yaml, settings  # noqa: E402
 from mechpipe.pose import apose_skeleton  # noqa: E402
+from mechpipe.qc import APOSE_COPY_IOU, same_view  # noqa: E402
 from mechpipe.stages import SEGMENT_OF, TORSO_ERASE, TORSO_KEEP, part_canvas, part_descs  # noqa: E402
 
 CATEGORY = "機甲轉圖"
@@ -143,6 +144,31 @@ class MechAposeSkeleton:
 
     def run(self, width, height):
         return (to_tensor(apose_skeleton((width, height))),)
+
+
+class MechPickAPose:
+    """Chooses between the two A-pose passes: the text-only result keeps the mech's proportions best,
+    but for 3/4 or crouched mechs it just copies the input; then the pose-skeleton result is used."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"edited": ("IMAGE",), "text_result": ("IMAGE",), "skeleton_result": ("IMAGE",),
+                             "copy_iou": ("FLOAT", {"default": APOSE_COPY_IOU, "min": 0.5, "max": 1.0, "step": 0.01,
+                                                    "tooltip": "文字版和原圖輪廓重疊度達到這個值，就當作照抄原圖、改用骨架版"})}}
+
+    RETURN_TYPES = ("IMAGE", "STRING")
+    RETURN_NAMES = ("image", "choice")
+    FUNCTION = "run"
+    CATEGORY = CATEGORY
+
+    def run(self, edited, text_result, skeleton_result, copy_iou):
+        iou = same_view(to_pil(edited), to_pil(text_result))
+        if iou >= copy_iou:
+            choice, image = f"骨架版（文字版照抄原圖，IoU {iou:.2f}）", skeleton_result
+        else:
+            choice, image = f"文字版（IoU {iou:.2f}）", text_result
+        print(f"[MechPickAPose] {choice}")
+        return (image, choice)
 
 
 class MechPartCanvas:
@@ -385,6 +411,7 @@ NODE_CLASS_MAPPINGS = {
     "MechLoadMaster": MechLoadMaster,
     "MechPrompt": MechPrompt,
     "MechAposeSkeleton": MechAposeSkeleton,
+    "MechPickAPose": MechPickAPose,
     "MechPartCanvas": MechPartCanvas,
     "MechImageCanvas": MechImageCanvas,
     "MechCutSegment": MechCutSegment,
@@ -398,6 +425,7 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "MechLoadMaster": "機甲：載入選定的全身圖",
     "MechPrompt": "機甲：提示詞",
     "MechAposeSkeleton": "機甲：A-pose 骨架圖（姿勢參考）",
+    "MechPickAPose": "機甲：A-pose 自動挑選（文字版或骨架版）",
     "MechPartCanvas": "機甲：部位畫布尺寸（依框）",
     "MechImageCanvas": "機甲：畫布尺寸（依圖片）",
     "MechCutSegment": "機甲：從整件切出細分部位",

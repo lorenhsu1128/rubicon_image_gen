@@ -2,7 +2,7 @@ import argparse
 import random
 from pathlib import Path
 
-from . import boxes, contact_sheet, deliver, stages, touchup
+from . import boxes, contact_sheet, deliver, qc, stages, touchup
 from .jobs import client, from_metadata, rel
 
 MODES = ["draft", "final"]   # same names in every model family of config/settings.yaml
@@ -15,11 +15,29 @@ def _seeds(args) -> list[int]:
 
 
 def cmd_s1(args):
-    jobs = stages.s1_jobs(args.mech_id, args.view, _seeds(args), args.mode)
+    seeds = _seeds(args)
+    if args.view == "apose":
+        # per seed: text only (keeps the proportions best) and pose skeleton (re-poses 3/4 or crouched
+        # mechs that the text pass only copies); see qc.apose_copied
+        text = stages.s1_jobs(args.mech_id, "apose_text", seeds, args.mode)
+        skel = stages.s1_jobs(args.mech_id, "apose", seeds, args.mode)
+        jobs = [j for pair in zip(text, skel) for j in pair]
+    else:
+        jobs = stages.s1_jobs(args.mech_id, args.view, seeds, args.mode)
     comfy = client()
+    outs = {}
     for i, job in enumerate(jobs, 1):
-        print(f"[{i}/{len(jobs)}] s1 {args.view} seed={job.seed} mode={job.mode} ...", flush=True)
-        print("  ->", rel(job.run(comfy)), flush=True)
+        print(f"[{i}/{len(jobs)}] s1 {job.part} seed={job.seed} mode={job.mode} ...", flush=True)
+        outs[(job.part, job.seed)] = job.run(comfy)
+        print("  ->", rel(outs[(job.part, job.seed)]), flush=True)
+    if args.view == "apose":
+        edited = stages.master_path(args.mech_id, "edited")
+        for seed in seeds:
+            text_png, skel_png = outs[("apose_text", seed)], outs[("apose", seed)]
+            iou = qc.same_view(edited, text_png)
+            best = skel_png if iou >= qc.APOSE_COPY_IOU else text_png
+            note = "文字版照抄原圖，用骨架版" if best == skel_png else "文字版已轉姿勢，比例最準"
+            print(f"seed {seed}: {note}（IoU {iou:.2f}）-> 建議 {rel(best)}")
     sheet = contact_sheet.build(jobs[0].out_dir().parent)
     print("contact sheet:", rel(sheet))
 

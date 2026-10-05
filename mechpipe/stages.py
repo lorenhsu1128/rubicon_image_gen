@@ -14,13 +14,14 @@ S1_VIEWS = {
     # view -> (model family, workflow, prompt template)
     "edit": ("edit", "edit_keep.api.json", "s1_edit.txt"),         # source + change text, same pose/canvas
     "apose": ("edit", "s1_apose.api.json", "s1_apose.txt"),        # picked edit + pose skeleton -> A-pose front
+    "apose_text": ("edit", "edit_1img.api.json", "s1_apose_text.txt"),  # picked edit, text only (run with apose)
     "variant": ("edit", "edit_1img.api.json", "s1_variant.txt"),  # one step: change + A-pose (loses fidelity)
     "design": ("t2i", "s1_design.api.json", "s1_design.txt"),     # new design from text (Qwen-Image-2512)
     "restyle": ("edit", "s1_master.api.json", "s1_front.txt"),    # picked design in the source's style, A-pose
     "45": ("edit", "edit_keep_lora.api.json", None),            # front master turned 45 deg (camera LoRA)
 }
 # which master each S1 view's pick becomes
-PICK_TARGET = {"edit": "edited", "apose": "front", "variant": "front", "design": "design", "restyle": "front", "45": "45"}
+PICK_TARGET = {"edit": "edited", "apose": "front", "apose_text": "front", "variant": "front", "design": "design", "restyle": "front", "45": "45"}
 
 
 def load_mech(mech_id: str) -> dict:
@@ -54,14 +55,18 @@ def s1_jobs(mech_id: str, view: str, seeds: list[int], mode: str) -> list[Job]:
     extra, loras = {}, []
     if view == "edit":
         inputs = {"IN_IMAGE_1": mech["source_image"]}
-    elif view == "apose":
+    elif view in ("apose", "apose_text"):
         edited = _require(master_path(mech_id, "edited"), "pick an edit result first (mechpipe pick --view edit)")
         w, h = settings()["master_size"]
-        skeleton = REPO_ROOT / settings()["paths"]["runs"] / mech_id / "s1" / "apose_skeleton.png"
-        skeleton.parent.mkdir(parents=True, exist_ok=True)
-        apose_skeleton((w, h)).save(skeleton)
-        inputs = {"IN_IMAGE_1": rel(edited), "IN_IMAGE_2": rel(skeleton)}
         extra = {"OUT_SIZE.width": w, "OUT_SIZE.height": h}
+        if view == "apose_text":
+            inputs = {"IN_IMAGE_1": rel(edited)}
+            loras = [_lora_off()]
+        else:
+            skeleton = REPO_ROOT / settings()["paths"]["runs"] / mech_id / "s1" / "apose_skeleton.png"
+            skeleton.parent.mkdir(parents=True, exist_ok=True)
+            apose_skeleton((w, h)).save(skeleton)
+            inputs = {"IN_IMAGE_1": rel(edited), "IN_IMAGE_2": rel(skeleton)}
     elif view == "variant":
         inputs = {"IN_IMAGE_1": mech["source_image"]}
         w, h = settings()["master_size"]
