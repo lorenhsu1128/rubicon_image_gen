@@ -494,8 +494,8 @@
     864
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 4,
@@ -536,6 +536,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -556,13 +566,15 @@
     "cam_lora",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "cam_lora",
     "part": "（無）",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {

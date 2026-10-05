@@ -8,11 +8,12 @@ from PIL import Image
 from . import REPO_ROOT, boxes, qc
 from .crop import cut_band, cut_box, erase_boxes
 from .jobs import Job, load_yaml, rel, settings
+from .pose import apose_skeleton
 
 S1_VIEWS = {
     # view -> (model family, workflow, prompt template)
     "edit": ("edit", "edit_keep.api.json", "s1_edit.txt"),         # source + change text, same pose/canvas
-    "apose": ("edit", "s1_master.api.json", "s1_apose.txt"),       # picked edit (+ source for detail) -> A-pose front
+    "apose": ("edit", "s1_apose.api.json", "s1_apose.txt"),        # picked edit + pose skeleton -> A-pose front
     "variant": ("edit", "edit_1img.api.json", "s1_variant.txt"),  # one step: change + A-pose (loses fidelity)
     "design": ("t2i", "s1_design.api.json", "s1_design.txt"),     # new design from text (Qwen-Image-2512)
     "restyle": ("edit", "s1_master.api.json", "s1_front.txt"),    # picked design in the source's style, A-pose
@@ -55,7 +56,12 @@ def s1_jobs(mech_id: str, view: str, seeds: list[int], mode: str) -> list[Job]:
         inputs = {"IN_IMAGE_1": mech["source_image"]}
     elif view == "apose":
         edited = _require(master_path(mech_id, "edited"), "pick an edit result first (mechpipe pick --view edit)")
-        inputs = {"IN_IMAGE_1": rel(edited), "IN_IMAGE_2": mech["source_image"]}
+        w, h = settings()["master_size"]
+        skeleton = REPO_ROOT / settings()["paths"]["runs"] / mech_id / "s1" / "apose_skeleton.png"
+        skeleton.parent.mkdir(parents=True, exist_ok=True)
+        apose_skeleton((w, h)).save(skeleton)
+        inputs = {"IN_IMAGE_1": rel(edited), "IN_IMAGE_2": rel(skeleton)}
+        extra = {"OUT_SIZE.width": w, "OUT_SIZE.height": h}
     elif view == "variant":
         inputs = {"IN_IMAGE_1": mech["source_image"]}
         w, h = settings()["master_size"]

@@ -18,6 +18,7 @@ from pathlib import Path
 from PIL import Image, ImageFilter
 
 from . import REPO_ROOT
+from .crop import background
 from .deliver import TOUCH_STAGE, current_images
 from .jobs import Job, client, rel, settings
 from .stages import _prompt, part_descs
@@ -86,7 +87,7 @@ class Session:
         stamp = f"{part}_{chain}_{datetime.now():%Y%m%d-%H%M%S}"
         mask_path = work / f"{stamp}_mask.png"
         mask.save(mask_path)
-        erased = _fill(im, mask, (255, 255, 255))
+        erased = _fill(im, mask, background(im))
         meta = {"mech_id": self.mech_id, "stage": TOUCH_STAGE, "part": part, "seed": chain,
                 "touch_of": rel(src), "mask": rel(mask_path), "repaint": repaint, "hint": hint,
                 "qc": {"ok": True, "problems": [], "chain_seed": chain},

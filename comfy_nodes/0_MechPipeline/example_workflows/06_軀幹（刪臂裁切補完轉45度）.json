@@ -437,8 +437,8 @@
     544
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 4,
@@ -479,6 +479,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -499,13 +509,15 @@
     "s2_remove_arms",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_remove_arms",
     "part": "（無）",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -1069,7 +1081,7 @@
    ],
    "size": [
     270,
-    82
+    102
    ],
    "flags": {},
    "order": 20,
@@ -1080,6 +1092,13 @@
      "name": "no_arms",
      "type": "IMAGE",
      "link": 85
+    },
+    {
+     "localized_name": "boxes",
+     "name": "boxes",
+     "shape": 7,
+     "type": "MECH_BOXES",
+     "link": null
     },
     {
      "localized_name": "mech_id",
@@ -1226,11 +1245,11 @@
    "type": "MechPrompt",
    "pos": [
     500,
-    804
+    964
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 5,
@@ -1271,6 +1290,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -1291,13 +1320,15 @@
     "s2_complete",
     "TORSO_FULL",
     "front",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "TORSO_FULL",
     "view": "front",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -1918,11 +1949,11 @@
    "type": "MechPrompt",
    "pos": [
     500,
-    1064
+    1384
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 6,
@@ -1963,6 +1994,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -1983,13 +2024,15 @@
     "s2_rotate",
     "（無）",
     "45",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_rotate",
     "part": "（無）",
     "view": "45",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {

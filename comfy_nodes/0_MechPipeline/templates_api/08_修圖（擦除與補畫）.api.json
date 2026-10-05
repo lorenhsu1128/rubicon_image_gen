@@ -81,7 +81,7 @@
  "8": {
   "class_type": "MechMarkMask",
   "_meta": {
-   "title": "遮罩標記"
+   "title": "修圖模式（mode 選刪除或補畫；text 可寫要求）"
   },
   "inputs": {
    "image": [
@@ -91,7 +91,10 @@
    "mask": [
     "7",
     1
-   ]
+   ],
+   "mode": "刪除（補背景）",
+   "text": "",
+   "grow": 6
   }
  },
  "9": {
@@ -108,18 +111,6 @@
   }
  },
  "10": {
-  "class_type": "MechPrompt",
-  "_meta": {
-   "title": "補畫提示（text 可寫要求，例如：補成肩膀的圓形關節截面）"
-  },
-  "inputs": {
-   "template": "s2_fill",
-   "part": "（無）",
-   "view": "keep",
-   "text": ""
-  }
- },
- "11": {
   "class_type": "FluxKontextImageScale",
   "_meta": {
    "title": "補畫：縮放"
@@ -131,7 +122,7 @@
    ]
   }
  },
- "12": {
+ "11": {
   "class_type": "TextEncodeQwenImageEditPlus",
   "_meta": {
    "title": "補畫：提示詞"
@@ -146,16 +137,16 @@
     0
    ],
    "prompt": [
-    "10",
-    0
+    "8",
+    2
    ],
    "image1": [
-    "11",
+    "10",
     0
    ]
   }
  },
- "13": {
+ "12": {
   "class_type": "TextEncodeQwenImageEditPlus",
   "_meta": {
    "title": "補畫：負面"
@@ -171,15 +162,28 @@
    ],
    "prompt": "",
    "image1": [
-    "11",
+    "10",
     0
    ]
+  }
+ },
+ "13": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "補畫：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "11",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
   }
  },
  "14": {
   "class_type": "FluxKontextMultiReferenceLatentMethod",
   "_meta": {
-   "title": "補畫：參考方式"
+   "title": "補畫：參考方式（負）"
   },
   "inputs": {
    "conditioning": [
@@ -190,26 +194,13 @@
   }
  },
  "15": {
-  "class_type": "FluxKontextMultiReferenceLatentMethod",
-  "_meta": {
-   "title": "補畫：參考方式（負）"
-  },
-  "inputs": {
-   "conditioning": [
-    "13",
-    0
-   ],
-   "reference_latents_method": "index_timestep_zero"
-  }
- },
- "16": {
   "class_type": "VAEEncode",
   "_meta": {
    "title": "補畫：編碼"
   },
   "inputs": {
    "pixels": [
-    "11",
+    "10",
     0
    ],
    "vae": [
@@ -218,7 +209,7 @@
    ]
   }
  },
- "17": {
+ "16": {
   "class_type": "KSampler",
   "_meta": {
    "title": "補畫：取樣"
@@ -229,15 +220,15 @@
     0
    ],
    "positive": [
-    "14",
+    "13",
     0
    ],
    "negative": [
-    "15",
+    "14",
     0
    ],
    "latent_image": [
-    "16",
+    "15",
     0
    ],
    "seed": 0,
@@ -248,14 +239,14 @@
    "denoise": 1.0
   }
  },
- "18": {
+ "17": {
   "class_type": "VAEDecode",
   "_meta": {
    "title": "補畫：解碼"
   },
   "inputs": {
    "samples": [
-    "17",
+    "16",
     0
    ],
    "vae": [
@@ -264,7 +255,7 @@
    ]
   }
  },
- "19": {
+ "18": {
   "class_type": "MechMaskComposite",
   "_meta": {
    "title": "只貼回遮罩範圍"
@@ -275,25 +266,25 @@
     1
    ],
    "repainted": [
-    "18",
+    "17",
     0
    ],
    "mask": [
-    "7",
-    1
+    "8",
+    3
    ],
    "grow": 6,
    "feather": 4
   }
  },
- "20": {
+ "19": {
   "class_type": "SaveImage",
   "_meta": {
    "title": "擦除並補畫"
   },
   "inputs": {
    "images": [
-    "19",
+    "18",
     0
    ],
    "filename_prefix": "mech/08_repaint"

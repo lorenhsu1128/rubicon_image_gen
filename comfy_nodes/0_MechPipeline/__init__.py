@@ -21,6 +21,7 @@ if str(REPO_ROOT) not in sys.path:
 from mechpipe import boxes as mech_boxes  # noqa: E402
 from mechpipe.crop import background, content_bbox  # noqa: E402
 from mechpipe.jobs import load_yaml, settings  # noqa: E402
+from mechpipe.pose import apose_skeleton  # noqa: E402
 from mechpipe.stages import SEGMENT_OF, TORSO_ERASE, TORSO_KEEP, part_canvas, part_descs  # noqa: E402
 
 CATEGORY = "機甲轉圖"
@@ -28,6 +29,11 @@ PARTS = list(part_descs())
 SEGMENTS = list(SEGMENT_OF)
 PROMPTS = sorted(p.stem for p in (REPO_ROOT / "prompts").glob("*.txt")) + ["cam_lora"]
 VIEWS = ["front", "45", "keep"]
+# Shown on every prompt-producing node: filled in by web/mech_prompt.js with the prompt the node will use
+# (re-rendered when the node's other fields change); edited text there is what the node outputs.
+FULL_PROMPT = {"optional": {"full_prompt": ("STRING", {
+    "multiline": True, "default": "",
+    "tooltip": "目前實際使用的提示詞：自動產生，可直接修改；改上面的欄位會重新產生。留空則依上面的欄位產生。"})}}
 
 
 def to_pil(image: torch.Tensor) -> Image.Image:
@@ -94,28 +100,49 @@ class MechLoadMaster:
         return path.stat().st_mtime if path.exists() else ""
 
 
+def render_prompt(template: str, part: str = "（無）", view: str = "keep", text: str = "") -> str:
+    if template == "cam_lora":
+        return load_yaml("config/loras.yaml")["loras"]["cam_object"]["prompt"]
+    tu = settings()["touchup"]
+    body = (REPO_ROOT / "prompts" / f"{template}.txt").read_text(encoding="utf-8").strip()
+    return body.format(
+        part_desc=part_descs().get(part, ""), notes_clause="", view_clause=settings()["s2_views"][view],
+        change_text=text, color_clause="", markings_clause="", fill_name=tu["fill_name"],
+        hint_clause=f"補畫要求：{text}。" if text.strip() else "")
+
+
 class MechPrompt:
     """Renders a prompt template from prompts/ for a part; `text` fills {change_text} / the repaint hint."""
 
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {"template": (PROMPTS,), "part": (["（無）"] + PARTS,), "view": (VIEWS, {"default": "keep"}),
-                             "text": ("STRING", {"multiline": True, "default": ""})}}
+                             "text": ("STRING", {"multiline": True, "default": ""})}, **FULL_PROMPT}
 
     RETURN_TYPES = ("STRING",)
     RETURN_NAMES = ("prompt",)
     FUNCTION = "run"
     CATEGORY = CATEGORY
 
-    def run(self, template, part, view, text):
-        if template == "cam_lora":
-            return (load_yaml("config/loras.yaml")["loras"]["cam_object"]["prompt"],)
-        tu = settings()["touchup"]
-        body = (REPO_ROOT / "prompts" / f"{template}.txt").read_text(encoding="utf-8").strip()
-        return (body.format(
-            part_desc=part_descs().get(part, ""), notes_clause="", view_clause=settings()["s2_views"][view],
-            change_text=text, color_clause="", markings_clause="", fill_name=tu["fill_name"],
-            hint_clause=f"補畫要求：{text}。" if text.strip() else ""),)
+    def run(self, template, part, view, text, full_prompt=""):
+        return (full_prompt.strip() or render_prompt(template, part, view, text),)
+
+
+class MechAposeSkeleton:
+    """A-pose pose reference (OpenPose-style skeleton with mech proportions) for image 2 of the A-pose edit."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        w, h = settings()["master_size"]
+        return {"required": {"width": ("INT", {"default": w, "min": 256, "max": 2048, "step": 16}),
+                             "height": ("INT", {"default": h, "min": 256, "max": 2048, "step": 16})}}
+
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "run"
+    CATEGORY = CATEGORY
+
+    def run(self, width, height):
+        return (to_tensor(apose_skeleton((width, height))),)
 
 
 class MechPartCanvas:
@@ -256,32 +283,54 @@ class MechDrawBoxes:
         return (to_tensor(im),)
 
 
+TOUCH_MODES = {  # mode -> (prompt template, what the model sees in the brushed area)
+    "刪除（補背景）": ("s2_remove", "erased"),
+    "補畫結構": ("s2_fill", "marked"),
+}
+BG_SNAP = 24  # repainted pixels this close to the background become exactly the background
+
+
 class MechMarkMask:
-    """Touch-up: the painted mask area as the marker color (for the repaint pass) and as white (erase only)."""
+    """Touch-up: prepares the repaint pass for a brushed mask.
+
+    刪除（補背景）: the area is filled with the image's background color and the model only tidies the
+    cut edges (a marker-colored blob would make it draw a new part in that shape).
+    補畫結構: the area is filled with the marker color and the model repaints a structure there.
+    Both modes also output the erase-only image and the grown hard mask for MechMaskComposite."""
 
     @classmethod
     def INPUT_TYPES(cls):
-        return {"required": {"image": ("IMAGE",), "mask": ("MASK",)}}
+        tu = settings()["touchup"]
+        return {"required": {"image": ("IMAGE",), "mask": ("MASK",), "mode": (list(TOUCH_MODES),),
+                             "text": ("STRING", {"multiline": True, "default": ""}),
+                             "grow": ("INT", {"default": tu["grow"], "min": 0, "max": 64})}, **FULL_PROMPT}
 
-    RETURN_TYPES = ("IMAGE", "IMAGE")
-    RETURN_NAMES = ("marked", "erased")
+    RETURN_TYPES = ("IMAGE", "IMAGE", "STRING", "MASK")
+    RETURN_NAMES = ("model_input", "erased", "prompt", "mask")
     FUNCTION = "run"
     CATEGORY = CATEGORY
 
-    def run(self, image, mask):
+    def run(self, image, mask, mode, text, grow, full_prompt=""):
         im = to_pil(image)
-        m = mask_to_pil(mask, im.size).point(lambda v: 255 if v > 127 else 0)
+        # any brushed pixel counts: the mask editor's soft brush leaves partial values at the stroke edge
+        m = mask_to_pil(mask, im.size).point(lambda v: 255 if v > 0 else 0)
         if not m.getbbox():
             raise ValueError("遮罩是空的：請在載入圖像節點上按右鍵 →「在遮罩編輯器中開啟」塗出要擦掉的範圍")
+        if grow:
+            m = m.filter(ImageFilter.MaxFilter(2 * grow + 1))
         marked, erased = im.copy(), im.copy()
         marked.paste(Image.new("RGB", im.size, tuple(settings()["touchup"]["fill_rgb"])), (0, 0), m)
-        erased.paste(Image.new("RGB", im.size, (255, 255, 255)), (0, 0), m)
-        return (to_tensor(marked), to_tensor(erased))
+        erased.paste(Image.new("RGB", im.size, background(im)), (0, 0), m)
+        template, seen = TOUCH_MODES[mode]
+        model_input = erased if seen == "erased" else marked
+        hard = torch.from_numpy(np.asarray(m).astype(np.float32) / 255.0)[None]
+        return (to_tensor(model_input), to_tensor(erased), full_prompt.strip() or render_prompt(template, text=text), hard)
 
 
 class MechMaskComposite:
     """Touch-up: take the repainted image only inside the mask (grown and feathered); outside it the
-    erased original stays pixel for pixel."""
+    erased original stays pixel for pixel. Repainted pixels close to the background color are snapped
+    to it, so the model's slightly different background tone leaves no patches."""
 
     @classmethod
     def INPUT_TYPES(cls):
@@ -296,7 +345,12 @@ class MechMaskComposite:
 
     def run(self, erased, repainted, mask, grow, feather):
         base = to_pil(erased)
+        bg = background(base)
         new = to_pil(repainted).resize(base.size, Image.LANCZOS)
+        near_bg = np.abs(np.asarray(new, dtype=np.int16) - np.array(bg, dtype=np.int16)).max(axis=2) <= BG_SNAP
+        snapped = np.asarray(new).copy()
+        snapped[near_bg] = bg
+        new = Image.fromarray(snapped)
         m = mask_to_pil(mask, base.size).point(lambda v: 255 if v > 127 else 0)
         if grow:
             m = m.filter(ImageFilter.MaxFilter(2 * grow + 1))
@@ -305,9 +359,32 @@ class MechMaskComposite:
         return (to_tensor(Image.composite(new, base, m)),)
 
 
+def preview_prompt(query) -> str:
+    """The prompt a MechPrompt / MechMarkMask node with these field values renders (for web/mech_prompt.js)."""
+    if query.get("type") == "MechMarkMask":
+        return render_prompt(TOUCH_MODES[query["mode"]][0], text=query.get("text", ""))
+    return render_prompt(query["template"], query.get("part", "（無）"), query.get("view", "keep"), query.get("text", ""))
+
+
+try:
+    from aiohttp import web
+    from server import PromptServer
+
+    @PromptServer.instance.routes.get("/mech/prompt")
+    async def _prompt_preview(request):
+        try:
+            return web.Response(text=preview_prompt(request.rel_url.query))
+        except (KeyError, ValueError, FileNotFoundError) as e:
+            return web.Response(status=400, text=str(e))
+except ImportError:  # imported outside ComfyUI
+    pass
+
+WEB_DIRECTORY = "./web"
+
 NODE_CLASS_MAPPINGS = {
     "MechLoadMaster": MechLoadMaster,
     "MechPrompt": MechPrompt,
+    "MechAposeSkeleton": MechAposeSkeleton,
     "MechPartCanvas": MechPartCanvas,
     "MechImageCanvas": MechImageCanvas,
     "MechCutSegment": MechCutSegment,
@@ -320,6 +397,7 @@ NODE_CLASS_MAPPINGS = {
 NODE_DISPLAY_NAME_MAPPINGS = {
     "MechLoadMaster": "機甲：載入選定的全身圖",
     "MechPrompt": "機甲：提示詞",
+    "MechAposeSkeleton": "機甲：A-pose 骨架圖（姿勢參考）",
     "MechPartCanvas": "機甲：部位畫布尺寸（依框）",
     "MechImageCanvas": "機甲：畫布尺寸（依圖片）",
     "MechCutSegment": "機甲：從整件切出細分部位",

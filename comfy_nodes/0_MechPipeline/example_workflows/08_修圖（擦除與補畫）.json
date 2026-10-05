@@ -1,6 +1,6 @@
 {
  "id": "c0586893-e6b2-4c11-8c04-e3df841050ae",
- "revision": 0,
+ "revision": 1,
  "last_node_id": 21,
  "last_link_id": 56,
  "nodes": [
@@ -62,7 +62,7 @@
     82
    ],
    "flags": {},
-   "order": 6,
+   "order": 5,
    "mode": 0,
    "inputs": [
     {
@@ -126,7 +126,7 @@
     82
    ],
    "flags": {},
-   "order": 8,
+   "order": 7,
    "mode": 0,
    "inputs": [
     {
@@ -190,7 +190,7 @@
     82
    ],
    "flags": {},
-   "order": 11,
+   "order": 10,
    "mode": 0,
    "inputs": [
     {
@@ -408,8 +408,7 @@
      "name": "MASK",
      "type": "MASK",
      "links": [
-      33,
-      55
+      33
      ]
     }
    ],
@@ -430,15 +429,15 @@
    "id": 8,
    "type": "MechMarkMask",
    "pos": [
-    998.624609375,
-    142
+    500,
+    1088
    ],
    "size": [
-    165.9,
-    46
+    420,
+    360
    ],
    "flags": {},
-   "order": 7,
+   "order": 6,
    "mode": 0,
    "inputs": [
     {
@@ -452,12 +451,49 @@
      "name": "mask",
      "type": "MASK",
      "link": 33
+    },
+    {
+     "localized_name": "mode",
+     "name": "mode",
+     "type": "COMBO",
+     "widget": {
+      "name": "mode"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "text",
+     "name": "text",
+     "type": "STRING",
+     "widget": {
+      "name": "text"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "grow",
+     "name": "grow",
+     "type": "INT",
+     "widget": {
+      "name": "grow"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
     {
-     "localized_name": "marked",
-     "name": "marked",
+     "localized_name": "model_input",
+     "name": "model_input",
      "type": "IMAGE",
      "links": [
       35
@@ -471,11 +507,39 @@
       34,
       53
      ]
+    },
+    {
+     "localized_name": "prompt",
+     "name": "prompt",
+     "type": "STRING",
+     "links": [
+      38
+     ]
+    },
+    {
+     "localized_name": "mask",
+     "name": "mask",
+     "type": "MASK",
+     "links": [
+      55
+     ]
     }
    ],
-   "title": "遮罩標記",
+   "title": "修圖模式（mode 選刪除或補畫；text 可寫要求）",
    "properties": {
     "Node name for S&R": "MechMarkMask"
+   },
+   "widgets_values": [
+    "刪除（補背景）",
+    "",
+    6,
+    ""
+   ],
+   "widgets_values_named": {
+    "mode": "刪除（補背景）",
+    "text": "",
+    "grow": 6,
+    "full_prompt": ""
    }
   },
   {
@@ -490,7 +554,7 @@
     358
    ],
    "flags": {},
-   "order": 10,
+   "order": 9,
    "mode": 0,
    "inputs": [
     {
@@ -527,85 +591,6 @@
    }
   },
   {
-   "id": 10,
-   "type": "MechPrompt",
-   "pos": [
-    500,
-    1088
-   ],
-   "size": [
-    418.624609375,
-    200
-   ],
-   "flags": {},
-   "order": 4,
-   "mode": 0,
-   "inputs": [
-    {
-     "localized_name": "template",
-     "name": "template",
-     "type": "COMBO",
-     "widget": {
-      "name": "template"
-     },
-     "link": null
-    },
-    {
-     "localized_name": "part",
-     "name": "part",
-     "type": "COMBO",
-     "widget": {
-      "name": "part"
-     },
-     "link": null
-    },
-    {
-     "localized_name": "view",
-     "name": "view",
-     "type": "COMBO",
-     "widget": {
-      "name": "view"
-     },
-     "link": null
-    },
-    {
-     "localized_name": "text",
-     "name": "text",
-     "type": "STRING",
-     "widget": {
-      "name": "text"
-     },
-     "link": null
-    }
-   ],
-   "outputs": [
-    {
-     "localized_name": "prompt",
-     "name": "prompt",
-     "type": "STRING",
-     "links": [
-      38
-     ]
-    }
-   ],
-   "title": "補畫提示（text 可寫要求，例如：補成肩膀的圓形關節截面）",
-   "properties": {
-    "Node name for S&R": "MechPrompt"
-   },
-   "widgets_values": [
-    "s2_fill",
-    "（無）",
-    "keep",
-    ""
-   ],
-   "widgets_values_named": {
-    "template": "s2_fill",
-    "part": "（無）",
-    "view": "keep",
-    "text": ""
-   }
-  },
-  {
    "id": 11,
    "type": "FluxKontextImageScale",
    "pos": [
@@ -617,7 +602,7 @@
     26
    ],
    "flags": {},
-   "order": 9,
+   "order": 8,
    "mode": 0,
    "inputs": [
     {
@@ -656,7 +641,7 @@
     200
    ],
    "flags": {},
-   "order": 12,
+   "order": 11,
    "mode": 0,
    "inputs": [
     {
@@ -736,7 +721,7 @@
     200
    ],
    "flags": {},
-   "order": 13,
+   "order": 12,
    "mode": 0,
    "inputs": [
     {
@@ -816,7 +801,7 @@
     58
    ],
    "flags": {},
-   "order": 15,
+   "order": 14,
    "mode": 0,
    "inputs": [
     {
@@ -868,7 +853,7 @@
     58
    ],
    "flags": {},
-   "order": 16,
+   "order": 15,
    "mode": 0,
    "inputs": [
     {
@@ -920,7 +905,7 @@
     46
    ],
    "flags": {},
-   "order": 14,
+   "order": 13,
    "mode": 0,
    "inputs": [
     {
@@ -963,7 +948,7 @@
     262
    ],
    "flags": {},
-   "order": 17,
+   "order": 16,
    "mode": 0,
    "inputs": [
     {
@@ -1090,7 +1075,7 @@
     46
    ],
    "flags": {},
-   "order": 18,
+   "order": 17,
    "mode": 0,
    "inputs": [
     {
@@ -1133,7 +1118,7 @@
     122
    ],
    "flags": {},
-   "order": 19,
+   "order": 18,
    "mode": 0,
    "inputs": [
     {
@@ -1208,7 +1193,7 @@
     358
    ],
    "flags": {},
-   "order": 20,
+   "order": 19,
    "mode": 0,
    "inputs": [
     {
@@ -1253,20 +1238,20 @@
    ],
    "size": [
     440,
-    420
+    520
    ],
    "flags": {},
-   "order": 5,
+   "order": 4,
    "mode": 0,
    "inputs": [],
    "outputs": [],
    "title": "使用說明",
    "properties": {},
    "widgets_values": [
-    "## 08 修圖（擦除與補畫）\n1. 在「要修的圖」上傳圖片。\n2. 在該節點上按右鍵 →「在遮罩編輯器中開啟」，塗出要擦掉的範圍，按儲存。\n3. 「補畫提示」的 text 可寫要求，例如：補成肩膀的圓形關節截面（可留空）。\n4. 按「執行」，同時輸出：\n   - 只擦除：塗到的地方變白底。\n   - 擦除並補畫：模型只在塗到的範圍補上合理的結構，範圍外和原圖逐像素相同。\n不滿意就調整遮罩或換種子再跑。"
+    "## 08 修圖（擦除與補畫）\n1. 在「要修的圖」上傳圖片。\n2. 在該節點上按右鍵 →「在遮罩編輯器中開啟」，塗出範圍，按儲存。\n3. 在「修圖模式」選 mode：\n   - **刪除（補背景）**：把塗到的東西刪掉，補成背景色；模型只修補被切到的部件邊緣，不會畫出新東西。\n   - **補畫結構**：塗到的地方讓模型補上機械結構（例如擦掉後留下的凹洞補成截面）。\n   text 可寫要求，例如：補成肩膀的圓形關節截面（可留空）。\n4. 按「執行」，同時輸出：\n   - 只擦除：塗到的地方變成背景色（不經過模型）。\n   - 擦除並補畫：模型的結果只貼回塗到的範圍，範圍外和原圖逐像素相同。\n不滿意就調整遮罩或換種子再跑。"
    ],
    "widgets_values_named": {
-    "text": "## 08 修圖（擦除與補畫）\n1. 在「要修的圖」上傳圖片。\n2. 在該節點上按右鍵 →「在遮罩編輯器中開啟」，塗出要擦掉的範圍，按儲存。\n3. 「補畫提示」的 text 可寫要求，例如：補成肩膀的圓形關節截面（可留空）。\n4. 按「執行」，同時輸出：\n   - 只擦除：塗到的地方變白底。\n   - 擦除並補畫：模型只在塗到的範圍補上合理的結構，範圍外和原圖逐像素相同。\n不滿意就調整遮罩或換種子再跑。"
+    "text": "## 08 修圖（擦除與補畫）\n1. 在「要修的圖」上傳圖片。\n2. 在該節點上按右鍵 →「在遮罩編輯器中開啟」，塗出範圍，按儲存。\n3. 在「修圖模式」選 mode：\n   - **刪除（補背景）**：把塗到的東西刪掉，補成背景色；模型只修補被切到的部件邊緣，不會畫出新東西。\n   - **補畫結構**：塗到的地方讓模型補上機械結構（例如擦掉後留下的凹洞補成截面）。\n   text 可寫要求，例如：補成肩膀的圓形關節截面（可留空）。\n4. 按「執行」，同時輸出：\n   - 只擦除：塗到的地方變成背景色（不經過模型）。\n   - 擦除並補畫：模型的結果只貼回塗到的範圍，範圍外和原圖逐像素相同。\n不滿意就調整遮罩或換種子再跑。"
    },
    "color": "#432",
    "bgcolor": "#653"
@@ -1347,8 +1332,8 @@
   ],
   [
    38,
-   10,
-   0,
+   8,
+   2,
    12,
    5,
    "STRING"
@@ -1483,8 +1468,8 @@
   ],
   [
    55,
-   7,
-   1,
+   8,
+   3,
    19,
    2,
    "MASK"

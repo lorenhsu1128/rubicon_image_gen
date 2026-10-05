@@ -1,8 +1,8 @@
 {
  "id": "2a71eba3-ff53-4934-94d6-26a04a5cb351",
  "revision": 0,
- "last_node_id": 271,
- "last_link_id": 1010,
+ "last_node_id": 273,
+ "last_link_id": 1015,
  "nodes": [
   {
    "id": 1,
@@ -62,7 +62,7 @@
     82
    ],
    "flags": {},
-   "order": 30,
+   "order": 32,
    "mode": 0,
    "inputs": [
     {
@@ -126,7 +126,7 @@
     82
    ],
    "flags": {},
-   "order": 32,
+   "order": 34,
    "mode": 0,
    "inputs": [
     {
@@ -190,7 +190,7 @@
     82
    ],
    "flags": {},
-   "order": 36,
+   "order": 38,
    "mode": 0,
    "inputs": [
     {
@@ -420,7 +420,6 @@
       527,
       531,
       535,
-      540,
       546,
       550,
       554,
@@ -519,7 +518,7 @@
     82
    ],
    "flags": {},
-   "order": 39,
+   "order": 41,
    "mode": 0,
    "inputs": [
     {
@@ -638,11 +637,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    636
+    666
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 4,
@@ -683,6 +682,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -703,13 +712,15 @@
     "s1_edit",
     "（無）",
     "keep",
-    "裝甲改成紅色"
+    "裝甲改成紅色",
+    ""
    ],
    "widgets_values_named": {
     "template": "s1_edit",
     "part": "（無）",
     "view": "keep",
-    "text": "裝甲改成紅色"
+    "text": "裝甲改成紅色",
+    "full_prompt": ""
    }
   },
   {
@@ -724,7 +735,7 @@
     26
    ],
    "flags": {},
-   "order": 31,
+   "order": 33,
    "mode": 0,
    "inputs": [
     {
@@ -763,7 +774,7 @@
     200
    ],
    "flags": {},
-   "order": 33,
+   "order": 35,
    "mode": 0,
    "inputs": [
     {
@@ -843,7 +854,7 @@
     200
    ],
    "flags": {},
-   "order": 34,
+   "order": 36,
    "mode": 0,
    "inputs": [
     {
@@ -923,7 +934,7 @@
     58
    ],
    "flags": {},
-   "order": 37,
+   "order": 39,
    "mode": 0,
    "inputs": [
     {
@@ -975,7 +986,7 @@
     58
    ],
    "flags": {},
-   "order": 38,
+   "order": 40,
    "mode": 0,
    "inputs": [
     {
@@ -1027,7 +1038,7 @@
     46
    ],
    "flags": {},
-   "order": 35,
+   "order": 37,
    "mode": 0,
    "inputs": [
     {
@@ -1070,7 +1081,7 @@
     262
    ],
    "flags": {},
-   "order": 40,
+   "order": 42,
    "mode": 0,
    "inputs": [
     {
@@ -1197,7 +1208,7 @@
     46
    ],
    "flags": {},
-   "order": 41,
+   "order": 43,
    "mode": 0,
    "inputs": [
     {
@@ -1220,7 +1231,8 @@
      "type": "IMAGE",
      "links": [
       528,
-      529
+      1012,
+      1014
      ]
     }
    ],
@@ -1241,7 +1253,7 @@
     338
    ],
    "flags": {},
-   "order": 42,
+   "order": 44,
    "mode": 0,
    "inputs": [
     {
@@ -1282,11 +1294,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    996
+    1186
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 5,
@@ -1327,6 +1339,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -1344,55 +1366,18 @@
     "Node name for S&R": "MechPrompt"
    },
    "widgets_values": [
-    "s1_apose_single",
+    "s1_apose",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
-    "template": "s1_apose_single",
+    "template": "s1_apose",
     "part": "（無）",
     "view": "keep",
-    "text": ""
-   }
-  },
-  {
-   "id": 20,
-   "type": "FluxKontextImageScale",
-   "pos": [
-    1090,
-    996
-   ],
-   "size": [
-    267.0171875,
-    26
-   ],
-   "flags": {},
-   "order": 43,
-   "mode": 0,
-   "inputs": [
-    {
-     "localized_name": "圖像",
-     "name": "image",
-     "type": "IMAGE",
-     "link": 529
-    }
-   ],
-   "outputs": [
-    {
-     "localized_name": "影像",
-     "name": "IMAGE",
-     "type": "IMAGE",
-     "links": [
-      533,
-      536,
-      539
-     ]
-    }
-   ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：縮放",
-   "properties": {
-    "Node name for S&R": "FluxKontextImageScale"
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -1400,14 +1385,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1407.0171875,
-    996
+    1186
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 44,
+   "order": 45,
    "mode": 0,
    "inputs": [
     {
@@ -1428,14 +1413,14 @@
      "name": "image1",
      "shape": 7,
      "type": "IMAGE",
-     "link": 533
+     "link": 1012
     },
     {
      "localized_name": "圖像2",
      "name": "image2",
      "shape": 7,
      "type": "IMAGE",
-     "link": null
+     "link": 1013
     },
     {
      "localized_name": "圖像3",
@@ -1480,14 +1465,14 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1407.0171875,
-    1226
+    1416
    ],
    "size": [
     400,
     200
    ],
    "flags": {},
-   "order": 45,
+   "order": 46,
    "mode": 0,
    "inputs": [
     {
@@ -1508,14 +1493,14 @@
      "name": "image1",
      "shape": 7,
      "type": "IMAGE",
-     "link": 536
+     "link": 1014
     },
     {
      "localized_name": "圖像2",
      "name": "image2",
      "shape": 7,
      "type": "IMAGE",
-     "link": null
+     "link": 1015
     },
     {
      "localized_name": "圖像3",
@@ -1560,7 +1545,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1857.0171875,
-    996
+    1186
    ],
    "size": [
     295.0171875,
@@ -1612,7 +1597,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1857.0171875,
-    1084
+    1274
    ],
    "size": [
     337.0171875,
@@ -1660,54 +1645,11 @@
    }
   },
   {
-   "id": 25,
-   "type": "VAEEncode",
-   "pos": [
-    1407.0171875,
-    1456
-   ],
-   "size": [
-    267.0171875,
-    46
-   ],
-   "flags": {},
-   "order": 46,
-   "mode": 0,
-   "inputs": [
-    {
-     "localized_name": "像素",
-     "name": "pixels",
-     "type": "IMAGE",
-     "link": 539
-    },
-    {
-     "localized_name": "vae",
-     "name": "vae",
-     "type": "VAE",
-     "link": 540
-    }
-   ],
-   "outputs": [
-    {
-     "localized_name": "latent (潛空間)",
-     "name": "LATENT",
-     "type": "LATENT",
-     "links": [
-      544
-     ]
-    }
-   ],
-   "title": "【2 轉 A-pose】2 轉 A-pose：編碼",
-   "properties": {
-    "Node name for S&R": "VAEEncode"
-   }
-  },
-  {
    "id": 26,
    "type": "KSampler",
    "pos": [
     2244.034375,
-    996
+    1186
    ],
    "size": [
     270,
@@ -1739,7 +1681,7 @@
      "localized_name": "潛在空間影像",
      "name": "latent_image",
      "type": "LATENT",
-     "link": 544
+     "link": 1011
     },
     {
      "localized_name": "種子",
@@ -1834,7 +1776,7 @@
    "type": "VAEDecode",
    "pos": [
     2564.034375,
-    996
+    1186
    ],
    "size": [
     267.0171875,
@@ -1881,7 +1823,7 @@
    "type": "SaveImage",
    "pos": [
     2881.0515625000003,
-    996
+    1186
    ],
    "size": [
     320,
@@ -1929,11 +1871,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    1662
+    1912
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 6,
@@ -1974,6 +1916,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -1994,13 +1946,15 @@
     "cam_lora",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "cam_lora",
     "part": "（無）",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -2008,7 +1962,7 @@
    "type": "FluxKontextImageScale",
    "pos": [
     1090,
-    1662
+    1912
    ],
    "size": [
     218.4,
@@ -2047,7 +2001,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1358.4,
-    1662
+    1912
    ],
    "size": [
     400,
@@ -2127,7 +2081,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1358.4,
-    1892
+    2142
    ],
    "size": [
     400,
@@ -2207,7 +2161,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1808.4,
-    1662
+    1912
    ],
    "size": [
     293.7193359375,
@@ -2259,7 +2213,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1808.4,
-    1750
+    2000
    ],
    "size": [
     293.7193359375,
@@ -2311,7 +2265,7 @@
    "type": "VAEEncode",
    "pos": [
     1358.4,
-    2122
+    2372
    ],
    "size": [
     218.4,
@@ -2354,7 +2308,7 @@
    "type": "KSampler",
    "pos": [
     2152.1193359375,
-    1662
+    1912
    ],
    "size": [
     270,
@@ -2481,7 +2435,7 @@
    "type": "VAEDecode",
    "pos": [
     2472.1193359375,
-    1662
+    1912
    ],
    "size": [
     218.4,
@@ -2534,7 +2488,7 @@
    "type": "SaveImage",
    "pos": [
     2740.5193359375003,
-    1662
+    1912
    ],
    "size": [
     320,
@@ -2582,7 +2536,7 @@
    "type": "MechBoxes",
    "pos": [
     640,
-    2328
+    2578
    ],
    "size": [
     350.3404296875,
@@ -2652,7 +2606,7 @@
    "type": "MechDrawBoxes",
    "pos": [
     1040.3404296875,
-    2328
+    2696
    ],
    "size": [
     192.8814453125,
@@ -2695,7 +2649,7 @@
    "type": "SaveImage",
    "pos": [
     1283.2218750000002,
-    2328
+    2578
    ],
    "size": [
     320,
@@ -2743,7 +2697,7 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    2826
+    3076
    ],
    "size": [
     281.9,
@@ -2837,11 +2791,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    2826
+    3076
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 7,
@@ -2882,6 +2836,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -2902,13 +2866,15 @@
     "s2_part",
     "HEAD_NECK",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_part",
     "part": "HEAD_NECK",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -2916,7 +2882,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1748.7609375000002,
-    2826
+    3076
    ],
    "size": [
     400,
@@ -2996,7 +2962,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1748.7609375000002,
-    3056
+    3306
    ],
    "size": [
     400,
@@ -3076,7 +3042,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2198.7609375,
-    2826
+    3076
    ],
    "size": [
     304.8609375,
@@ -3128,7 +3094,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2198.7609375,
-    2914
+    3164
    ],
    "size": [
     346.8609375,
@@ -3180,7 +3146,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    2826
+    3076
    ],
    "size": [
     276.8609375,
@@ -3248,7 +3214,7 @@
    "type": "KSampler",
    "pos": [
     2595.6218750000003,
-    2826
+    3076
    ],
    "size": [
     276.8609375,
@@ -3375,7 +3341,7 @@
    "type": "VAEDecode",
    "pos": [
     2922.4828125000004,
-    2826
+    3076
    ],
    "size": [
     276.8609375,
@@ -3418,7 +3384,7 @@
    "type": "SaveImage",
    "pos": [
     3249.3437500000005,
-    2826
+    3076
    ],
    "size": [
     320,
@@ -3466,7 +3432,7 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    3416
+    3666
    ],
    "size": [
     281.9,
@@ -3560,11 +3526,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    3416
+    3666
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 8,
@@ -3605,6 +3571,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -3625,13 +3601,15 @@
     "s2_part",
     "ARM_FULL_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_part",
     "part": "ARM_FULL_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -3639,7 +3617,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1758.9054687500002,
-    3416
+    3666
    ],
    "size": [
     400,
@@ -3719,7 +3697,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1758.9054687500002,
-    3646
+    3896
    ],
    "size": [
     400,
@@ -3799,7 +3777,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2208.90546875,
-    3416
+    3666
    ],
    "size": [
     315.00546875,
@@ -3851,7 +3829,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2208.90546875,
-    3504
+    3754
    ],
    "size": [
     357.00546875,
@@ -3903,7 +3881,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    3416
+    3666
    ],
    "size": [
     287.00546875,
@@ -3971,7 +3949,7 @@
    "type": "KSampler",
    "pos": [
     2615.9109375000003,
-    3416
+    3666
    ],
    "size": [
     287.00546875,
@@ -4098,7 +4076,7 @@
    "type": "VAEDecode",
    "pos": [
     2952.9164062500004,
-    3416
+    3666
    ],
    "size": [
     287.00546875,
@@ -4143,7 +4121,7 @@
    "type": "SaveImage",
    "pos": [
     3289.9218750000005,
-    3416
+    3666
    ],
    "size": [
     320,
@@ -4191,7 +4169,7 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    4006
+    4256
    ],
    "size": [
     281.9,
@@ -4285,11 +4263,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    4006
+    4256
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 9,
@@ -4330,6 +4308,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -4350,13 +4338,15 @@
     "s2_part",
     "ARM_FULL_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_part",
     "part": "ARM_FULL_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -4364,7 +4354,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1756.7179687500002,
-    4006
+    4256
    ],
    "size": [
     400,
@@ -4444,7 +4434,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1756.7179687500002,
-    4236
+    4486
    ],
    "size": [
     400,
@@ -4524,7 +4514,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2206.71796875,
-    4006
+    4256
    ],
    "size": [
     312.81796875,
@@ -4576,7 +4566,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2206.71796875,
-    4094
+    4344
    ],
    "size": [
     354.81796875,
@@ -4628,7 +4618,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    4006
+    4256
    ],
    "size": [
     284.81796875,
@@ -4696,7 +4686,7 @@
    "type": "KSampler",
    "pos": [
     2611.5359375000003,
-    4006
+    4256
    ],
    "size": [
     284.81796875,
@@ -4823,7 +4813,7 @@
    "type": "VAEDecode",
    "pos": [
     2946.3539062500004,
-    4006
+    4256
    ],
    "size": [
     284.81796875,
@@ -4868,7 +4858,7 @@
    "type": "SaveImage",
    "pos": [
     3281.1718750000005,
-    4006
+    4256
    ],
    "size": [
     320,
@@ -4916,7 +4906,7 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    4596
+    4846
    ],
    "size": [
     281.9,
@@ -5010,11 +5000,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    4596
+    4846
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 10,
@@ -5055,6 +5045,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -5075,13 +5075,15 @@
     "s2_part",
     "LEG_FULL_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_part",
     "part": "LEG_FULL_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -5089,7 +5091,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1749.8273437500002,
-    4596
+    4846
    ],
    "size": [
     400,
@@ -5169,7 +5171,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1749.8273437500002,
-    4826
+    5076
    ],
    "size": [
     400,
@@ -5249,7 +5251,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2199.82734375,
-    4596
+    4846
    ],
    "size": [
     305.92734375,
@@ -5301,7 +5303,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2199.82734375,
-    4684
+    4934
    ],
    "size": [
     347.92734375,
@@ -5353,7 +5355,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    4596
+    4846
    ],
    "size": [
     277.92734375,
@@ -5421,7 +5423,7 @@
    "type": "KSampler",
    "pos": [
     2597.7546875000003,
-    4596
+    4846
    ],
    "size": [
     277.92734375,
@@ -5548,7 +5550,7 @@
    "type": "VAEDecode",
    "pos": [
     2925.6820312500004,
-    4596
+    4846
    ],
    "size": [
     277.92734375,
@@ -5594,7 +5596,7 @@
    "type": "SaveImage",
    "pos": [
     3253.6093750000005,
-    4596
+    4846
    ],
    "size": [
     320,
@@ -5642,7 +5644,7 @@
    "type": "MechPartCanvas",
    "pos": [
     1090,
-    5186
+    5436
    ],
    "size": [
     281.9,
@@ -5736,11 +5738,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    5186
+    5436
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 11,
@@ -5781,6 +5783,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -5801,13 +5813,15 @@
     "s2_part",
     "LEG_FULL_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_part",
     "part": "LEG_FULL_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -5815,7 +5829,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1747.6398437500002,
-    5186
+    5436
    ],
    "size": [
     400,
@@ -5895,7 +5909,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1747.6398437500002,
-    5416
+    5666
    ],
    "size": [
     400,
@@ -5975,7 +5989,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2197.63984375,
-    5186
+    5436
    ],
    "size": [
     303.73984375,
@@ -6027,7 +6041,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2197.63984375,
-    5274
+    5524
    ],
    "size": [
     345.73984375,
@@ -6079,7 +6093,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1421.9,
-    5186
+    5436
    ],
    "size": [
     275.73984375,
@@ -6147,7 +6161,7 @@
    "type": "KSampler",
    "pos": [
     2593.3796875000003,
-    5186
+    5436
    ],
    "size": [
     275.73984375,
@@ -6274,7 +6288,7 @@
    "type": "VAEDecode",
    "pos": [
     2919.1195312500004,
-    5186
+    5436
    ],
    "size": [
     275.73984375,
@@ -6320,7 +6334,7 @@
    "type": "SaveImage",
    "pos": [
     3244.8593750000005,
-    5186
+    5436
    ],
    "size": [
     320,
@@ -6368,7 +6382,7 @@
    "type": "MechCutSegment",
    "pos": [
     1153.222265625,
-    5776
+    6026
    ],
    "size": [
     449.222265625,
@@ -6451,7 +6465,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1652.4445312500002,
-    5776
+    6026
    ],
    "size": [
     449.222265625,
@@ -6511,11 +6525,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    5776
+    6026
    ],
    "size": [
     463.222265625,
-    200
+    360
    ],
    "flags": {},
    "order": 12,
@@ -6556,6 +6570,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -6576,13 +6600,15 @@
     "s2_complete",
     "SHOULDER_UPPERARM_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "SHOULDER_UPPERARM_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -6590,7 +6616,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1652.4445312500002,
-    5884
+    6134
    ],
    "size": [
     473.284765625,
@@ -6670,7 +6696,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1652.4445312500002,
-    6114
+    6364
    ],
    "size": [
     459.284765625,
@@ -6750,7 +6776,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2175.7292968750003,
-    5776
+    6026
    ],
    "size": [
     487.284765625,
@@ -6802,7 +6828,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2175.7292968750003,
-    5864
+    6114
    ],
    "size": [
     529.284765625,
@@ -6854,7 +6880,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     2175.7292968750003,
-    5952
+    6202
    ],
    "size": [
     459.284765625,
@@ -6922,7 +6948,7 @@
    "type": "KSampler",
    "pos": [
     2755.0140625000004,
-    5776
+    6026
    ],
    "size": [
     459.284765625,
@@ -7049,7 +7075,7 @@
    "type": "VAEDecode",
    "pos": [
     3264.2988281250005,
-    5776
+    6026
    ],
    "size": [
     459.284765625,
@@ -7092,7 +7118,7 @@
    "type": "SaveImage",
    "pos": [
     3773.5835937500005,
-    5776
+    6026
    ],
    "size": [
     417.284765625,
@@ -7140,7 +7166,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    6474
+    6724
    ],
    "size": [
     361.025,
@@ -7223,7 +7249,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1501.025,
-    6474
+    6724
    ],
    "size": [
     361.025,
@@ -7283,11 +7309,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    6474
+    6724
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 13,
@@ -7328,6 +7354,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -7348,13 +7384,15 @@
     "s2_complete",
     "FOREARM_HAND_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "FOREARM_HAND_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -7362,7 +7400,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1501.025,
-    6582
+    6832
    ],
    "size": [
     400,
@@ -7442,7 +7480,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1501.025,
-    6812
+    7062
    ],
    "size": [
     400,
@@ -7522,7 +7560,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1951.025,
-    6474
+    6724
    ],
    "size": [
     399.0875,
@@ -7574,7 +7612,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1951.025,
-    6562
+    6812
    ],
    "size": [
     441.0875,
@@ -7626,7 +7664,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1951.025,
-    6650
+    6900
    ],
    "size": [
     371.0875,
@@ -7694,7 +7732,7 @@
    "type": "KSampler",
    "pos": [
     2442.1125,
-    6474
+    6724
    ],
    "size": [
     371.0875,
@@ -7821,7 +7859,7 @@
    "type": "VAEDecode",
    "pos": [
     2863.2000000000003,
-    6474
+    6724
    ],
    "size": [
     371.0875,
@@ -7864,7 +7902,7 @@
    "type": "SaveImage",
    "pos": [
     3284.2875000000004,
-    6474
+    6724
    ],
    "size": [
     329.0875,
@@ -7912,7 +7950,7 @@
    "type": "MechCutSegment",
    "pos": [
     1151.034765625,
-    7172
+    7422
    ],
    "size": [
     447.034765625,
@@ -7995,7 +8033,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1648.0695312500002,
-    7172
+    7422
    ],
    "size": [
     447.034765625,
@@ -8055,11 +8093,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    7172
+    7422
    ],
    "size": [
     461.034765625,
-    200
+    360
    ],
    "flags": {},
    "order": 14,
@@ -8100,6 +8138,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -8120,13 +8168,15 @@
     "s2_complete",
     "SHOULDER_UPPERARM_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "SHOULDER_UPPERARM_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -8134,7 +8184,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1648.0695312500002,
-    7280
+    7530
    ],
    "size": [
     471.097265625,
@@ -8214,7 +8264,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1648.0695312500002,
-    7510
+    7760
    ],
    "size": [
     457.097265625,
@@ -8294,7 +8344,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2169.1667968750003,
-    7172
+    7422
    ],
    "size": [
     485.097265625,
@@ -8346,7 +8396,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     2169.1667968750003,
-    7260
+    7510
    ],
    "size": [
     527.097265625,
@@ -8398,7 +8448,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     2169.1667968750003,
-    7348
+    7598
    ],
    "size": [
     457.097265625,
@@ -8466,7 +8516,7 @@
    "type": "KSampler",
    "pos": [
     2746.2640625000004,
-    7172
+    7422
    ],
    "size": [
     457.097265625,
@@ -8593,7 +8643,7 @@
    "type": "VAEDecode",
    "pos": [
     3253.3613281250005,
-    7172
+    7422
    ],
    "size": [
     457.097265625,
@@ -8636,7 +8686,7 @@
    "type": "SaveImage",
    "pos": [
     3760.4585937500005,
-    7172
+    7422
    ],
    "size": [
     415.097265625,
@@ -8684,7 +8734,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    7870
+    8120
    ],
    "size": [
     358.8375,
@@ -8767,7 +8817,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1498.8375,
-    7870
+    8120
    ],
    "size": [
     358.8375,
@@ -8827,11 +8877,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    7870
+    8120
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 15,
@@ -8872,6 +8922,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -8892,13 +8952,15 @@
     "s2_complete",
     "FOREARM_HAND_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "FOREARM_HAND_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -8906,7 +8968,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1498.8375,
-    7978
+    8228
    ],
    "size": [
     400,
@@ -8986,7 +9048,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1498.8375,
-    8208
+    8458
    ],
    "size": [
     400,
@@ -9066,7 +9128,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1948.8375,
-    7870
+    8120
    ],
    "size": [
     396.9,
@@ -9118,7 +9180,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1948.8375,
-    7958
+    8208
    ],
    "size": [
     438.9,
@@ -9170,7 +9232,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1948.8375,
-    8046
+    8296
    ],
    "size": [
     368.9,
@@ -9238,7 +9300,7 @@
    "type": "KSampler",
    "pos": [
     2437.7375,
-    7870
+    8120
    ],
    "size": [
     368.9,
@@ -9365,7 +9427,7 @@
    "type": "VAEDecode",
    "pos": [
     2856.6375000000003,
-    7870
+    8120
    ],
    "size": [
     368.9,
@@ -9408,7 +9470,7 @@
    "type": "SaveImage",
    "pos": [
     3275.5375000000004,
-    7870
+    8120
    ],
    "size": [
     326.9,
@@ -9456,7 +9518,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    8568
+    8818
    ],
    "size": [
     306.952734375,
@@ -9539,7 +9601,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1446.952734375,
-    8568
+    8818
    ],
    "size": [
     306.952734375,
@@ -9599,11 +9661,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    8568
+    8818
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 16,
@@ -9644,6 +9706,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -9664,13 +9736,15 @@
     "s2_complete",
     "THIGH_KNEE_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "THIGH_KNEE_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -9678,7 +9752,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1446.952734375,
-    8676
+    8926
    ],
    "size": [
     400,
@@ -9758,7 +9832,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1446.952734375,
-    8906
+    9156
    ],
    "size": [
     400,
@@ -9838,7 +9912,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1896.952734375,
-    8568
+    8818
    ],
    "size": [
     345.015234375,
@@ -9890,7 +9964,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1896.952734375,
-    8656
+    8906
    ],
    "size": [
     387.015234375,
@@ -9942,7 +10016,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1896.952734375,
-    8744
+    8994
    ],
    "size": [
     317.015234375,
@@ -10010,7 +10084,7 @@
    "type": "KSampler",
    "pos": [
     2333.96796875,
-    8568
+    8818
    ],
    "size": [
     317.015234375,
@@ -10137,7 +10211,7 @@
    "type": "VAEDecode",
    "pos": [
     2700.9832031250003,
-    8568
+    8818
    ],
    "size": [
     317.015234375,
@@ -10180,7 +10254,7 @@
    "type": "SaveImage",
    "pos": [
     3067.9984375000004,
-    8568
+    8818
    ],
    "size": [
     320,
@@ -10228,7 +10302,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    9266
+    9516
    ],
    "size": [
     285.296484375,
@@ -10311,7 +10385,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1425.296484375,
-    9266
+    9516
    ],
    "size": [
     285.296484375,
@@ -10371,11 +10445,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    9266
+    9516
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 17,
@@ -10416,6 +10490,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -10436,13 +10520,15 @@
     "s2_complete",
     "KNEE_SHIN_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "KNEE_SHIN_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -10450,7 +10536,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1425.296484375,
-    9374
+    9624
    ],
    "size": [
     400,
@@ -10530,7 +10616,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1425.296484375,
-    9604
+    9854
    ],
    "size": [
     400,
@@ -10610,7 +10696,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1875.296484375,
-    9266
+    9516
    ],
    "size": [
     323.358984375,
@@ -10662,7 +10748,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1875.296484375,
-    9354
+    9604
    ],
    "size": [
     365.358984375,
@@ -10714,7 +10800,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1875.296484375,
-    9442
+    9692
    ],
    "size": [
     295.358984375,
@@ -10782,7 +10868,7 @@
    "type": "KSampler",
    "pos": [
     2290.65546875,
-    9266
+    9516
    ],
    "size": [
     295.358984375,
@@ -10909,7 +10995,7 @@
    "type": "VAEDecode",
    "pos": [
     2636.0144531250003,
-    9266
+    9516
    ],
    "size": [
     295.358984375,
@@ -10952,7 +11038,7 @@
    "type": "SaveImage",
    "pos": [
     2981.3734375000004,
-    9266
+    9516
    ],
    "size": [
     320,
@@ -11000,7 +11086,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    9964
+    10214
    ],
    "size": [
     312.175390625,
@@ -11083,7 +11169,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1452.175390625,
-    9964
+    10214
    ],
    "size": [
     312.175390625,
@@ -11143,11 +11229,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    9964
+    10214
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 18,
@@ -11188,6 +11274,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -11208,13 +11304,15 @@
     "s2_complete",
     "ANKLE_FOOT_R",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "ANKLE_FOOT_R",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -11222,7 +11320,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1452.175390625,
-    10072
+    10322
    ],
    "size": [
     400,
@@ -11302,7 +11400,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1452.175390625,
-    10302
+    10552
    ],
    "size": [
     400,
@@ -11382,7 +11480,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1902.175390625,
-    9964
+    10214
    ],
    "size": [
     350.237890625,
@@ -11434,7 +11532,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1902.175390625,
-    10052
+    10302
    ],
    "size": [
     392.237890625,
@@ -11486,7 +11584,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1902.175390625,
-    10140
+    10390
    ],
    "size": [
     322.237890625,
@@ -11554,7 +11652,7 @@
    "type": "KSampler",
    "pos": [
     2344.41328125,
-    9964
+    10214
    ],
    "size": [
     322.237890625,
@@ -11681,7 +11779,7 @@
    "type": "VAEDecode",
    "pos": [
     2716.6511718750003,
-    9964
+    10214
    ],
    "size": [
     322.237890625,
@@ -11724,7 +11822,7 @@
    "type": "SaveImage",
    "pos": [
     3088.8890625000004,
-    9964
+    10214
    ],
    "size": [
     320,
@@ -11772,7 +11870,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    10662
+    10912
    ],
    "size": [
     304.765234375,
@@ -11855,7 +11953,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1444.765234375,
-    10662
+    10912
    ],
    "size": [
     304.765234375,
@@ -11915,11 +12013,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    10662
+    10912
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 19,
@@ -11960,6 +12058,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -11980,13 +12088,15 @@
     "s2_complete",
     "THIGH_KNEE_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "THIGH_KNEE_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -11994,7 +12104,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1444.765234375,
-    10770
+    11020
    ],
    "size": [
     400,
@@ -12074,7 +12184,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1444.765234375,
-    11000
+    11250
    ],
    "size": [
     400,
@@ -12154,7 +12264,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1894.765234375,
-    10662
+    10912
    ],
    "size": [
     342.827734375,
@@ -12206,7 +12316,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1894.765234375,
-    10750
+    11000
    ],
    "size": [
     384.827734375,
@@ -12258,7 +12368,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1894.765234375,
-    10838
+    11088
    ],
    "size": [
     314.827734375,
@@ -12326,7 +12436,7 @@
    "type": "KSampler",
    "pos": [
     2329.59296875,
-    10662
+    10912
    ],
    "size": [
     314.827734375,
@@ -12453,7 +12563,7 @@
    "type": "VAEDecode",
    "pos": [
     2694.4207031250003,
-    10662
+    10912
    ],
    "size": [
     314.827734375,
@@ -12496,7 +12606,7 @@
    "type": "SaveImage",
    "pos": [
     3059.2484375000004,
-    10662
+    10912
    ],
    "size": [
     320,
@@ -12544,7 +12654,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    11360
+    11610
    ],
    "size": [
     283.108984375,
@@ -12627,7 +12737,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1423.108984375,
-    11360
+    11610
    ],
    "size": [
     283.108984375,
@@ -12687,11 +12797,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    11360
+    11610
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 20,
@@ -12732,6 +12842,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -12752,13 +12872,15 @@
     "s2_complete",
     "KNEE_SHIN_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "KNEE_SHIN_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -12766,7 +12888,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1423.108984375,
-    11468
+    11718
    ],
    "size": [
     400,
@@ -12846,7 +12968,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1423.108984375,
-    11698
+    11948
    ],
    "size": [
     400,
@@ -12926,7 +13048,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1873.108984375,
-    11360
+    11610
    ],
    "size": [
     321.171484375,
@@ -12978,7 +13100,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1873.108984375,
-    11448
+    11698
    ],
    "size": [
     363.171484375,
@@ -13030,7 +13152,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1873.108984375,
-    11536
+    11786
    ],
    "size": [
     293.171484375,
@@ -13098,7 +13220,7 @@
    "type": "KSampler",
    "pos": [
     2286.28046875,
-    11360
+    11610
    ],
    "size": [
     293.171484375,
@@ -13225,7 +13347,7 @@
    "type": "VAEDecode",
    "pos": [
     2629.4519531250003,
-    11360
+    11610
    ],
    "size": [
     293.171484375,
@@ -13268,7 +13390,7 @@
    "type": "SaveImage",
    "pos": [
     2972.6234375000004,
-    11360
+    11610
    ],
    "size": [
     320,
@@ -13316,7 +13438,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    12058
+    12308
    ],
    "size": [
     309.987890625,
@@ -13399,7 +13521,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1449.987890625,
-    12058
+    12308
    ],
    "size": [
     309.987890625,
@@ -13459,11 +13581,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    12058
+    12308
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 21,
@@ -13504,6 +13626,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -13524,13 +13656,15 @@
     "s2_complete",
     "ANKLE_FOOT_L",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "ANKLE_FOOT_L",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -13538,7 +13672,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1449.987890625,
-    12166
+    12416
    ],
    "size": [
     400,
@@ -13618,7 +13752,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1449.987890625,
-    12396
+    12646
    ],
    "size": [
     400,
@@ -13698,7 +13832,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1899.987890625,
-    12058
+    12308
    ],
    "size": [
     348.050390625,
@@ -13750,7 +13884,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1899.987890625,
-    12146
+    12396
    ],
    "size": [
     390.050390625,
@@ -13802,7 +13936,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1899.987890625,
-    12234
+    12484
    ],
    "size": [
     320.050390625,
@@ -13870,7 +14004,7 @@
    "type": "KSampler",
    "pos": [
     2340.03828125,
-    12058
+    12308
    ],
    "size": [
     320.050390625,
@@ -13997,7 +14131,7 @@
    "type": "VAEDecode",
    "pos": [
     2710.0886718750003,
-    12058
+    12308
    ],
    "size": [
     320.050390625,
@@ -14040,7 +14174,7 @@
    "type": "SaveImage",
    "pos": [
     3080.1390625000004,
-    12058
+    12308
    ],
    "size": [
     320,
@@ -14088,11 +14222,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    12756
+    13006
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 22,
@@ -14133,6 +14267,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -14153,13 +14297,15 @@
     "s2_remove_arms",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_remove_arms",
     "part": "（無）",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -14167,7 +14313,7 @@
    "type": "FluxKontextImageScale",
    "pos": [
     1090,
-    12756
+    13006
    ],
    "size": [
     296.73984375,
@@ -14206,7 +14352,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1436.73984375,
-    12756
+    13006
    ],
    "size": [
     400,
@@ -14286,7 +14432,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1436.73984375,
-    12986
+    13236
    ],
    "size": [
     400,
@@ -14366,7 +14512,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1886.73984375,
-    12756
+    13006
    ],
    "size": [
     324.73984375,
@@ -14418,7 +14564,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1886.73984375,
-    12844
+    13094
    ],
    "size": [
     366.73984375,
@@ -14470,7 +14616,7 @@
    "type": "VAEEncode",
    "pos": [
     1436.73984375,
-    13216
+    13466
    ],
    "size": [
     296.73984375,
@@ -14513,7 +14659,7 @@
    "type": "KSampler",
    "pos": [
     2303.4796875,
-    12756
+    13006
    ],
    "size": [
     296.73984375,
@@ -14640,7 +14786,7 @@
    "type": "VAEDecode",
    "pos": [
     2650.2195312500003,
-    12756
+    13006
    ],
    "size": [
     296.73984375,
@@ -14683,7 +14829,7 @@
    "type": "MechTorsoCut",
    "pos": [
     2996.9593750000004,
-    12756
+    13006
    ],
    "size": [
     296.73984375,
@@ -14755,7 +14901,7 @@
    "type": "MechImageCanvas",
    "pos": [
     3343.6992187500005,
-    12756
+    13006
    ],
    "size": [
     270,
@@ -14815,11 +14961,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    12986
+    13426
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 23,
@@ -14860,6 +15006,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -14880,13 +15036,15 @@
     "s2_complete",
     "TORSO_FULL",
     "front",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "TORSO_FULL",
     "view": "front",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -14894,7 +15052,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3343.6992187500005,
-    12864
+    13114
    ],
    "size": [
     400,
@@ -14974,7 +15132,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3343.6992187500005,
-    13094
+    13344
    ],
    "size": [
     400,
@@ -15054,7 +15212,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3793.6992187500005,
-    12756
+    13006
    ],
    "size": [
     296.73984375,
@@ -15106,7 +15264,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3793.6992187500005,
-    12844
+    13094
    ],
    "size": [
     338.73984375,
@@ -15158,7 +15316,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     3793.6992187500005,
-    12932
+    13182
    ],
    "size": [
     270,
@@ -15226,7 +15384,7 @@
    "type": "KSampler",
    "pos": [
     4182.439062500001,
-    12756
+    13006
    ],
    "size": [
     270,
@@ -15353,7 +15511,7 @@
    "type": "VAEDecode",
    "pos": [
     4502.439062500001,
-    12756
+    13006
    ],
    "size": [
     268.73984375,
@@ -15400,7 +15558,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    13576
+    14366
    ],
    "size": [
     293.759375,
@@ -15483,7 +15641,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1433.759375,
-    13576
+    14366
    ],
    "size": [
     293.759375,
@@ -15543,11 +15701,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    13576
+    14366
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 24,
@@ -15588,6 +15746,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -15608,13 +15776,15 @@
     "s2_complete",
     "CHEST_WAIST",
     "front",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "CHEST_WAIST",
     "view": "front",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -15622,7 +15792,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1433.759375,
-    13684
+    14474
    ],
    "size": [
     400,
@@ -15702,7 +15872,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1433.759375,
-    13914
+    14704
    ],
    "size": [
     400,
@@ -15782,7 +15952,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1883.759375,
-    13576
+    14366
    ],
    "size": [
     331.821875,
@@ -15834,7 +16004,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1883.759375,
-    13664
+    14454
    ],
    "size": [
     373.821875,
@@ -15886,7 +16056,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1883.759375,
-    13752
+    14542
    ],
    "size": [
     303.821875,
@@ -15954,7 +16124,7 @@
    "type": "KSampler",
    "pos": [
     2307.58125,
-    13576
+    14366
    ],
    "size": [
     303.821875,
@@ -16081,7 +16251,7 @@
    "type": "VAEDecode",
    "pos": [
     2661.4031250000003,
-    13576
+    14366
    ],
    "size": [
     303.821875,
@@ -16126,7 +16296,7 @@
    "type": "MechCutSegment",
    "pos": [
     1090,
-    14274
+    15306
    ],
    "size": [
     270,
@@ -16209,7 +16379,7 @@
    "type": "MechImageCanvas",
    "pos": [
     1410,
-    14274
+    15306
    ],
    "size": [
     270,
@@ -16269,11 +16439,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    14274
+    15306
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 25,
@@ -16314,6 +16484,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -16334,13 +16514,15 @@
     "s2_complete",
     "WAIST_HIP",
     "front",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_complete",
     "part": "WAIST_HIP",
     "view": "front",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -16348,7 +16530,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1410,
-    14382
+    15414
    ],
    "size": [
     400,
@@ -16428,7 +16610,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     1410,
-    14612
+    15644
    ],
    "size": [
     400,
@@ -16508,7 +16690,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1860,
-    14274
+    15306
    ],
    "size": [
     293.7193359375,
@@ -16560,7 +16742,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     1860,
-    14362
+    15394
    ],
    "size": [
     326.98203125,
@@ -16612,7 +16794,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     1860,
-    14450
+    15482
    ],
    "size": [
     270,
@@ -16680,7 +16862,7 @@
    "type": "KSampler",
    "pos": [
     2236.98203125,
-    14274
+    15306
    ],
    "size": [
     270,
@@ -16807,7 +16989,7 @@
    "type": "VAEDecode",
    "pos": [
     2556.98203125,
-    14274
+    15306
    ],
    "size": [
     256.98203125,
@@ -16852,7 +17034,7 @@
    "type": "MechImageCanvas",
    "pos": [
     4821.17890625,
-    12756
+    13006
    ],
    "size": [
     305.1822265625,
@@ -16912,11 +17094,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    13216
+    13846
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 26,
@@ -16957,6 +17139,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -16977,13 +17169,15 @@
     "s2_rotate",
     "（無）",
     "45",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_rotate",
     "part": "（無）",
     "view": "45",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -16991,7 +17185,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     4821.17890625,
-    12864
+    13114
    ],
    "size": [
     400,
@@ -17071,7 +17265,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     4821.17890625,
-    13094
+    13344
    ],
    "size": [
     400,
@@ -17151,7 +17345,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     5271.17890625,
-    12756
+    13006
    ],
    "size": [
     361.1822265625,
@@ -17203,7 +17397,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     5271.17890625,
-    12844
+    13094
    ],
    "size": [
     403.1822265625,
@@ -17255,7 +17449,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     5271.17890625,
-    12932
+    13182
    ],
    "size": [
     333.1822265625,
@@ -17323,7 +17517,7 @@
    "type": "KSampler",
    "pos": [
     5724.3611328125,
-    12756
+    13006
    ],
    "size": [
     333.1822265625,
@@ -17450,7 +17644,7 @@
    "type": "VAEDecode",
    "pos": [
     6107.543359374999,
-    12756
+    13006
    ],
    "size": [
     333.1822265625,
@@ -17493,7 +17687,7 @@
    "type": "SaveImage",
    "pos": [
     6490.725585937499,
-    12756
+    13006
    ],
    "size": [
     320,
@@ -17541,7 +17735,7 @@
    "type": "MechImageCanvas",
    "pos": [
     3015.2250000000004,
-    13576
+    14366
    ],
    "size": [
     321.4244140625,
@@ -17601,11 +17795,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    13806
+    14786
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 27,
@@ -17646,6 +17840,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -17666,13 +17870,15 @@
     "s2_rotate",
     "（無）",
     "45",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_rotate",
     "part": "（無）",
     "view": "45",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -17680,7 +17886,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3015.2250000000004,
-    13684
+    14474
    ],
    "size": [
     400,
@@ -17760,7 +17966,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     3015.2250000000004,
-    13914
+    14704
    ],
    "size": [
     400,
@@ -17840,7 +18046,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3465.2250000000004,
-    13576
+    14366
    ],
    "size": [
     377.4244140625,
@@ -17892,7 +18098,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3465.2250000000004,
-    13664
+    14454
    ],
    "size": [
     419.4244140625,
@@ -17944,7 +18150,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     3465.2250000000004,
-    13752
+    14542
    ],
    "size": [
     349.4244140625,
@@ -18012,7 +18218,7 @@
    "type": "KSampler",
    "pos": [
     3934.6494140625005,
-    13576
+    14366
    ],
    "size": [
     349.4244140625,
@@ -18139,7 +18345,7 @@
    "type": "VAEDecode",
    "pos": [
     4334.073828125001,
-    13576
+    14366
    ],
    "size": [
     349.4244140625,
@@ -18182,7 +18388,7 @@
    "type": "SaveImage",
    "pos": [
     4733.4982421875,
-    13576
+    14366
    ],
    "size": [
     320,
@@ -18230,7 +18436,7 @@
    "type": "MechImageCanvas",
    "pos": [
     2863.9640625,
-    14274
+    15306
    ],
    "size": [
     274.5845703125,
@@ -18290,11 +18496,11 @@
    "type": "MechPrompt",
    "pos": [
     640,
-    14504
+    15726
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 28,
@@ -18335,6 +18541,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -18355,13 +18571,15 @@
     "s2_rotate",
     "（無）",
     "45",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_rotate",
     "part": "（無）",
     "view": "45",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -18369,7 +18587,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     2863.9640625,
-    14382
+    15414
    ],
    "size": [
     400,
@@ -18449,7 +18667,7 @@
    "type": "TextEncodeQwenImageEditPlus",
    "pos": [
     2863.9640625,
-    14612
+    15644
    ],
    "size": [
     400,
@@ -18529,7 +18747,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3313.9640625,
-    14274
+    15306
    ],
    "size": [
     330.5845703125,
@@ -18581,7 +18799,7 @@
    "type": "FluxKontextMultiReferenceLatentMethod",
    "pos": [
     3313.9640625,
-    14362
+    15394
    ],
    "size": [
     372.5845703125,
@@ -18633,7 +18851,7 @@
    "type": "EmptySD3LatentImage",
    "pos": [
     3313.9640625,
-    14450
+    15482
    ],
    "size": [
     302.5845703125,
@@ -18701,7 +18919,7 @@
    "type": "KSampler",
    "pos": [
     3736.5486328125003,
-    14274
+    15306
    ],
    "size": [
     302.5845703125,
@@ -18828,7 +19046,7 @@
    "type": "VAEDecode",
    "pos": [
     4089.1332031250004,
-    14274
+    15306
    ],
    "size": [
     302.5845703125,
@@ -18871,7 +19089,7 @@
    "type": "SaveImage",
    "pos": [
     4441.7177734375,
-    14274
+    15306
    ],
    "size": [
     320,
@@ -18940,6 +19158,132 @@
    },
    "color": "#432",
    "bgcolor": "#653"
+  },
+  {
+   "id": 272,
+   "type": "EmptySD3LatentImage",
+   "pos": [
+    1407.0171875,
+    1646
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 30,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "寬度",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "高度",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "批次大小",
+     "name": "batch_size",
+     "type": "INT",
+     "widget": {
+      "name": "batch_size"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      1011
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】2 轉 A-pose：畫布",
+   "properties": {
+    "Node name for S&R": "EmptySD3LatentImage"
+   },
+   "widgets_values": [
+    864,
+    1152,
+    1
+   ],
+   "widgets_values_named": {
+    "width": 864,
+    "height": 1152,
+    "batch_size": 1
+   }
+  },
+  {
+   "id": 273,
+   "type": "MechAposeSkeleton",
+   "pos": [
+    640,
+    1606
+   ],
+   "size": [
+    319.9830078125,
+    82
+   ],
+   "flags": {},
+   "order": 31,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "width",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "height",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      1013,
+      1015
+     ]
+    }
+   ],
+   "title": "【2 轉 A-pose】A-pose 骨架圖（姿勢參考）",
+   "properties": {
+    "Node name for S&R": "MechAposeSkeleton"
+   },
+   "widgets_values": [
+    864,
+    1152
+   ],
+   "widgets_values_named": {
+    "width": 864,
+    "height": 1152
+   }
   }
  ],
  "links": [
@@ -19128,14 +19472,6 @@
    "IMAGE"
   ],
   [
-   529,
-   17,
-   0,
-   20,
-   0,
-   "IMAGE"
-  ],
-  [
    530,
    5,
    0,
@@ -19160,14 +19496,6 @@
    "STRING"
   ],
   [
-   533,
-   20,
-   0,
-   21,
-   2,
-   "IMAGE"
-  ],
-  [
    534,
    5,
    0,
@@ -19184,14 +19512,6 @@
    "VAE"
   ],
   [
-   536,
-   20,
-   0,
-   22,
-   2,
-   "IMAGE"
-  ],
-  [
    537,
    21,
    0,
@@ -19206,22 +19526,6 @@
    24,
    0,
    "CONDITIONING"
-  ],
-  [
-   539,
-   20,
-   0,
-   25,
-   0,
-   "IMAGE"
-  ],
-  [
-   540,
-   6,
-   0,
-   25,
-   1,
-   "VAE"
   ],
   [
    541,
@@ -19246,14 +19550,6 @@
    26,
    2,
    "CONDITIONING"
-  ],
-  [
-   544,
-   25,
-   0,
-   26,
-   3,
-   "LATENT"
   ],
   [
    545,
@@ -22982,6 +23278,46 @@
    270,
    0,
    "IMAGE"
+  ],
+  [
+   1011,
+   272,
+   0,
+   26,
+   3,
+   "LATENT"
+  ],
+  [
+   1012,
+   17,
+   0,
+   21,
+   2,
+   "IMAGE"
+  ],
+  [
+   1013,
+   273,
+   0,
+   21,
+   3,
+   "IMAGE"
+  ],
+  [
+   1014,
+   17,
+   0,
+   22,
+   2,
+   "IMAGE"
+  ],
+  [
+   1015,
+   273,
+   0,
+   22,
+   3,
+   "IMAGE"
   ]
  ],
  "groups": [
@@ -23004,7 +23340,7 @@
     610,
     -60,
     2463.8289062500003,
-    936
+    1126
    ],
    "color": "#3f789e",
    "flags": {}
@@ -23014,9 +23350,9 @@
    "title": "2 轉 A-pose",
    "bounding": [
     610,
-    936,
+    1126,
     2661.0515625000003,
-    606
+    666
    ],
    "color": "#3f789e",
    "flags": {}
@@ -23026,7 +23362,7 @@
    "title": "3 轉 45°",
    "bounding": [
     610,
-    1602,
+    1852,
     2520.5193359375003,
     606
    ],
@@ -23038,7 +23374,7 @@
    "title": "4 部位框",
    "bounding": [
     610,
-    2268,
+    2518,
     1063.2218750000002,
     438
    ],
@@ -23050,7 +23386,7 @@
    "title": "HEAD_NECK",
    "bounding": [
     610,
-    2766,
+    3016,
     3029.3437500000005,
     530
    ],
@@ -23062,7 +23398,7 @@
    "title": "ARM_FULL_R",
    "bounding": [
     610,
-    3356,
+    3606,
     3069.9218750000005,
     530
    ],
@@ -23074,7 +23410,7 @@
    "title": "ARM_FULL_L",
    "bounding": [
     610,
-    3946,
+    4196,
     3061.1718750000005,
     530
    ],
@@ -23086,7 +23422,7 @@
    "title": "LEG_FULL_R",
    "bounding": [
     610,
-    4536,
+    4786,
     3033.6093750000005,
     530
    ],
@@ -23098,7 +23434,7 @@
    "title": "LEG_FULL_L",
    "bounding": [
     610,
-    5126,
+    5376,
     3024.8593750000005,
     530
    ],
@@ -23110,7 +23446,7 @@
    "title": "SHOULDER_UPPERARM_R",
    "bounding": [
     610,
-    5716,
+    5966,
     3650.868359375,
     638
    ],
@@ -23122,7 +23458,7 @@
    "title": "FOREARM_HAND_R",
    "bounding": [
     610,
-    6414,
+    6664,
     3073.3750000000005,
     638
    ],
@@ -23134,7 +23470,7 @@
    "title": "SHOULDER_UPPERARM_L",
    "bounding": [
     610,
-    7112,
+    7362,
     3635.555859375,
     638
    ],
@@ -23146,7 +23482,7 @@
    "title": "FOREARM_HAND_L",
    "bounding": [
     610,
-    7810,
+    8060,
     3062.4375000000005,
     638
    ],
@@ -23158,7 +23494,7 @@
    "title": "THIGH_KNEE_R",
    "bounding": [
     610,
-    8508,
+    8758,
     2847.9984375000004,
     638
    ],
@@ -23170,7 +23506,7 @@
    "title": "KNEE_SHIN_R",
    "bounding": [
     610,
-    9206,
+    9456,
     2761.3734375000004,
     638
    ],
@@ -23182,7 +23518,7 @@
    "title": "ANKLE_FOOT_R",
    "bounding": [
     610,
-    9904,
+    10154,
     2868.8890625000004,
     638
    ],
@@ -23194,7 +23530,7 @@
    "title": "THIGH_KNEE_L",
    "bounding": [
     610,
-    10602,
+    10852,
     2839.2484375000004,
     638
    ],
@@ -23206,7 +23542,7 @@
    "title": "KNEE_SHIN_L",
    "bounding": [
     610,
-    11300,
+    11550,
     2752.6234375000004,
     638
    ],
@@ -23218,7 +23554,7 @@
    "title": "ANKLE_FOOT_L",
    "bounding": [
     610,
-    11998,
+    12248,
     2860.1390625000004,
     638
    ],
@@ -23230,9 +23566,9 @@
    "title": "TORSO_FULL",
    "bounding": [
     610,
-    12696,
+    12946,
     6270.725585937499,
-    760
+    1300
    ],
    "color": "#3f789e",
    "flags": {}
@@ -23242,9 +23578,9 @@
    "title": "CHEST_WAIST",
    "bounding": [
     610,
-    13516,
+    14306,
     4513.4982421875,
-    638
+    880
    ],
    "color": "#3f789e",
    "flags": {}
@@ -23254,9 +23590,9 @@
    "title": "WAIST_HIP",
    "bounding": [
     610,
-    14214,
+    15246,
     4221.7177734375,
-    638
+    880
    ],
    "color": "#3f789e",
    "flags": {}

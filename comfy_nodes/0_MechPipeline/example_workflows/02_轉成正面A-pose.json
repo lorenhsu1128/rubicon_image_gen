@@ -1,8 +1,8 @@
 {
  "id": "42cdb8f3-7850-4ddc-822a-42752adf6e8f",
  "revision": 0,
- "last_node_id": 19,
- "last_link_id": 48,
+ "last_node_id": 21,
+ "last_link_id": 53,
  "nodes": [
   {
    "id": 1,
@@ -62,7 +62,7 @@
     82
    ],
    "flags": {},
-   "order": 7,
+   "order": 8,
    "mode": 0,
    "inputs": [
     {
@@ -126,7 +126,7 @@
     82
    ],
    "flags": {},
-   "order": 9,
+   "order": 11,
    "mode": 0,
    "inputs": [
     {
@@ -190,7 +190,7 @@
     82
    ],
    "flags": {},
-   "order": 13,
+   "order": 14,
    "mode": 0,
    "inputs": [
     {
@@ -344,7 +344,6 @@
      "links": [
       30,
       35,
-      41,
       47
      ]
     }
@@ -400,7 +399,8 @@
      "name": "IMAGE",
      "type": "IMAGE",
      "links": [
-      28
+      50,
+      52
      ]
     },
     {
@@ -424,70 +424,6 @@
    }
   },
   {
-   "id": 8,
-   "type": "LoadImage",
-   "pos": [
-    500,
-    844
-   ],
-   "size": [
-    320,
-    382
-   ],
-   "flags": {},
-   "order": 4,
-   "mode": 0,
-   "inputs": [
-    {
-     "localized_name": "影像",
-     "name": "image",
-     "type": "COMBO",
-     "widget": {
-      "name": "image"
-     },
-     "link": null
-    },
-    {
-     "localized_name": "選擇要上傳的檔案",
-     "name": "upload",
-     "type": "IMAGEUPLOAD",
-     "widget": {
-      "name": "upload"
-     },
-     "link": null
-    }
-   ],
-   "outputs": [
-    {
-     "localized_name": "影像",
-     "name": "IMAGE",
-     "type": "IMAGE",
-     "links": [
-      33,
-      37
-     ]
-    },
-    {
-     "localized_name": "遮罩",
-     "name": "MASK",
-     "type": "MASK",
-     "links": null
-    }
-   ],
-   "title": "原始機甲圖（補看不到的細節）",
-   "properties": {
-    "Node name for S&R": "LoadImage"
-   },
-   "widgets_values": [
-    "example.png",
-    "image"
-   ],
-   "widgets_values_named": {
-    "image": "example.png",
-    "upload": "image"
-   }
-  },
-  {
    "id": 9,
    "type": "MechPrompt",
    "pos": [
@@ -495,11 +431,11 @@
     1286
    ],
    "size": [
-    400,
-    200
+    420,
+    400
    ],
    "flags": {},
-   "order": 5,
+   "order": 4,
    "mode": 0,
    "inputs": [
     {
@@ -537,6 +473,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -557,52 +503,15 @@
     "s1_apose",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s1_apose",
     "part": "（無）",
     "view": "keep",
-    "text": ""
-   }
-  },
-  {
-   "id": 10,
-   "type": "FluxKontextImageScale",
-   "pos": [
-    980,
-    142
-   ],
-   "size": [
-    194.9458984375,
-    26
-   ],
-   "flags": {},
-   "order": 8,
-   "mode": 0,
-   "inputs": [
-    {
-     "localized_name": "圖像",
-     "name": "image",
-     "type": "IMAGE",
-     "link": 28
-    }
-   ],
-   "outputs": [
-    {
-     "localized_name": "影像",
-     "name": "IMAGE",
-     "type": "IMAGE",
-     "links": [
-      32,
-      36,
-      40
-     ]
-    }
-   ],
-   "title": "轉 A-pose：縮放",
-   "properties": {
-    "Node name for S&R": "FluxKontextImageScale"
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -617,7 +526,7 @@
     200
    ],
    "flags": {},
-   "order": 10,
+   "order": 9,
    "mode": 0,
    "inputs": [
     {
@@ -638,14 +547,14 @@
      "name": "image1",
      "shape": 7,
      "type": "IMAGE",
-     "link": 32
+     "link": 50
     },
     {
      "localized_name": "圖像2",
      "name": "image2",
      "shape": 7,
      "type": "IMAGE",
-     "link": 33
+     "link": 51
     },
     {
      "localized_name": "圖像3",
@@ -697,7 +606,7 @@
     200
    ],
    "flags": {},
-   "order": 11,
+   "order": 10,
    "mode": 0,
    "inputs": [
     {
@@ -718,14 +627,14 @@
      "name": "image1",
      "shape": 7,
      "type": "IMAGE",
-     "link": 36
+     "link": 52
     },
     {
      "localized_name": "圖像2",
      "name": "image2",
      "shape": 7,
      "type": "IMAGE",
-     "link": 37
+     "link": 53
     },
     {
      "localized_name": "圖像3",
@@ -777,7 +686,7 @@
     58
    ],
    "flags": {},
-   "order": 14,
+   "order": 12,
    "mode": 0,
    "inputs": [
     {
@@ -829,7 +738,7 @@
     58
    ],
    "flags": {},
-   "order": 15,
+   "order": 13,
    "mode": 0,
    "inputs": [
     {
@@ -870,49 +779,6 @@
    }
   },
   {
-   "id": 15,
-   "type": "VAEEncode",
-   "pos": [
-    1330,
-    662
-   ],
-   "size": [
-    148.59375,
-    46
-   ],
-   "flags": {},
-   "order": 12,
-   "mode": 0,
-   "inputs": [
-    {
-     "localized_name": "像素",
-     "name": "pixels",
-     "type": "IMAGE",
-     "link": 40
-    },
-    {
-     "localized_name": "vae",
-     "name": "vae",
-     "type": "VAE",
-     "link": 41
-    }
-   ],
-   "outputs": [
-    {
-     "localized_name": "latent (潛空間)",
-     "name": "LATENT",
-     "type": "LATENT",
-     "links": [
-      45
-     ]
-    }
-   ],
-   "title": "轉 A-pose：編碼",
-   "properties": {
-    "Node name for S&R": "VAEEncode"
-   }
-  },
-  {
    "id": 16,
    "type": "KSampler",
    "pos": [
@@ -924,7 +790,7 @@
     262
    ],
    "flags": {},
-   "order": 16,
+   "order": 15,
    "mode": 0,
    "inputs": [
     {
@@ -949,7 +815,7 @@
      "localized_name": "潛在空間影像",
      "name": "latent_image",
      "type": "LATENT",
-     "link": 45
+     "link": 49
     },
     {
      "localized_name": "種子",
@@ -1051,7 +917,7 @@
     46
    ],
    "flags": {},
-   "order": 17,
+   "order": 16,
    "mode": 0,
    "inputs": [
     {
@@ -1094,7 +960,7 @@
     338
    ],
    "flags": {},
-   "order": 18,
+   "order": 17,
    "mode": 0,
    "inputs": [
     {
@@ -1142,20 +1008,146 @@
     420
    ],
    "flags": {},
-   "order": 6,
+   "order": 5,
    "mode": 0,
    "inputs": [],
    "outputs": [],
    "title": "使用說明",
    "properties": {},
    "widgets_values": [
-    "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n注意：原圖若已經是正面站姿，模型可能把原圖的舊配色帶回來；這時把「原始機甲圖」換成和「改好的機甲圖」同一張即可。"
+    "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「A-pose 骨架圖」是姿勢參考（自動產生，不用改）；機甲原本是斜側面、蹲低或持武器的姿勢也能轉正。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n「提示詞」節點下方的方框會顯示實際使用的提示詞，可以直接修改。"
    ],
    "widgets_values_named": {
     "text": "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n注意：原圖若已經是正面站姿，模型可能把原圖的舊配色帶回來；這時把「原始機甲圖」換成和「改好的機甲圖」同一張即可。"
    },
    "color": "#432",
    "bgcolor": "#653"
+  },
+  {
+   "id": 20,
+   "type": "EmptySD3LatentImage",
+   "pos": [
+    1330,
+    662
+   ],
+   "size": [
+    270,
+    106
+   ],
+   "flags": {},
+   "order": 6,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "寬度",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "高度",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "批次大小",
+     "name": "batch_size",
+     "type": "INT",
+     "widget": {
+      "name": "batch_size"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "latent (潛空間)",
+     "name": "LATENT",
+     "type": "LATENT",
+     "links": [
+      49
+     ]
+    }
+   ],
+   "title": "轉 A-pose：畫布",
+   "properties": {
+    "Node name for S&R": "EmptySD3LatentImage"
+   },
+   "widgets_values": [
+    864,
+    1152,
+    1
+   ],
+   "widgets_values_named": {
+    "width": 864,
+    "height": 1152,
+    "batch_size": 1
+   }
+  },
+  {
+   "id": 21,
+   "type": "MechAposeSkeleton",
+   "pos": [
+    500,
+    844
+   ],
+   "size": [
+    319.9830078125,
+    82
+   ],
+   "flags": {},
+   "order": 7,
+   "mode": 0,
+   "inputs": [
+    {
+     "localized_name": "width",
+     "name": "width",
+     "type": "INT",
+     "widget": {
+      "name": "width"
+     },
+     "link": null
+    },
+    {
+     "localized_name": "height",
+     "name": "height",
+     "type": "INT",
+     "widget": {
+      "name": "height"
+     },
+     "link": null
+    }
+   ],
+   "outputs": [
+    {
+     "localized_name": "影像",
+     "name": "IMAGE",
+     "type": "IMAGE",
+     "links": [
+      51,
+      53
+     ]
+    }
+   ],
+   "title": "A-pose 骨架圖（姿勢參考）",
+   "properties": {
+    "Node name for S&R": "MechAposeSkeleton"
+   },
+   "widgets_values": [
+    864,
+    1152
+   ],
+   "widgets_values_named": {
+    "width": 864,
+    "height": 1152
+   }
   }
  ],
  "links": [
@@ -1184,14 +1176,6 @@
    "MODEL"
   ],
   [
-   28,
-   7,
-   0,
-   10,
-   0,
-   "IMAGE"
-  ],
-  [
    29,
    5,
    0,
@@ -1216,22 +1200,6 @@
    "STRING"
   ],
   [
-   32,
-   10,
-   0,
-   11,
-   2,
-   "IMAGE"
-  ],
-  [
-   33,
-   8,
-   0,
-   11,
-   3,
-   "IMAGE"
-  ],
-  [
    34,
    5,
    0,
@@ -1248,22 +1216,6 @@
    "VAE"
   ],
   [
-   36,
-   10,
-   0,
-   12,
-   2,
-   "IMAGE"
-  ],
-  [
-   37,
-   8,
-   0,
-   12,
-   3,
-   "IMAGE"
-  ],
-  [
    38,
    11,
    0,
@@ -1278,22 +1230,6 @@
    14,
    0,
    "CONDITIONING"
-  ],
-  [
-   40,
-   10,
-   0,
-   15,
-   0,
-   "IMAGE"
-  ],
-  [
-   41,
-   6,
-   0,
-   15,
-   1,
-   "VAE"
   ],
   [
    42,
@@ -1320,14 +1256,6 @@
    "CONDITIONING"
   ],
   [
-   45,
-   15,
-   0,
-   16,
-   3,
-   "LATENT"
-  ],
-  [
    46,
    16,
    0,
@@ -1350,16 +1278,56 @@
    18,
    0,
    "IMAGE"
+  ],
+  [
+   49,
+   20,
+   0,
+   16,
+   3,
+   "LATENT"
+  ],
+  [
+   50,
+   7,
+   0,
+   11,
+   2,
+   "IMAGE"
+  ],
+  [
+   51,
+   21,
+   0,
+   11,
+   3,
+   "IMAGE"
+  ],
+  [
+   52,
+   7,
+   0,
+   12,
+   2,
+   "IMAGE"
+  ],
+  [
+   53,
+   21,
+   0,
+   12,
+   3,
+   "IMAGE"
   ]
  ],
  "groups": [],
  "config": {},
  "extra": {
   "ds": {
-   "scale": 0.5,
+   "scale": 0.8,
    "offset": [
-    40,
-    80
+    100,
+    -1136
    ]
   }
  },

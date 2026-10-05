@@ -263,27 +263,25 @@
   }
  },
  "19": {
+  "class_type": "MechAposeSkeleton",
+  "_meta": {
+   "title": "【2 轉 A-pose】A-pose 骨架圖（姿勢參考）"
+  },
+  "inputs": {
+   "width": 864,
+   "height": 1152
+  }
+ },
+ "20": {
   "class_type": "MechPrompt",
   "_meta": {
    "title": "【2 轉 A-pose】A-pose 提示詞"
   },
   "inputs": {
-   "template": "s1_apose_single",
+   "template": "s1_apose",
    "part": "（無）",
    "view": "keep",
    "text": ""
-  }
- },
- "20": {
-  "class_type": "FluxKontextImageScale",
-  "_meta": {
-   "title": "【2 轉 A-pose】2 轉 A-pose：縮放"
-  },
-  "inputs": {
-   "image": [
-    "17",
-    0
-   ]
   }
  },
  "21": {
@@ -301,11 +299,15 @@
     0
    ],
    "prompt": [
-    "19",
+    "20",
     0
    ],
    "image1": [
-    "20",
+    "17",
+    0
+   ],
+   "image2": [
+    "19",
     0
    ]
   }
@@ -326,7 +328,11 @@
    ],
    "prompt": "",
    "image1": [
-    "20",
+    "17",
+    0
+   ],
+   "image2": [
+    "19",
     0
    ]
   }
@@ -358,19 +364,14 @@
   }
  },
  "25": {
-  "class_type": "VAEEncode",
+  "class_type": "EmptySD3LatentImage",
   "_meta": {
-   "title": "【2 轉 A-pose】2 轉 A-pose：編碼"
+   "title": "【2 轉 A-pose】2 轉 A-pose：畫布"
   },
   "inputs": {
-   "pixels": [
-    "20",
-    0
-   ],
-   "vae": [
-    "6",
-    0
-   ]
+   "width": 864,
+   "height": 1152,
+   "batch_size": 1
   }
  },
  "26": {

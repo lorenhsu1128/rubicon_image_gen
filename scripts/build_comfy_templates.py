@@ -91,9 +91,9 @@ def t02_apose():
     g = Graph()
     m = g.models()
     edited = [g.add("LoadImage", "改好的機甲圖（01 的結果）", image="example.png"), 0]
-    src = [g.add("LoadImage", "原始機甲圖（補看不到的細節）", image="example.png"), 0]
+    pose = [g.add("MechAposeSkeleton", "A-pose 骨架圖（姿勢參考）", width=864, height=1152), 0]
     p = g.prompt("提示詞", "s1_apose")
-    g.save(g.edit("轉 A-pose", m, [edited, src], p), "mech/02_apose")
+    g.save(g.edit("轉 A-pose", m, [edited, pose], p, size=(864, 1152)), "mech/02_apose")
     return g
 
 
@@ -168,11 +168,11 @@ def t08_touchup():
     g = Graph()
     m = g.models()
     load = g.add("LoadImage", "要修的圖（右鍵 → 遮罩編輯器塗出範圍）", image="example.png")
-    marks = g.add("MechMarkMask", "遮罩標記", image=[load, 0], mask=[load, 1])
+    marks = g.add("MechMarkMask", "修圖模式（mode 選刪除或補畫；text 可寫要求）", image=[load, 0], mask=[load, 1],
+                  mode="刪除（補背景）", text="", grow=6)
     g.save([marks, 1], "mech/08_erase", "只擦除")
-    p = g.prompt("補畫提示（text 可寫要求，例如：補成肩膀的圓形關節截面）", "s2_fill", text="")
-    repainted = g.edit("補畫", m, [[marks, 0]], p)
-    out = g.add("MechMaskComposite", "只貼回遮罩範圍", erased=[marks, 1], repainted=repainted, mask=[load, 1],
+    repainted = g.edit("補畫", m, [[marks, 0]], [marks, 2])
+    out = g.add("MechMaskComposite", "只貼回遮罩範圍", erased=[marks, 1], repainted=repainted, mask=[marks, 3],
                 grow=6, feather=4)
     g.save([out, 0], "mech/08_repaint", "擦除並補畫")
     return g
@@ -197,9 +197,10 @@ def t09_full():
     edited = g.edit("1 改色", m, [src], g.prompt("修改內容（在 text 填要改的地方）", "s1_edit", text="裝甲改成紅色"))
     g.save(edited, "mech/full/1_edit", "1 改色結果")
     g.stage = "2 轉 A-pose"
-    # Single image on purpose: with the source as image 2 the model copied the source's colors back
-    # when the source was already a front view (2026-10-05 test, 15abc646).
-    front = g.edit("2 轉 A-pose", m, [edited], g.prompt("A-pose 提示詞", "s1_apose_single"))
+    # Image 2 is a pose skeleton, not the source: the source as image 2 copied its colors back, and with
+    # text alone a mech drawn in a 3/4 crouched stance came back unchanged (2026-10-05 tests).
+    pose = [g.add("MechAposeSkeleton", "A-pose 骨架圖（姿勢參考）", width=864, height=1152), 0]
+    front = g.edit("2 轉 A-pose", m, [edited, pose], g.prompt("A-pose 提示詞", "s1_apose"), size=(864, 1152))
     g.save(front, "mech/full/2_front", "2 正面 A-pose")
     g.stage = "3 轉 45°"
     m45 = g.edit("3 轉 45°", cam, [front], g.prompt("轉 45° 提示詞", "cam_lora"))

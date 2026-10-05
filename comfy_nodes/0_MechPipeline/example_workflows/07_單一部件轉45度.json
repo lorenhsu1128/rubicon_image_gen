@@ -502,8 +502,8 @@
     1068
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 4,
@@ -544,6 +544,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -564,13 +574,15 @@
     "s2_rotate",
     "（無）",
     "45",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "s2_rotate",
     "part": "（無）",
     "view": "45",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
@@ -1191,11 +1203,11 @@
    "type": "MechPrompt",
    "pos": [
     500,
-    1328
+    1488
    ],
    "size": [
-    400,
-    200
+    420,
+    360
    ],
    "flags": {},
    "order": 5,
@@ -1236,6 +1248,16 @@
       "name": "text"
      },
      "link": null
+    },
+    {
+     "localized_name": "full_prompt",
+     "name": "full_prompt",
+     "shape": 7,
+     "type": "STRING",
+     "widget": {
+      "name": "full_prompt"
+     },
+     "link": null
     }
    ],
    "outputs": [
@@ -1256,13 +1278,15 @@
     "cam_lora",
     "（無）",
     "keep",
+    "",
     ""
    ],
    "widgets_values_named": {
     "template": "cam_lora",
     "part": "（無）",
     "view": "keep",
-    "text": ""
+    "text": "",
+    "full_prompt": ""
    }
   },
   {
