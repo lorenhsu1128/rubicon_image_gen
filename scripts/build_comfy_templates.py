@@ -16,24 +16,34 @@ CAM_LORA = "qwen_edit_2511_camera_angle_lora.safetensors"
 class Graph:
     def __init__(self):
         self.nodes: dict[str, dict] = {}
+        self.stage = ""   # when set, titles get a 【stage】 prefix (the UI layout groups nodes by it)
 
     def add(self, class_type: str, title: str, **inputs) -> str:
+        if self.stage:
+            title = f"【{self.stage}】{title}"
         nid = str(len(self.nodes) + 1)
         self.nodes[nid] = {"class_type": class_type, "_meta": {"title": title}, "inputs": inputs}
         return nid
 
     def models(self, task_lora: str | None = None) -> tuple[list, list, list]:
-        """GGUF UNet + Lightning (+ task LoRA), text encoder, VAE; same settings as the CLI (draft mode)."""
-        unet = self.add("UnetLoaderGGUF", "UNET", unet_name="qwen-image-edit-2511-Q4_K_M.gguf")
-        ms = self.add("ModelSamplingAuraFlow", "Model Sampling AuraFlow", model=[unet, 0], shift=3.1)
-        norm = self.add("CFGNorm", "CFG Norm", model=[ms, 0], strength=1.0, pre_cfg=False)
-        model = self.add("LoraLoaderModelOnly", "LORA_LIGHTNING", model=[norm, 0], lora_name=LIGHTNING, strength_model=1.0)
+        """GGUF UNet + Lightning (+ task LoRA), text encoder, VAE; same settings as the CLI (draft mode).
+        Loaders are created once per graph; a task LoRA is stacked on the shared Lightning model, so
+        the 13GB UNet is loaded only once."""
+        stage, self.stage = self.stage, ""
+        if not hasattr(self, "_base"):
+            unet = self.add("UnetLoaderGGUF", "UNET", unet_name="qwen-image-edit-2511-Q4_K_M.gguf")
+            ms = self.add("ModelSamplingAuraFlow", "Model Sampling AuraFlow", model=[unet, 0], shift=3.1)
+            norm = self.add("CFGNorm", "CFG Norm", model=[ms, 0], strength=1.0, pre_cfg=False)
+            model = self.add("LoraLoaderModelOnly", "LORA_LIGHTNING", model=[norm, 0], lora_name=LIGHTNING, strength_model=1.0)
+            clip = self.add("CLIPLoader", "TEXT_ENCODER", clip_name="qwen_2.5_vl_7b_fp8_scaled.safetensors",
+                            type="qwen_image", device="default")
+            vae = self.add("VAELoader", "VAE", vae_name="qwen_image_vae.safetensors")
+            self._base = ([model, 0], [clip, 0], [vae, 0])
+        model, clip, vae = self._base
         if task_lora:
-            model = self.add("LoraLoaderModelOnly", "LORA_TASK", model=[model, 0], lora_name=task_lora, strength_model=1.0)
-        clip = self.add("CLIPLoader", "TEXT_ENCODER", clip_name="qwen_2.5_vl_7b_fp8_scaled.safetensors",
-                        type="qwen_image", device="default")
-        vae = self.add("VAELoader", "VAE", vae_name="qwen_image_vae.safetensors")
-        return [model, 0], [clip, 0], [vae, 0]
+            model = [self.add("LoraLoaderModelOnly", "LORA_TASK", model=model, lora_name=task_lora, strength_model=1.0), 0]
+        self.stage = stage
+        return model, clip, vae
 
     def edit(self, label: str, models, images: list, prompt, size=None) -> list:
         """One Qwen-Image-Edit-2511 pass. size=None edits in place on image 1's canvas (scaled to ~1MP);
@@ -168,6 +178,76 @@ def t08_touchup():
     return g
 
 
+WHOLE_OF = {  # segment -> whole it is cut from (stages.SEGMENT_OF without the torso group)
+    "SHOULDER_UPPERARM_R": "ARM_FULL_R", "FOREARM_HAND_R": "ARM_FULL_R",
+    "SHOULDER_UPPERARM_L": "ARM_FULL_L", "FOREARM_HAND_L": "ARM_FULL_L",
+    "THIGH_KNEE_R": "LEG_FULL_R", "KNEE_SHIN_R": "LEG_FULL_R", "ANKLE_FOOT_R": "LEG_FULL_R",
+    "THIGH_KNEE_L": "LEG_FULL_L", "KNEE_SHIN_L": "LEG_FULL_L", "ANKLE_FOOT_L": "LEG_FULL_L",
+}
+
+
+def t09_full():
+    """One mech image + a change -> all 18 parts at 45 deg (S1 and S2 of the CLI in one graph, no QC)."""
+    g = Graph()
+    m = g.models()
+    cam = g.models(task_lora=CAM_LORA)
+    g.stage = "1 改色"
+    src = [g.add("LoadImage", "原始機甲圖", image="example.png"), 0]
+
+    edited = g.edit("1 改色", m, [src], g.prompt("修改內容（在 text 填要改的地方）", "s1_edit", text="裝甲改成紅色"))
+    g.save(edited, "mech/full/1_edit", "1 改色結果")
+    g.stage = "2 轉 A-pose"
+    # Single image on purpose: with the source as image 2 the model copied the source's colors back
+    # when the source was already a front view (2026-10-05 test, 15abc646).
+    front = g.edit("2 轉 A-pose", m, [edited], g.prompt("A-pose 提示詞", "s1_apose_single"))
+    g.save(front, "mech/full/2_front", "2 正面 A-pose")
+    g.stage = "3 轉 45°"
+    m45 = g.edit("3 轉 45°", cam, [front], g.prompt("轉 45° 提示詞", "cam_lora"))
+    g.save(m45, "mech/full/3_45", "3 45° 全身")
+    g.stage = "4 部位框"
+
+    bx = [g.add("MechBoxes", "部位框（mech_id 留空＝自動預框）", front=front, mech_id=""), 0]
+    g.save([g.add("MechDrawBoxes", "部位框預覽", front=front, boxes=bx), 0], "mech/full/4_boxes", "4 部位框預覽")
+
+    wholes = {}
+    for part, headroom in [("HEAD_NECK", 1.35), ("ARM_FULL_R", 1.35), ("ARM_FULL_L", 1.35),
+                           ("LEG_FULL_R", 1.6), ("LEG_FULL_L", 1.6)]:
+        g.stage = part
+        c = g.add("MechPartCanvas", f"{part} 畫布", mech_id="", part=part, headroom=headroom, pixels=1024, boxes=bx)
+        wholes[part] = g.edit(part, m, [m45], g.prompt(f"{part} 提示詞", "s2_part", part=part, view="keep"),
+                              size=([c, 0], [c, 1]))
+        g.save(wholes[part], f"mech/full/{part}", part)
+    for seg, whole in WHOLE_OF.items():
+        g.stage = seg
+        cut = [g.add("MechCutSegment", f"{seg} 切段", whole=wholes[whole], mech_id="", segment=seg, margin=0.5,
+                     boxes=bx), 0]
+        cc = g.add("MechImageCanvas", f"{seg} 畫布", image=cut, pixels=1024)
+        out = g.edit(seg, m, [cut], g.prompt(f"{seg} 提示詞", "s2_complete", part=seg, view="keep"),
+                     size=([cc, 0], [cc, 1]))
+        g.save(out, f"mech/full/{seg}", seg)
+
+    g.stage = "TORSO_FULL"
+    no_arms = g.edit("軀幹：刪除雙臂", m, [front], g.prompt("刪除雙臂提示詞", "s2_remove_arms"))
+    tcut = [g.add("MechTorsoCut", "軀幹：塗除頭腿並裁切", no_arms=no_arms, mech_id="", margin=0.35, boxes=bx), 0]
+    tc = g.add("MechImageCanvas", "軀幹畫布", image=tcut, pixels=1024)
+    torso = g.edit("軀幹：補完", m, [tcut], g.prompt("軀幹補完提示詞", "s2_complete", part="TORSO_FULL", view="front"),
+                   size=([tc, 0], [tc, 1]))
+    fronts = {"TORSO_FULL": torso}
+    for seg in ("CHEST_WAIST", "WAIST_HIP"):
+        g.stage = seg
+        cut = [g.add("MechCutSegment", f"{seg} 切段", whole=torso, mech_id="", segment=seg, margin=0.5, boxes=bx), 0]
+        cc = g.add("MechImageCanvas", f"{seg} 畫布", image=cut, pixels=1024)
+        fronts[seg] = g.edit(seg, m, [cut], g.prompt(f"{seg} 提示詞", "s2_complete", part=seg, view="front"),
+                             size=([cc, 0], [cc, 1]))
+    for part, img in fronts.items():
+        g.stage = part
+        rc = g.add("MechImageCanvas", f"{part} 45° 畫布", image=img, pixels=1024)
+        out = g.edit(f"{part} 轉 45°", m, [img], g.prompt(f"{part} 轉 45° 提示詞", "s2_rotate", view="45"),
+                     size=([rc, 0], [rc, 1]))
+        g.save(out, f"mech/full/{part}", part)
+    return g
+
+
 TEMPLATES = {
     "01_改色或修改（姿勢不動）": t01_edit,
     "02_轉成正面A-pose": t02_apose,
@@ -177,6 +257,7 @@ TEMPLATES = {
     "06_軀幹（刪臂裁切補完轉45度）": t06_torso,
     "07_單一部件轉45度": t07_rotate,
     "08_修圖（擦除與補畫）": t08_touchup,
+    "09_完整流程（機甲圖到18個部位）": t09_full,
 }
 
 if __name__ == "__main__":

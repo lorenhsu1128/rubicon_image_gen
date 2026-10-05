@@ -1,0 +1,4638 @@
+{
+ "1": {
+  "class_type": "UnetLoaderGGUF",
+  "_meta": {
+   "title": "UNET"
+  },
+  "inputs": {
+   "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
+  }
+ },
+ "2": {
+  "class_type": "ModelSamplingAuraFlow",
+  "_meta": {
+   "title": "Model Sampling AuraFlow"
+  },
+  "inputs": {
+   "model": [
+    "1",
+    0
+   ],
+   "shift": 3.1
+  }
+ },
+ "3": {
+  "class_type": "CFGNorm",
+  "_meta": {
+   "title": "CFG Norm"
+  },
+  "inputs": {
+   "model": [
+    "2",
+    0
+   ],
+   "strength": 1.0,
+   "pre_cfg": false
+  }
+ },
+ "4": {
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "LORA_LIGHTNING"
+  },
+  "inputs": {
+   "model": [
+    "3",
+    0
+   ],
+   "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
+   "strength_model": 1.0
+  }
+ },
+ "5": {
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "TEXT_ENCODER"
+  },
+  "inputs": {
+   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "VAE"
+  },
+  "inputs": {
+   "vae_name": "qwen_image_vae.safetensors"
+  }
+ },
+ "7": {
+  "class_type": "LoraLoaderModelOnly",
+  "_meta": {
+   "title": "LORA_TASK"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "lora_name": "qwen_edit_2511_camera_angle_lora.safetensors",
+   "strength_model": 1.0
+  }
+ },
+ "8": {
+  "class_type": "LoadImage",
+  "_meta": {
+   "title": "【1 改色】原始機甲圖"
+  },
+  "inputs": {
+   "image": "example.png"
+  }
+ },
+ "9": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【1 改色】修改內容（在 text 填要改的地方）"
+  },
+  "inputs": {
+   "template": "s1_edit",
+   "part": "（無）",
+   "view": "keep",
+   "text": "裝甲改成紅色"
+  }
+ },
+ "10": {
+  "class_type": "FluxKontextImageScale",
+  "_meta": {
+   "title": "【1 改色】1 改色：縮放"
+  },
+  "inputs": {
+   "image": [
+    "8",
+    0
+   ]
+  }
+ },
+ "11": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【1 改色】1 改色：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "9",
+    0
+   ],
+   "image1": [
+    "10",
+    0
+   ]
+  }
+ },
+ "12": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【1 改色】1 改色：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "10",
+    0
+   ]
+  }
+ },
+ "13": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【1 改色】1 改色：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "11",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "14": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【1 改色】1 改色：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "12",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "15": {
+  "class_type": "VAEEncode",
+  "_meta": {
+   "title": "【1 改色】1 改色：編碼"
+  },
+  "inputs": {
+   "pixels": [
+    "10",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "16": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【1 改色】1 改色：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "13",
+    0
+   ],
+   "negative": [
+    "14",
+    0
+   ],
+   "latent_image": [
+    "15",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "17": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【1 改色】1 改色：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "16",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "18": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【1 改色】1 改色結果"
+  },
+  "inputs": {
+   "images": [
+    "17",
+    0
+   ],
+   "filename_prefix": "mech/full/1_edit"
+  }
+ },
+ "19": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【2 轉 A-pose】A-pose 提示詞"
+  },
+  "inputs": {
+   "template": "s1_apose_single",
+   "part": "（無）",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "20": {
+  "class_type": "FluxKontextImageScale",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：縮放"
+  },
+  "inputs": {
+   "image": [
+    "17",
+    0
+   ]
+  }
+ },
+ "21": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "19",
+    0
+   ],
+   "image1": [
+    "20",
+    0
+   ]
+  }
+ },
+ "22": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "20",
+    0
+   ]
+  }
+ },
+ "23": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "21",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "24": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "22",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "25": {
+  "class_type": "VAEEncode",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：編碼"
+  },
+  "inputs": {
+   "pixels": [
+    "20",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "26": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "23",
+    0
+   ],
+   "negative": [
+    "24",
+    0
+   ],
+   "latent_image": [
+    "25",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "27": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 轉 A-pose：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "26",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "28": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【2 轉 A-pose】2 正面 A-pose"
+  },
+  "inputs": {
+   "images": [
+    "27",
+    0
+   ],
+   "filename_prefix": "mech/full/2_front"
+  }
+ },
+ "29": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【3 轉 45°】轉 45° 提示詞"
+  },
+  "inputs": {
+   "template": "cam_lora",
+   "part": "（無）",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "30": {
+  "class_type": "FluxKontextImageScale",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：縮放"
+  },
+  "inputs": {
+   "image": [
+    "27",
+    0
+   ]
+  }
+ },
+ "31": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "29",
+    0
+   ],
+   "image1": [
+    "30",
+    0
+   ]
+  }
+ },
+ "32": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "30",
+    0
+   ]
+  }
+ },
+ "33": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "31",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "34": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "32",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "35": {
+  "class_type": "VAEEncode",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：編碼"
+  },
+  "inputs": {
+   "pixels": [
+    "30",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "36": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：取樣"
+  },
+  "inputs": {
+   "model": [
+    "7",
+    0
+   ],
+   "positive": [
+    "33",
+    0
+   ],
+   "negative": [
+    "34",
+    0
+   ],
+   "latent_image": [
+    "35",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "37": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【3 轉 45°】3 轉 45°：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "36",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "38": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【3 轉 45°】3 45° 全身"
+  },
+  "inputs": {
+   "images": [
+    "37",
+    0
+   ],
+   "filename_prefix": "mech/full/3_45"
+  }
+ },
+ "39": {
+  "class_type": "MechBoxes",
+  "_meta": {
+   "title": "【4 部位框】部位框（mech_id 留空＝自動預框）"
+  },
+  "inputs": {
+   "front": [
+    "27",
+    0
+   ],
+   "mech_id": ""
+  }
+ },
+ "40": {
+  "class_type": "MechDrawBoxes",
+  "_meta": {
+   "title": "【4 部位框】部位框預覽"
+  },
+  "inputs": {
+   "front": [
+    "27",
+    0
+   ],
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "41": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【4 部位框】4 部位框預覽"
+  },
+  "inputs": {
+   "images": [
+    "40",
+    0
+   ],
+   "filename_prefix": "mech/full/4_boxes"
+  }
+ },
+ "42": {
+  "class_type": "MechPartCanvas",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK 畫布"
+  },
+  "inputs": {
+   "mech_id": "",
+   "part": "HEAD_NECK",
+   "headroom": 1.35,
+   "pixels": 1024,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "43": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK 提示詞"
+  },
+  "inputs": {
+   "template": "s2_part",
+   "part": "HEAD_NECK",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "44": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "43",
+    0
+   ],
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "45": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "46": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "44",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "47": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "45",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "48": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：畫布"
+  },
+  "inputs": {
+   "width": [
+    "42",
+    0
+   ],
+   "height": [
+    "42",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "49": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "46",
+    0
+   ],
+   "negative": [
+    "47",
+    0
+   ],
+   "latent_image": [
+    "48",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "50": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "49",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "51": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【HEAD_NECK】HEAD_NECK"
+  },
+  "inputs": {
+   "images": [
+    "50",
+    0
+   ],
+   "filename_prefix": "mech/full/HEAD_NECK"
+  }
+ },
+ "52": {
+  "class_type": "MechPartCanvas",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R 畫布"
+  },
+  "inputs": {
+   "mech_id": "",
+   "part": "ARM_FULL_R",
+   "headroom": 1.35,
+   "pixels": 1024,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "53": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_part",
+   "part": "ARM_FULL_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "54": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "53",
+    0
+   ],
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "55": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "56": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "54",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "57": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "55",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "58": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "52",
+    0
+   ],
+   "height": [
+    "52",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "59": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "56",
+    0
+   ],
+   "negative": [
+    "57",
+    0
+   ],
+   "latent_image": [
+    "58",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "60": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "59",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "61": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【ARM_FULL_R】ARM_FULL_R"
+  },
+  "inputs": {
+   "images": [
+    "60",
+    0
+   ],
+   "filename_prefix": "mech/full/ARM_FULL_R"
+  }
+ },
+ "62": {
+  "class_type": "MechPartCanvas",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L 畫布"
+  },
+  "inputs": {
+   "mech_id": "",
+   "part": "ARM_FULL_L",
+   "headroom": 1.35,
+   "pixels": 1024,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "63": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_part",
+   "part": "ARM_FULL_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "64": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "63",
+    0
+   ],
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "65": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "66": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "64",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "67": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "65",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "68": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "62",
+    0
+   ],
+   "height": [
+    "62",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "69": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "66",
+    0
+   ],
+   "negative": [
+    "67",
+    0
+   ],
+   "latent_image": [
+    "68",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "70": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "69",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "71": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【ARM_FULL_L】ARM_FULL_L"
+  },
+  "inputs": {
+   "images": [
+    "70",
+    0
+   ],
+   "filename_prefix": "mech/full/ARM_FULL_L"
+  }
+ },
+ "72": {
+  "class_type": "MechPartCanvas",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R 畫布"
+  },
+  "inputs": {
+   "mech_id": "",
+   "part": "LEG_FULL_R",
+   "headroom": 1.6,
+   "pixels": 1024,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "73": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_part",
+   "part": "LEG_FULL_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "74": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "73",
+    0
+   ],
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "75": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "76": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "74",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "77": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "75",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "78": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "72",
+    0
+   ],
+   "height": [
+    "72",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "79": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "76",
+    0
+   ],
+   "negative": [
+    "77",
+    0
+   ],
+   "latent_image": [
+    "78",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "80": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "79",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "81": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【LEG_FULL_R】LEG_FULL_R"
+  },
+  "inputs": {
+   "images": [
+    "80",
+    0
+   ],
+   "filename_prefix": "mech/full/LEG_FULL_R"
+  }
+ },
+ "82": {
+  "class_type": "MechPartCanvas",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L 畫布"
+  },
+  "inputs": {
+   "mech_id": "",
+   "part": "LEG_FULL_L",
+   "headroom": 1.6,
+   "pixels": 1024,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "83": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_part",
+   "part": "LEG_FULL_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "84": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "83",
+    0
+   ],
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "85": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "37",
+    0
+   ]
+  }
+ },
+ "86": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "84",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "87": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "85",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "88": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "82",
+    0
+   ],
+   "height": [
+    "82",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "89": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "86",
+    0
+   ],
+   "negative": [
+    "87",
+    0
+   ],
+   "latent_image": [
+    "88",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "90": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "89",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "91": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【LEG_FULL_L】LEG_FULL_L"
+  },
+  "inputs": {
+   "images": [
+    "90",
+    0
+   ],
+   "filename_prefix": "mech/full/LEG_FULL_L"
+  }
+ },
+ "92": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R 切段"
+  },
+  "inputs": {
+   "whole": [
+    "60",
+    0
+   ],
+   "mech_id": "",
+   "segment": "SHOULDER_UPPERARM_R",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "93": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R 畫布"
+  },
+  "inputs": {
+   "image": [
+    "92",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "94": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "SHOULDER_UPPERARM_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "95": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "94",
+    0
+   ],
+   "image1": [
+    "92",
+    0
+   ]
+  }
+ },
+ "96": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "92",
+    0
+   ]
+  }
+ },
+ "97": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "95",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "98": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "96",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "99": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "93",
+    0
+   ],
+   "height": [
+    "93",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "100": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "97",
+    0
+   ],
+   "negative": [
+    "98",
+    0
+   ],
+   "latent_image": [
+    "99",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "101": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "100",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "102": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_R】SHOULDER_UPPERARM_R"
+  },
+  "inputs": {
+   "images": [
+    "101",
+    0
+   ],
+   "filename_prefix": "mech/full/SHOULDER_UPPERARM_R"
+  }
+ },
+ "103": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R 切段"
+  },
+  "inputs": {
+   "whole": [
+    "60",
+    0
+   ],
+   "mech_id": "",
+   "segment": "FOREARM_HAND_R",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "104": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R 畫布"
+  },
+  "inputs": {
+   "image": [
+    "103",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "105": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "FOREARM_HAND_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "106": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "105",
+    0
+   ],
+   "image1": [
+    "103",
+    0
+   ]
+  }
+ },
+ "107": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "103",
+    0
+   ]
+  }
+ },
+ "108": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "106",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "109": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "107",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "110": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "104",
+    0
+   ],
+   "height": [
+    "104",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "111": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "108",
+    0
+   ],
+   "negative": [
+    "109",
+    0
+   ],
+   "latent_image": [
+    "110",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "112": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "111",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "113": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【FOREARM_HAND_R】FOREARM_HAND_R"
+  },
+  "inputs": {
+   "images": [
+    "112",
+    0
+   ],
+   "filename_prefix": "mech/full/FOREARM_HAND_R"
+  }
+ },
+ "114": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L 切段"
+  },
+  "inputs": {
+   "whole": [
+    "70",
+    0
+   ],
+   "mech_id": "",
+   "segment": "SHOULDER_UPPERARM_L",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "115": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L 畫布"
+  },
+  "inputs": {
+   "image": [
+    "114",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "116": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "SHOULDER_UPPERARM_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "117": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "116",
+    0
+   ],
+   "image1": [
+    "114",
+    0
+   ]
+  }
+ },
+ "118": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "114",
+    0
+   ]
+  }
+ },
+ "119": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "117",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "120": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "118",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "121": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "115",
+    0
+   ],
+   "height": [
+    "115",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "122": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "119",
+    0
+   ],
+   "negative": [
+    "120",
+    0
+   ],
+   "latent_image": [
+    "121",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "123": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "122",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "124": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【SHOULDER_UPPERARM_L】SHOULDER_UPPERARM_L"
+  },
+  "inputs": {
+   "images": [
+    "123",
+    0
+   ],
+   "filename_prefix": "mech/full/SHOULDER_UPPERARM_L"
+  }
+ },
+ "125": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L 切段"
+  },
+  "inputs": {
+   "whole": [
+    "70",
+    0
+   ],
+   "mech_id": "",
+   "segment": "FOREARM_HAND_L",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "126": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L 畫布"
+  },
+  "inputs": {
+   "image": [
+    "125",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "127": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "FOREARM_HAND_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "128": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "127",
+    0
+   ],
+   "image1": [
+    "125",
+    0
+   ]
+  }
+ },
+ "129": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "125",
+    0
+   ]
+  }
+ },
+ "130": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "128",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "131": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "129",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "132": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "126",
+    0
+   ],
+   "height": [
+    "126",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "133": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "130",
+    0
+   ],
+   "negative": [
+    "131",
+    0
+   ],
+   "latent_image": [
+    "132",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "134": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "133",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "135": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【FOREARM_HAND_L】FOREARM_HAND_L"
+  },
+  "inputs": {
+   "images": [
+    "134",
+    0
+   ],
+   "filename_prefix": "mech/full/FOREARM_HAND_L"
+  }
+ },
+ "136": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R 切段"
+  },
+  "inputs": {
+   "whole": [
+    "80",
+    0
+   ],
+   "mech_id": "",
+   "segment": "THIGH_KNEE_R",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "137": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R 畫布"
+  },
+  "inputs": {
+   "image": [
+    "136",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "138": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "THIGH_KNEE_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "139": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "138",
+    0
+   ],
+   "image1": [
+    "136",
+    0
+   ]
+  }
+ },
+ "140": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "136",
+    0
+   ]
+  }
+ },
+ "141": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "139",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "142": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "140",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "143": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "137",
+    0
+   ],
+   "height": [
+    "137",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "144": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "141",
+    0
+   ],
+   "negative": [
+    "142",
+    0
+   ],
+   "latent_image": [
+    "143",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "145": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "144",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "146": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【THIGH_KNEE_R】THIGH_KNEE_R"
+  },
+  "inputs": {
+   "images": [
+    "145",
+    0
+   ],
+   "filename_prefix": "mech/full/THIGH_KNEE_R"
+  }
+ },
+ "147": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R 切段"
+  },
+  "inputs": {
+   "whole": [
+    "80",
+    0
+   ],
+   "mech_id": "",
+   "segment": "KNEE_SHIN_R",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "148": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R 畫布"
+  },
+  "inputs": {
+   "image": [
+    "147",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "149": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "KNEE_SHIN_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "150": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "149",
+    0
+   ],
+   "image1": [
+    "147",
+    0
+   ]
+  }
+ },
+ "151": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "147",
+    0
+   ]
+  }
+ },
+ "152": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "150",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "153": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "151",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "154": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "148",
+    0
+   ],
+   "height": [
+    "148",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "155": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "152",
+    0
+   ],
+   "negative": [
+    "153",
+    0
+   ],
+   "latent_image": [
+    "154",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "156": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "155",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "157": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【KNEE_SHIN_R】KNEE_SHIN_R"
+  },
+  "inputs": {
+   "images": [
+    "156",
+    0
+   ],
+   "filename_prefix": "mech/full/KNEE_SHIN_R"
+  }
+ },
+ "158": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R 切段"
+  },
+  "inputs": {
+   "whole": [
+    "80",
+    0
+   ],
+   "mech_id": "",
+   "segment": "ANKLE_FOOT_R",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "159": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R 畫布"
+  },
+  "inputs": {
+   "image": [
+    "158",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "160": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "ANKLE_FOOT_R",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "161": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "160",
+    0
+   ],
+   "image1": [
+    "158",
+    0
+   ]
+  }
+ },
+ "162": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "158",
+    0
+   ]
+  }
+ },
+ "163": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "161",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "164": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "162",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "165": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：畫布"
+  },
+  "inputs": {
+   "width": [
+    "159",
+    0
+   ],
+   "height": [
+    "159",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "166": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "163",
+    0
+   ],
+   "negative": [
+    "164",
+    0
+   ],
+   "latent_image": [
+    "165",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "167": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "166",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "168": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【ANKLE_FOOT_R】ANKLE_FOOT_R"
+  },
+  "inputs": {
+   "images": [
+    "167",
+    0
+   ],
+   "filename_prefix": "mech/full/ANKLE_FOOT_R"
+  }
+ },
+ "169": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L 切段"
+  },
+  "inputs": {
+   "whole": [
+    "90",
+    0
+   ],
+   "mech_id": "",
+   "segment": "THIGH_KNEE_L",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "170": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L 畫布"
+  },
+  "inputs": {
+   "image": [
+    "169",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "171": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "THIGH_KNEE_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "172": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "171",
+    0
+   ],
+   "image1": [
+    "169",
+    0
+   ]
+  }
+ },
+ "173": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "169",
+    0
+   ]
+  }
+ },
+ "174": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "172",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "175": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "173",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "176": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "170",
+    0
+   ],
+   "height": [
+    "170",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "177": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "174",
+    0
+   ],
+   "negative": [
+    "175",
+    0
+   ],
+   "latent_image": [
+    "176",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "178": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "177",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "179": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【THIGH_KNEE_L】THIGH_KNEE_L"
+  },
+  "inputs": {
+   "images": [
+    "178",
+    0
+   ],
+   "filename_prefix": "mech/full/THIGH_KNEE_L"
+  }
+ },
+ "180": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L 切段"
+  },
+  "inputs": {
+   "whole": [
+    "90",
+    0
+   ],
+   "mech_id": "",
+   "segment": "KNEE_SHIN_L",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "181": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L 畫布"
+  },
+  "inputs": {
+   "image": [
+    "180",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "182": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "KNEE_SHIN_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "183": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "182",
+    0
+   ],
+   "image1": [
+    "180",
+    0
+   ]
+  }
+ },
+ "184": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "180",
+    0
+   ]
+  }
+ },
+ "185": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "183",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "186": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "184",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "187": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "181",
+    0
+   ],
+   "height": [
+    "181",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "188": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "185",
+    0
+   ],
+   "negative": [
+    "186",
+    0
+   ],
+   "latent_image": [
+    "187",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "189": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "188",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "190": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【KNEE_SHIN_L】KNEE_SHIN_L"
+  },
+  "inputs": {
+   "images": [
+    "189",
+    0
+   ],
+   "filename_prefix": "mech/full/KNEE_SHIN_L"
+  }
+ },
+ "191": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L 切段"
+  },
+  "inputs": {
+   "whole": [
+    "90",
+    0
+   ],
+   "mech_id": "",
+   "segment": "ANKLE_FOOT_L",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "192": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L 畫布"
+  },
+  "inputs": {
+   "image": [
+    "191",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "193": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "ANKLE_FOOT_L",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "194": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "193",
+    0
+   ],
+   "image1": [
+    "191",
+    0
+   ]
+  }
+ },
+ "195": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "191",
+    0
+   ]
+  }
+ },
+ "196": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "194",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "197": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "195",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "198": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：畫布"
+  },
+  "inputs": {
+   "width": [
+    "192",
+    0
+   ],
+   "height": [
+    "192",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "199": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "196",
+    0
+   ],
+   "negative": [
+    "197",
+    0
+   ],
+   "latent_image": [
+    "198",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "200": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "199",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "201": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【ANKLE_FOOT_L】ANKLE_FOOT_L"
+  },
+  "inputs": {
+   "images": [
+    "200",
+    0
+   ],
+   "filename_prefix": "mech/full/ANKLE_FOOT_L"
+  }
+ },
+ "202": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【TORSO_FULL】刪除雙臂提示詞"
+  },
+  "inputs": {
+   "template": "s2_remove_arms",
+   "part": "（無）",
+   "view": "keep",
+   "text": ""
+  }
+ },
+ "203": {
+  "class_type": "FluxKontextImageScale",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：縮放"
+  },
+  "inputs": {
+   "image": [
+    "27",
+    0
+   ]
+  }
+ },
+ "204": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "202",
+    0
+   ],
+   "image1": [
+    "203",
+    0
+   ]
+  }
+ },
+ "205": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "203",
+    0
+   ]
+  }
+ },
+ "206": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "204",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "207": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "205",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "208": {
+  "class_type": "VAEEncode",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：編碼"
+  },
+  "inputs": {
+   "pixels": [
+    "203",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "209": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "206",
+    0
+   ],
+   "negative": [
+    "207",
+    0
+   ],
+   "latent_image": [
+    "208",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "210": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：刪除雙臂：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "209",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "211": {
+  "class_type": "MechTorsoCut",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：塗除頭腿並裁切"
+  },
+  "inputs": {
+   "no_arms": [
+    "210",
+    0
+   ],
+   "mech_id": "",
+   "margin": 0.35,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "212": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹畫布"
+  },
+  "inputs": {
+   "image": [
+    "211",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "213": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹補完提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "TORSO_FULL",
+   "view": "front",
+   "text": ""
+  }
+ },
+ "214": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "213",
+    0
+   ],
+   "image1": [
+    "211",
+    0
+   ]
+  }
+ },
+ "215": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "211",
+    0
+   ]
+  }
+ },
+ "216": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "214",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "217": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "215",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "218": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：畫布"
+  },
+  "inputs": {
+   "width": [
+    "212",
+    0
+   ],
+   "height": [
+    "212",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "219": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "216",
+    0
+   ],
+   "negative": [
+    "217",
+    0
+   ],
+   "latent_image": [
+    "218",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "220": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【TORSO_FULL】軀幹：補完：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "219",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "221": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 切段"
+  },
+  "inputs": {
+   "whole": [
+    "220",
+    0
+   ],
+   "mech_id": "",
+   "segment": "CHEST_WAIST",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "222": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 畫布"
+  },
+  "inputs": {
+   "image": [
+    "221",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "223": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "CHEST_WAIST",
+   "view": "front",
+   "text": ""
+  }
+ },
+ "224": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "223",
+    0
+   ],
+   "image1": [
+    "221",
+    0
+   ]
+  }
+ },
+ "225": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "221",
+    0
+   ]
+  }
+ },
+ "226": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "224",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "227": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "225",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "228": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：畫布"
+  },
+  "inputs": {
+   "width": [
+    "222",
+    0
+   ],
+   "height": [
+    "222",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "229": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "226",
+    0
+   ],
+   "negative": [
+    "227",
+    0
+   ],
+   "latent_image": [
+    "228",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "230": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "229",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "231": {
+  "class_type": "MechCutSegment",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 切段"
+  },
+  "inputs": {
+   "whole": [
+    "220",
+    0
+   ],
+   "mech_id": "",
+   "segment": "WAIST_HIP",
+   "margin": 0.5,
+   "boxes": [
+    "39",
+    0
+   ]
+  }
+ },
+ "232": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 畫布"
+  },
+  "inputs": {
+   "image": [
+    "231",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "233": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 提示詞"
+  },
+  "inputs": {
+   "template": "s2_complete",
+   "part": "WAIST_HIP",
+   "view": "front",
+   "text": ""
+  }
+ },
+ "234": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "233",
+    0
+   ],
+   "image1": [
+    "231",
+    0
+   ]
+  }
+ },
+ "235": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "231",
+    0
+   ]
+  }
+ },
+ "236": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "234",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "237": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "235",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "238": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：畫布"
+  },
+  "inputs": {
+   "width": [
+    "232",
+    0
+   ],
+   "height": [
+    "232",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "239": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "236",
+    0
+   ],
+   "negative": [
+    "237",
+    0
+   ],
+   "latent_image": [
+    "238",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "240": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "239",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "241": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 45° 畫布"
+  },
+  "inputs": {
+   "image": [
+    "220",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "242": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45° 提示詞"
+  },
+  "inputs": {
+   "template": "s2_rotate",
+   "part": "（無）",
+   "view": "45",
+   "text": ""
+  }
+ },
+ "243": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "242",
+    0
+   ],
+   "image1": [
+    "220",
+    0
+   ]
+  }
+ },
+ "244": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "220",
+    0
+   ]
+  }
+ },
+ "245": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "243",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "246": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "244",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "247": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：畫布"
+  },
+  "inputs": {
+   "width": [
+    "241",
+    0
+   ],
+   "height": [
+    "241",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "248": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "245",
+    0
+   ],
+   "negative": [
+    "246",
+    0
+   ],
+   "latent_image": [
+    "247",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "249": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL 轉 45°：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "248",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "250": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【TORSO_FULL】TORSO_FULL"
+  },
+  "inputs": {
+   "images": [
+    "249",
+    0
+   ],
+   "filename_prefix": "mech/full/TORSO_FULL"
+  }
+ },
+ "251": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 45° 畫布"
+  },
+  "inputs": {
+   "image": [
+    "230",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "252": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45° 提示詞"
+  },
+  "inputs": {
+   "template": "s2_rotate",
+   "part": "（無）",
+   "view": "45",
+   "text": ""
+  }
+ },
+ "253": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "252",
+    0
+   ],
+   "image1": [
+    "230",
+    0
+   ]
+  }
+ },
+ "254": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "230",
+    0
+   ]
+  }
+ },
+ "255": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "253",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "256": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "254",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "257": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：畫布"
+  },
+  "inputs": {
+   "width": [
+    "251",
+    0
+   ],
+   "height": [
+    "251",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "258": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "255",
+    0
+   ],
+   "negative": [
+    "256",
+    0
+   ],
+   "latent_image": [
+    "257",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "259": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST 轉 45°：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "258",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "260": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【CHEST_WAIST】CHEST_WAIST"
+  },
+  "inputs": {
+   "images": [
+    "259",
+    0
+   ],
+   "filename_prefix": "mech/full/CHEST_WAIST"
+  }
+ },
+ "261": {
+  "class_type": "MechImageCanvas",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 45° 畫布"
+  },
+  "inputs": {
+   "image": [
+    "240",
+    0
+   ],
+   "pixels": 1024
+  }
+ },
+ "262": {
+  "class_type": "MechPrompt",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45° 提示詞"
+  },
+  "inputs": {
+   "template": "s2_rotate",
+   "part": "（無）",
+   "view": "45",
+   "text": ""
+  }
+ },
+ "263": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：提示詞"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": [
+    "262",
+    0
+   ],
+   "image1": [
+    "240",
+    0
+   ]
+  }
+ },
+ "264": {
+  "class_type": "TextEncodeQwenImageEditPlus",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：負面"
+  },
+  "inputs": {
+   "clip": [
+    "5",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ],
+   "prompt": "",
+   "image1": [
+    "240",
+    0
+   ]
+  }
+ },
+ "265": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：參考方式"
+  },
+  "inputs": {
+   "conditioning": [
+    "263",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "266": {
+  "class_type": "FluxKontextMultiReferenceLatentMethod",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：參考方式（負）"
+  },
+  "inputs": {
+   "conditioning": [
+    "264",
+    0
+   ],
+   "reference_latents_method": "index_timestep_zero"
+  }
+ },
+ "267": {
+  "class_type": "EmptySD3LatentImage",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：畫布"
+  },
+  "inputs": {
+   "width": [
+    "261",
+    0
+   ],
+   "height": [
+    "261",
+    1
+   ],
+   "batch_size": 1
+  }
+ },
+ "268": {
+  "class_type": "KSampler",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：取樣"
+  },
+  "inputs": {
+   "model": [
+    "4",
+    0
+   ],
+   "positive": [
+    "265",
+    0
+   ],
+   "negative": [
+    "266",
+    0
+   ],
+   "latent_image": [
+    "267",
+    0
+   ],
+   "seed": 0,
+   "steps": 4,
+   "cfg": 1.0,
+   "sampler_name": "euler",
+   "scheduler": "simple",
+   "denoise": 1.0
+  }
+ },
+ "269": {
+  "class_type": "VAEDecode",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP 轉 45°：解碼"
+  },
+  "inputs": {
+   "samples": [
+    "268",
+    0
+   ],
+   "vae": [
+    "6",
+    0
+   ]
+  }
+ },
+ "270": {
+  "class_type": "SaveImage",
+  "_meta": {
+   "title": "【WAIST_HIP】WAIST_HIP"
+  },
+  "inputs": {
+   "images": [
+    "269",
+    0
+   ],
+   "filename_prefix": "mech/full/WAIST_HIP"
+  }
+ }
+}

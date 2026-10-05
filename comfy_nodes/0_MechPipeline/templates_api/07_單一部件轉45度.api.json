@@ -251,90 +251,20 @@
   }
  },
  "18": {
-  "class_type": "UnetLoaderGGUF",
-  "_meta": {
-   "title": "UNET"
-  },
-  "inputs": {
-   "unet_name": "qwen-image-edit-2511-Q4_K_M.gguf"
-  }
- },
- "19": {
-  "class_type": "ModelSamplingAuraFlow",
-  "_meta": {
-   "title": "Model Sampling AuraFlow"
-  },
-  "inputs": {
-   "model": [
-    "18",
-    0
-   ],
-   "shift": 3.1
-  }
- },
- "20": {
-  "class_type": "CFGNorm",
-  "_meta": {
-   "title": "CFG Norm"
-  },
-  "inputs": {
-   "model": [
-    "19",
-    0
-   ],
-   "strength": 1.0,
-   "pre_cfg": false
-  }
- },
- "21": {
-  "class_type": "LoraLoaderModelOnly",
-  "_meta": {
-   "title": "LORA_LIGHTNING"
-  },
-  "inputs": {
-   "model": [
-    "20",
-    0
-   ],
-   "lora_name": "Qwen-Image-Edit-2511-Lightning-4steps-V1.0-bf16.safetensors",
-   "strength_model": 1.0
-  }
- },
- "22": {
   "class_type": "LoraLoaderModelOnly",
   "_meta": {
    "title": "LORA_TASK"
   },
   "inputs": {
    "model": [
-    "21",
+    "4",
     0
    ],
    "lora_name": "qwen_edit_2511_camera_angle_lora.safetensors",
    "strength_model": 1.0
   }
  },
- "23": {
-  "class_type": "CLIPLoader",
-  "_meta": {
-   "title": "TEXT_ENCODER"
-  },
-  "inputs": {
-   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
-   "type": "qwen_image",
-   "device": "default"
-  }
- },
- "24": {
-  "class_type": "VAELoader",
-  "_meta": {
-   "title": "VAE"
-  },
-  "inputs": {
-   "vae_name": "qwen_image_vae.safetensors"
-  }
- },
- "25": {
+ "19": {
   "class_type": "MechPrompt",
   "_meta": {
    "title": "LoRA 提示詞"
@@ -346,22 +276,22 @@
    "text": ""
   }
  },
- "26": {
+ "20": {
   "class_type": "TextEncodeQwenImageEditPlus",
   "_meta": {
    "title": "LoRA 轉 45°：提示詞"
   },
   "inputs": {
    "clip": [
-    "23",
+    "5",
     0
    ],
    "vae": [
-    "24",
+    "6",
     0
    ],
    "prompt": [
-    "25",
+    "19",
     0
    ],
    "image1": [
@@ -370,18 +300,18 @@
    ]
   }
  },
- "27": {
+ "21": {
   "class_type": "TextEncodeQwenImageEditPlus",
   "_meta": {
    "title": "LoRA 轉 45°：負面"
   },
   "inputs": {
    "clip": [
-    "23",
+    "5",
     0
    ],
    "vae": [
-    "24",
+    "6",
     0
    ],
    "prompt": "",
@@ -391,33 +321,33 @@
    ]
   }
  },
- "28": {
+ "22": {
   "class_type": "FluxKontextMultiReferenceLatentMethod",
   "_meta": {
    "title": "LoRA 轉 45°：參考方式"
   },
   "inputs": {
    "conditioning": [
-    "26",
+    "20",
     0
    ],
    "reference_latents_method": "index_timestep_zero"
   }
  },
- "29": {
+ "23": {
   "class_type": "FluxKontextMultiReferenceLatentMethod",
   "_meta": {
    "title": "LoRA 轉 45°：參考方式（負）"
   },
   "inputs": {
    "conditioning": [
-    "27",
+    "21",
     0
    ],
    "reference_latents_method": "index_timestep_zero"
   }
  },
- "30": {
+ "24": {
   "class_type": "EmptySD3LatentImage",
   "_meta": {
    "title": "LoRA 轉 45°：畫布"
@@ -434,26 +364,26 @@
    "batch_size": 1
   }
  },
- "31": {
+ "25": {
   "class_type": "KSampler",
   "_meta": {
    "title": "LoRA 轉 45°：取樣"
   },
   "inputs": {
    "model": [
-    "22",
+    "18",
     0
    ],
    "positive": [
-    "28",
+    "22",
     0
    ],
    "negative": [
-    "29",
+    "23",
     0
    ],
    "latent_image": [
-    "30",
+    "24",
     0
    ],
    "seed": 0,
@@ -464,30 +394,30 @@
    "denoise": 1.0
   }
  },
- "32": {
+ "26": {
   "class_type": "VAEDecode",
   "_meta": {
    "title": "LoRA 轉 45°：解碼"
   },
   "inputs": {
    "samples": [
-    "31",
+    "25",
     0
    ],
    "vae": [
-    "24",
+    "6",
     0
    ]
   }
  },
- "33": {
+ "27": {
   "class_type": "SaveImage",
   "_meta": {
    "title": "45°（camera LoRA）"
   },
   "inputs": {
    "images": [
-    "32",
+    "26",
     0
    ],
    "filename_prefix": "mech/07_rotate_lora"

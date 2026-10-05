@@ -50,6 +50,26 @@
   }
  },
  "5": {
+  "class_type": "CLIPLoader",
+  "_meta": {
+   "title": "TEXT_ENCODER"
+  },
+  "inputs": {
+   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
+   "type": "qwen_image",
+   "device": "default"
+  }
+ },
+ "6": {
+  "class_type": "VAELoader",
+  "_meta": {
+   "title": "VAE"
+  },
+  "inputs": {
+   "vae_name": "qwen_image_vae.safetensors"
+  }
+ },
+ "7": {
   "class_type": "LoraLoaderModelOnly",
   "_meta": {
    "title": "LORA_TASK"
@@ -61,26 +81,6 @@
    ],
    "lora_name": "qwen_edit_2511_camera_angle_lora.safetensors",
    "strength_model": 1.0
-  }
- },
- "6": {
-  "class_type": "CLIPLoader",
-  "_meta": {
-   "title": "TEXT_ENCODER"
-  },
-  "inputs": {
-   "clip_name": "qwen_2.5_vl_7b_fp8_scaled.safetensors",
-   "type": "qwen_image",
-   "device": "default"
-  }
- },
- "7": {
-  "class_type": "VAELoader",
-  "_meta": {
-   "title": "VAE"
-  },
-  "inputs": {
-   "vae_name": "qwen_image_vae.safetensors"
   }
  },
  "8": {
@@ -123,11 +123,11 @@
   },
   "inputs": {
    "clip": [
-    "6",
+    "5",
     0
    ],
    "vae": [
-    "7",
+    "6",
     0
    ],
    "prompt": [
@@ -147,11 +147,11 @@
   },
   "inputs": {
    "clip": [
-    "6",
+    "5",
     0
    ],
    "vae": [
-    "7",
+    "6",
     0
    ],
    "prompt": "",
@@ -198,7 +198,7 @@
     0
    ],
    "vae": [
-    "7",
+    "6",
     0
    ]
   }
@@ -210,7 +210,7 @@
   },
   "inputs": {
    "model": [
-    "5",
+    "7",
     0
    ],
    "positive": [
@@ -244,7 +244,7 @@
     0
    ],
    "vae": [
-    "7",
+    "6",
     0
    ]
   }

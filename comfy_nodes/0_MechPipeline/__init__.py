@@ -12,7 +12,7 @@ from pathlib import Path
 
 import numpy as np
 import torch
-from PIL import Image, ImageFilter
+from PIL import Image, ImageDraw, ImageFilter
 
 REPO_ROOT = Path(__file__).resolve().parents[2]
 if str(REPO_ROOT) not in sys.path:
@@ -56,6 +56,18 @@ def load_boxes(mech_id: str) -> dict:
     if not b:
         raise ValueError(f"{mech_id} 沒有框選資料，請先執行 mechpipe boxes {mech_id}")
     return b
+
+
+def boxes_for(mech_id: str, boxes: dict | None) -> tuple[dict, tuple[int, int]]:
+    """Part boxes and the size of the front image they refer to: the MECH_BOXES input when connected,
+    else config/mechs/<mech_id>.boxes.yaml on runs/<mech_id>/master/master_front.png."""
+    if boxes is not None:
+        return boxes["parts"], tuple(boxes["size"])
+    master = REPO_ROOT / settings()["paths"]["runs"] / mech_id / "master" / "master_front.png"
+    return load_boxes(mech_id), Image.open(master).size
+
+
+BOXES_OPT = {"optional": {"boxes": ("MECH_BOXES",)}}
 
 
 class MechLoadMaster:
@@ -113,15 +125,15 @@ class MechPartCanvas:
     def INPUT_TYPES(cls):
         return {"required": {"mech_id": ("STRING", {"default": "RC01"}), "part": (PARTS,),
                              "headroom": ("FLOAT", {"default": 1.35, "min": 1.0, "max": 2.0, "step": 0.05}),
-                             "pixels": ("INT", {"default": 1024, "min": 512, "max": 1536, "step": 64})}}
+                             "pixels": ("INT", {"default": 1024, "min": 512, "max": 1536, "step": 64})}, **BOXES_OPT}
 
     RETURN_TYPES = ("INT", "INT")
     RETURN_NAMES = ("width", "height")
     FUNCTION = "run"
     CATEGORY = CATEGORY
 
-    def run(self, mech_id, part, headroom, pixels):
-        x, y, w, h = load_boxes(mech_id)[part]
+    def run(self, mech_id, part, headroom, pixels, boxes=None):
+        x, y, w, h = boxes_for(mech_id, boxes)[0][part]
         return part_canvas([0, 0, w, int(h * headroom)], pixels)
 
 
@@ -148,14 +160,14 @@ class MechCutSegment:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {"whole": ("IMAGE",), "mech_id": ("STRING", {"default": "RC01"}), "segment": (SEGMENTS,),
-                             "margin": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.05})}}
+                             "margin": ("FLOAT", {"default": 0.5, "min": 0.0, "max": 1.0, "step": 0.05})}, **BOXES_OPT}
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "run"
     CATEGORY = CATEGORY
 
-    def run(self, whole, mech_id, segment, margin):
-        b = load_boxes(mech_id)
+    def run(self, whole, mech_id, segment, margin, boxes=None):
+        b = boxes_for(mech_id, boxes)[0]
         pb, sb = b[SEGMENT_OF[segment]], b[segment]
         top, bottom = max(0.0, (sb[1] - pb[1]) / pb[3]), min(1.0, (sb[1] + sb[3] - pb[1]) / pb[3])
         im = to_pil(whole)
@@ -171,17 +183,15 @@ class MechTorsoCut:
     @classmethod
     def INPUT_TYPES(cls):
         return {"required": {"no_arms": ("IMAGE",), "mech_id": ("STRING", {"default": "RC01"}),
-                             "margin": ("FLOAT", {"default": 0.35, "min": 0.0, "max": 1.0, "step": 0.05})}}
+                             "margin": ("FLOAT", {"default": 0.35, "min": 0.0, "max": 1.0, "step": 0.05})}, **BOXES_OPT}
 
     RETURN_TYPES = ("IMAGE",)
     FUNCTION = "run"
     CATEGORY = CATEGORY
 
-    def run(self, no_arms, mech_id, margin):
-        b = load_boxes(mech_id)
+    def run(self, no_arms, mech_id, margin, boxes=None):
+        b, (mw, mh) = boxes_for(mech_id, boxes)
         im = to_pil(no_arms)
-        master = REPO_ROOT / settings()["paths"]["runs"] / mech_id / "master" / "master_front.png"
-        mw, mh = Image.open(master).size
         sx, sy = im.width / mw, im.height / mh   # boxes are in master pixels; the edit may rescale
 
         def scaled(box):
@@ -196,6 +206,54 @@ class MechTorsoCut:
         bg = background(im)
         im.paste(Image.new("RGB", im.size, bg), (0, 0), mask)
         return (to_tensor(pad(im.crop(scaled(b["TORSO_FULL"])), bg, margin)),)
+
+
+class MechBoxes:
+    """The 18 part boxes for a front A-pose image: the boxes of `mech_id` adjusted in the box editor
+    (scaled to this image), or, when mech_id is empty or has no boxes, automatic pre-boxing by body
+    proportions (rough; check the preview)."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"front": ("IMAGE",), "mech_id": ("STRING", {"default": ""})}}
+
+    RETURN_TYPES = ("MECH_BOXES",)
+    RETURN_NAMES = ("boxes",)
+    FUNCTION = "run"
+    CATEGORY = CATEGORY
+
+    def run(self, front, mech_id):
+        im = to_pil(front)
+        saved = mech_boxes.load(mech_id.strip()) if mech_id.strip() else {}
+        if saved:
+            master = REPO_ROOT / settings()["paths"]["runs"] / mech_id.strip() / "master" / "master_front.png"
+            mw, mh = Image.open(master).size
+            sx, sy = im.width / mw, im.height / mh
+            parts = {k: [int(x * sx), int(y * sy), int(w * sx), int(h * sy)] for k, (x, y, w, h) in saved.items()}
+        else:
+            parts = mech_boxes.prebox(im)
+        return ({"size": list(im.size), "parts": parts},)
+
+
+class MechDrawBoxes:
+    """Preview of the part boxes drawn on the front image."""
+
+    @classmethod
+    def INPUT_TYPES(cls):
+        return {"required": {"front": ("IMAGE",), "boxes": ("MECH_BOXES",)}}
+
+    RETURN_TYPES = ("IMAGE",)
+    FUNCTION = "run"
+    CATEGORY = CATEGORY
+
+    def run(self, front, boxes):
+        im = to_pil(front)
+        d = ImageDraw.Draw(im)
+        for i, (k, (x, y, w, h)) in enumerate(sorted(boxes["parts"].items())):
+            color = "hsl(%d, 90%%, 45%%)" % (i * 137 % 360)
+            d.rectangle([x, y, x + w, y + h], outline=color, width=2)
+            d.text((x + 3, y + 3), k, fill=color)
+        return (to_tensor(im),)
 
 
 class MechMarkMask:
@@ -254,6 +312,8 @@ NODE_CLASS_MAPPINGS = {
     "MechImageCanvas": MechImageCanvas,
     "MechCutSegment": MechCutSegment,
     "MechTorsoCut": MechTorsoCut,
+    "MechBoxes": MechBoxes,
+    "MechDrawBoxes": MechDrawBoxes,
     "MechMarkMask": MechMarkMask,
     "MechMaskComposite": MechMaskComposite,
 }
@@ -264,6 +324,8 @@ NODE_DISPLAY_NAME_MAPPINGS = {
     "MechImageCanvas": "機甲：畫布尺寸（依圖片）",
     "MechCutSegment": "機甲：從整件切出細分部位",
     "MechTorsoCut": "機甲：塗除頭腿並裁出軀幹",
+    "MechBoxes": "機甲：部位框（自動預框或已框好的）",
+    "MechDrawBoxes": "機甲：部位框預覽",
     "MechMarkMask": "機甲：修圖遮罩標記",
     "MechMaskComposite": "機甲：只貼回遮罩範圍",
 }

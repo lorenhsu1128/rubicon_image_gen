@@ -49,9 +49,9 @@ def save(mech_id: str, master: Path, parts: dict[str, list[int]]) -> Path:
     return p
 
 
-def silhouette_bbox(master: Path) -> tuple[int, int, int, int]:
+def silhouette_bbox(master: Path | Image.Image) -> tuple[int, int, int, int]:
     """Bounding box of everything that differs from the background color (sampled at the corners)."""
-    im = Image.open(master).convert("RGB")
+    im = (master if isinstance(master, Image.Image) else Image.open(master)).convert("RGB")
     w, h = im.size
     corners = [im.getpixel(p) for p in [(2, 2), (w - 3, 2), (2, h - 3), (w - 3, h - 3)]]
     bg = tuple(sorted(c[i] for c in corners)[len(corners) // 2] for i in range(3))
@@ -63,7 +63,7 @@ def silhouette_bbox(master: Path) -> tuple[int, int, int, int]:
     return bbox
 
 
-def prebox(master: Path) -> dict[str, list[int]]:
+def prebox(master: Path | Image.Image) -> dict[str, list[int]]:
     x0, y0, x1, y1 = silhouette_bbox(master)
     sw, sh = x1 - x0, y1 - y0
     out = {}

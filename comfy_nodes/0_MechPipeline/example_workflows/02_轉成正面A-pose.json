@@ -1,5 +1,5 @@
 {
- "id": "2746ddad-c335-4627-baff-33547fef5f24",
+ "id": "42cdb8f3-7850-4ddc-822a-42752adf6e8f",
  "revision": 0,
  "last_node_id": 19,
  "last_link_id": 48,
@@ -369,7 +369,7 @@
    ],
    "size": [
     320,
-    626
+    382
    ],
    "flags": {},
    "order": 3,
@@ -428,11 +428,11 @@
    "type": "LoadImage",
    "pos": [
     500,
-    1088
+    844
    ],
    "size": [
     320,
-    626
+    382
    ],
    "flags": {},
    "order": 4,
@@ -492,7 +492,7 @@
    "type": "MechPrompt",
    "pos": [
     500,
-    1774
+    1286
    ],
    "size": [
     400,
@@ -1091,7 +1091,7 @@
    ],
    "size": [
     320,
-    358
+    338
    ],
    "flags": {},
    "order": 18,
@@ -1149,10 +1149,10 @@
    "title": "使用說明",
    "properties": {},
    "widgets_values": [
-    "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。"
+    "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n注意：原圖若已經是正面站姿，模型可能把原圖的舊配色帶回來；這時把「原始機甲圖」換成和「改好的機甲圖」同一張即可。"
    ],
    "widgets_values_named": {
-    "text": "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。"
+    "text": "## 02 轉成正面 A-pose\n1. 「改好的機甲圖」放 01 挑好的圖。\n2. 「原始機甲圖」放原圖（讓模型補看不到的細節）。\n3. 按「執行」，得到正面、立正、四肢自然下垂的全身圖。\n\n挑好的圖要給後面的範本用：在 WSL 執行\n`bash scripts/mechpipe.sh pick <機甲代號> <圖檔路徑> --view apose`\n（存成 runs/<機甲>/master/master_front.png），並用 `mechpipe boxes <機甲>` 框好 18 個部位。\n\n注意：原圖若已經是正面站姿，模型可能把原圖的舊配色帶回來；這時把「原始機甲圖」換成和「改好的機甲圖」同一張即可。"
    },
    "color": "#432",
    "bgcolor": "#653"
